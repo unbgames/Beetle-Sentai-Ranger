@@ -31,7 +31,7 @@ void Stage1::LoadAssets(){
 
 	aux2->AddComponent(ranger);
 
-	//Camera::Follow(aux2);
+	Camera::Follow(aux2);
 
 	ObjectArray.emplace_back(aux2);
 

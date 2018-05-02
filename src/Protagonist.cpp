@@ -16,7 +16,7 @@ void Protagonist::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(SDLK_w) && jumpCount == 0){
+	if(input.KeyPress(SDLK_w) && jumpCount < 3){
 		jumpCount++;
 		speed.y = -400*dt;
 	}	
@@ -35,12 +35,16 @@ void Protagonist::Update(float dt){
 	associated->Box.x += speed.x;
 	associated->Box.y += speed.y;
 
+	if ((associated->Box.x) < 0){
+		associated->Box.x = 0;
+	}
+
 	if ((associated->Box.y+associated->Box.h) > 600){
 		jumpCount = 0;
 		associated->Box.y = 600 - associated->Box.h;
 	}
 
-	//Camera::pos.x = associated->Box.x;
+	//Camera::pos.x = associated->Box.x+512;
 }
 void Protagonist::Render(){}
 bool Protagonist::Is(string type){
