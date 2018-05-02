@@ -16,7 +16,8 @@ void Protagonist::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(SDLK_w)){
+	if(input.KeyPress(SDLK_w) && jumpCount == 0){
+		jumpCount++;
 		speed.y = -400*dt;
 	}	
 	if(input.IsKeyDown(SDLK_s)){
@@ -35,6 +36,7 @@ void Protagonist::Update(float dt){
 	associated->Box.y += speed.y;
 
 	if ((associated->Box.y+associated->Box.h) > 600){
+		jumpCount = 0;
 		associated->Box.y = 600 - associated->Box.h;
 	}
 

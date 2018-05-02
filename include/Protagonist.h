@@ -20,6 +20,7 @@ class Protagonist : public Component{
 		int hp;
 		Vec2 speed;
 		Sprite* sprite;
+		int jumpCount = 0;
 
 };
 
