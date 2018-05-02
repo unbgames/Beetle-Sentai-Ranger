@@ -23,9 +23,9 @@ void Camera::Update(float dt){
 
 	if (focus != nullptr){
 		pos = Vec2(512-focus->Box.x, 0);
-		if (pos.x < 0){
+		/*if (pos.x < 0){
 			pos.x = 0;
-		}
+		}*/
 	}
 	else{
 		if(input.IsKeyDown(SDLK_LEFT))
