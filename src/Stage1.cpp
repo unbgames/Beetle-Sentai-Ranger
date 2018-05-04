@@ -50,6 +50,8 @@ void Stage1::Update(float dt){
 
 	UpdateArray(dt);
 
+	SDL_Log("%d", ObjectArray.size());
+
 
 }
 void Stage1::Render(){

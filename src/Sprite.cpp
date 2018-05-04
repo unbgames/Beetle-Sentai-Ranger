@@ -46,8 +46,8 @@ void Sprite::Render(){
 
 	Game* game = Game::GetInstance();
 	SDL_Rect dstrect;
-	dstrect.x = associated->Box.x + Camera::pos.x;
-	dstrect.y = associated->Box.y + Camera::pos.y;
+	dstrect.x = associated->Box.x - Camera::pos.x;
+	dstrect.y = associated->Box.y - Camera::pos.y;
 	dstrect.w = ClipRect.w*scale.x;
 	dstrect.h = ClipRect.h*scale.y;
 	angle = associated->angleDeg;
@@ -81,6 +81,7 @@ void Sprite::Update(float dt){
 	selfDestructCount.Update(dt);
 	timeElapsed +=dt;
 	currentFrame = ((int)floor(timeElapsed/frameTime))%frameCount;
+	//SDL_Log("TE:%f FT:%f FC:%f", timeElapsed, frameTime, frameCount);
 	SetClip((currentFrame*GetWidth()) , 0, width, height);
 
 	if (secondsToSelfDestruct > 0){
