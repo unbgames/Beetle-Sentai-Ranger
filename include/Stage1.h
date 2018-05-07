@@ -7,6 +7,9 @@
 #include "Camera.h"
 #include "CameraFollower.h"
 #include "Music.h"
+#include "TileSet.h"
+#include "Platform.h"
+#include "GroundEnemy.h"
 
 class Stage1 : public State{
 	public:

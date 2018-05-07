@@ -3,8 +3,7 @@
 Protagonist::Protagonist(GameObject* associated, string file, int frameCount, float frameTime) : Component(associated){
 	speed.x = 0;
 	speed.y = 0;
-	hp = 30;
-	SDL_Log("%d", frameCount);
+	hp = 5;
 	sprite = new Sprite(associated, file, frameCount, frameTime, 0);
 	associated->Box.w = sprite->GetWidth();
 	associated->Box.h = sprite->GetHeight();
@@ -51,11 +50,15 @@ void Protagonist::Update(float dt){
 	if ((associated->Box.x) < 0){
 		associated->Box.x = 0;
 	}
+	if ((associated->Box.x+associated->Box.w) > 6000){
+		associated->Box.x = 6000 - associated->Box.w;
+	}
 
 	if ((associated->Box.y+associated->Box.h) > 600){
 		jumpCount = 0;
 		associated->Box.y = 600 - associated->Box.h;
 	}
+	
 
 	//Camera::pos.x = associated->Box.x+512;
 }

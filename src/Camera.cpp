@@ -26,6 +26,9 @@ void Camera::Update(float dt){
 		if (pos.x < 0){
 			pos.x = 0;
 		}
+		if (pos.x > 4976){
+			pos.x = 4976;
+		}
 	}
 	else{
 		if(input.IsKeyDown(SDLK_LEFT))
