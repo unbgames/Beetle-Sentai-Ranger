@@ -11,6 +11,7 @@
 class Protagonist : public Component{
 	public:
 		Protagonist(GameObject* associated, string file, int frameCount, float frameTime);
+		Protagonist(GameObject* associated);
 		~Protagonist();
 		void Update(float dt);
 		void Render();
@@ -18,6 +19,7 @@ class Protagonist : public Component{
 		void Start();
 		void NotifyCollision(GameObject* other);
 		void ShootShit(float angle);
+		void SetSprite(Sprite* newSprite);
 
 	private:
 		int hp;

@@ -16,7 +16,7 @@ void Stage1::LoadAssets(){
 	aux->Box.x = 0;
 	aux->Box.y = 0;
 	
-	Sprite* bg = new Sprite(aux, "assets/img/6000x600.png");
+	Sprite* bg = new Sprite(aux, STAGE1_BACKGROUND);
 
 	aux->AddComponent(bg);
 
@@ -27,9 +27,9 @@ void Stage1::LoadAssets(){
 	aux3->Box.x = 600;
 	aux3->Box.y = 290;
 
-	TileSet* set = new TileSet(aux3, 64, 64, "assets/img/tileset.png");
+	TileSet* set = new TileSet(aux3, 64, 64, STAGE1_TILESET);
 	
-	Platform* plataforma = new Platform(aux3, "assets/map/Platform.txt", set);
+	Platform* plataforma = new Platform(aux3, PLATFORM_TYPE1, set);
 
 	aux3->AddComponent(plataforma);
 
@@ -40,9 +40,19 @@ void Stage1::LoadAssets(){
 	aux2->Box.x = 200;
 	aux2->Box.y = 500;
 	
-	Protagonist* ranger = new Protagonist(aux2, "assets/img/Fightpose.png", 5, 0.3);
-
+	Protagonist* ranger = new Protagonist(aux2);
 	aux2->AddComponent(ranger);
+
+	Sprite* idle = new Sprite(aux2, PROTAGONIST_IDLE_ANIMATION, 5, 0.3, 0);
+	idle->SetTag("ProtagIdle");
+	idle->SetEnabled(true);
+	ranger->SetSprite(idle);
+	aux2->AddComponent(idle);
+
+	Sprite* run = new Sprite(aux2, PROTAGONIST_RUN_ANIMATION, 6, 0.3, 0);
+	run->SetTag("ProtagRun");
+	run->SetEnabled(false);
+	aux2->AddComponent(run);
 
 	Camera::Follow(aux2);
 
@@ -53,7 +63,7 @@ void Stage1::LoadAssets(){
 	aux4->Box.x = 2000;
 	aux4->Box.y = 500;
 	
-	GroundEnemy* enemy = new GroundEnemy(aux4, "assets/img/Louva-God.png", 5, 0.3);
+	GroundEnemy* enemy = new GroundEnemy(aux4, STAGE1_GROUND_ENEMY_IDLE_ANIMATION, 5, 0.3);
 
 	aux4->AddComponent(enemy);
 

@@ -10,6 +10,20 @@ Protagonist::Protagonist(GameObject* associated, string file, int frameCount, fl
 	associated->AddComponent(sprite);
 	flip = false;
 }
+
+Protagonist::Protagonist(GameObject* associated) : Component(associated){
+	speed.x = 0;
+	speed.y = 0;
+	hp = 5;
+	flip = false;
+}
+
+void Protagonist::SetSprite(Sprite* newSprite){
+	sprite = newSprite;
+	associated->Box.w = sprite->GetWidth();
+	associated->Box.h = sprite->GetHeight();
+}
+
 Protagonist::~Protagonist(){}
 void Protagonist::Update(float dt){
 
@@ -33,14 +47,32 @@ void Protagonist::Update(float dt){
 	if(input.IsKeyDown(SDLK_DOWN)){
 	}
 	if(input.IsKeyDown(SDLK_LEFT)){
+		if (sprite->GetTag() == "ProtagIdle"){
+			sprite->SetEnabled(false);
+			SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
+			sprite->SetEnabled(true);
+		}
 		speed.x = -400*dt;
 		flip = true;
 		sprite->SetFlip(flip);
 	}
-	if(input.IsKeyDown(SDLK_RIGHT)){
+	else if(input.IsKeyDown(SDLK_RIGHT)){
+		if (sprite->GetTag() == "ProtagIdle"){
+			sprite->SetEnabled(false);
+			SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
+			sprite->SetEnabled(true);
+		}
 		speed.x = 400*dt;
 		flip = false;
 		sprite->SetFlip(flip);
+	}
+	else{
+		if (sprite->GetTag() == "ProtagRun"){
+			sprite->SetEnabled(false);
+			SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+			sprite->SetEnabled(true);
+			sprite->SetFlip(flip);
+		}
 	}
 	speed.y += 20*dt;
 

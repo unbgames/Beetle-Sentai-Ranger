@@ -13,3 +13,16 @@ void Component::NotifyCollision(GameObject* other){}
 GameObject* Component::GetAssociated(){
 	return(associated);
 }
+
+bool Component::IsEnabled(){
+	return(enabled);
+}
+void Component::SetEnabled(bool enable){
+	enabled = enable;
+}
+string Component::GetTag(){
+	return(tag);
+}
+void Component::SetTag(string tag){
+	this->tag = tag;
+}

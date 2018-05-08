@@ -8,6 +8,7 @@
 #include <memory>
 #include <stack>
 #include "GameObject.h"
+#include "GameData.h"
 
 
 using namespace std;

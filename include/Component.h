@@ -19,9 +19,15 @@ class Component{
 		void virtual Start();
 		void virtual NotifyCollision(GameObject* other);
 		GameObject* GetAssociated();
+		bool IsEnabled();
+		void SetEnabled(bool enable);
+		string GetTag();
+		void SetTag(string tag);
 
 	protected:
 		GameObject* associated;
+		bool enabled = true;
+		string tag;
 };
 
 #endif
