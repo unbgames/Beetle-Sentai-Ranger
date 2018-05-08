@@ -9,6 +9,7 @@ Protagonist::Protagonist(GameObject* associated, string file, int frameCount, fl
 	associated->Box.h = sprite->GetHeight();
 	associated->AddComponent(sprite);
 	flip = false;
+	state = PlayerState::NORMAL;
 }
 
 Protagonist::Protagonist(GameObject* associated) : Component(associated){
@@ -16,6 +17,7 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	speed.y = 0;
 	hp = 5;
 	flip = false;
+	state = PlayerState::NORMAL;
 }
 
 void Protagonist::SetSprite(Sprite* newSprite){
@@ -27,54 +29,114 @@ void Protagonist::SetSprite(Sprite* newSprite){
 Protagonist::~Protagonist(){}
 void Protagonist::Update(float dt){
 
-	speed.x = 0;
-
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(SDLK_z)){
-		if (flip){
-			ShootShit(PI);
+	if(input.KeyPress(SDLK_x)){
+		state = PlayerState::DASHING;
+	}
+
+	if (state == PlayerState::NORMAL){
+	
+		speed.x = 0;
+
+		if(input.KeyPress(SDLK_z)){
+			if (flip){
+				ShootShit(PI);
+			}
+			else{
+				ShootShit(0);
+			}
+		}
+
+		if(input.KeyPress(SDLK_UP) && jumpCount < 3){
+			jumpCount++;
+			speed.y = -400*dt;
+		}	
+		if(input.IsKeyDown(SDLK_LEFT)){
+			if (sprite->GetTag() == "ProtagIdle"){
+				sprite->SetEnabled(false);
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
+				sprite->SetEnabled(true);
+			}
+			speed.x = -400*dt;
+			flip = true;
+			sprite->SetFlip(flip);
+		}
+		else if(input.IsKeyDown(SDLK_RIGHT)){
+
+			if (sprite->GetTag() == "ProtagIdle"){
+				sprite->SetEnabled(false);
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
+				sprite->SetEnabled(true);
+			}
+			speed.x = 400*dt;
+			flip = false;
+			sprite->SetFlip(flip);
 		}
 		else{
-			ShootShit(0);
+			if (sprite->GetTag() == "ProtagRun"){
+				sprite->SetEnabled(false);
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+				sprite->SetEnabled(true);
+				sprite->SetFlip(flip);
+			}
+		}
+		speed.y += 20*dt;
+	}
+
+	if (state == PlayerState::DASHING){
+		if (flip){
+			speed.x = -1000*dt;
+		}
+		else{
+			speed.x = 1000*dt;
+		}
+
+		counter.Update(dt);
+
+		if (counter.Get() >= 0.5){
+			state = PlayerState::NORMAL;
+			counter.Restart();
 		}
 	}
 
-	if(input.KeyPress(SDLK_UP) && jumpCount < 3){
-		jumpCount++;
-		speed.y = -400*dt;
-	}	
-	if(input.IsKeyDown(SDLK_DOWN)){
-	}
-	if(input.IsKeyDown(SDLK_LEFT)){
-		if (sprite->GetTag() == "ProtagIdle"){
-			sprite->SetEnabled(false);
-			SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
-			sprite->SetEnabled(true);
+	if (state == PlayerState::FLYING){
+		speed.x = 0;
+		speed.y = 0;
+		SDL_Log("voando");
+
+		if(input.KeyPress(SDLK_c)){
+			state = PlayerState::NORMAL;
 		}
-		speed.x = -400*dt;
-		flip = true;
-		sprite->SetFlip(flip);
-	}
-	else if(input.IsKeyDown(SDLK_RIGHT)){
-		if (sprite->GetTag() == "ProtagIdle"){
-			sprite->SetEnabled(false);
-			SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
-			sprite->SetEnabled(true);
+		if(input.KeyPress(SDLK_z)){
+			if (flip){
+				ShootShit(PI);
+			}
+			else{
+				ShootShit(0);
+			}
 		}
-		speed.x = 400*dt;
-		flip = false;
-		sprite->SetFlip(flip);
-	}
-	else{
-		if (sprite->GetTag() == "ProtagRun"){
-			sprite->SetEnabled(false);
-			SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
-			sprite->SetEnabled(true);
+
+		if(input.IsKeyDown(SDLK_UP)){
+			speed.y = -400*dt;
+		}	
+		if(input.IsKeyDown(SDLK_DOWN)){
+			speed.y = 400*dt;
+		}
+		if(input.IsKeyDown(SDLK_LEFT)){
+			speed.x = -400*dt;
+			flip = true;
+			sprite->SetFlip(flip);
+		}
+		if(input.IsKeyDown(SDLK_RIGHT)){
+			speed.x = 400*dt;
+			flip = false;
 			sprite->SetFlip(flip);
 		}
 	}
-	speed.y += 20*dt;
+	else if(input.KeyPress(SDLK_c)){
+		state = PlayerState::FLYING;
+	}
 
 	associated->Box.x += speed.x;
 	associated->Box.y += speed.y;

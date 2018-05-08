@@ -7,6 +7,7 @@
 #include "Vec2.h"
 #include "ShitBall.h"
 #include "Collider.h"
+#include "Timer.h"
 
 class Protagonist : public Component{
 	public:
@@ -22,12 +23,14 @@ class Protagonist : public Component{
 		void SetSprite(Sprite* newSprite);
 
 	private:
+		typedef enum PlayerState {FLYING, DASHING, NORMAL};
+		PlayerState state;
 		int hp;
 		Vec2 speed;
 		Sprite* sprite;
 		int jumpCount = 0;
 		bool flip;
-
+		Timer counter;
 };
 
 #endif
