@@ -1,5 +1,5 @@
-#ifndef STAGE1
-#define STAGE1
+#ifndef BOSSSTAGE1
+#define BOSSSTAGE1
 
 #include "State.h"
 #include "Sprite.h"
@@ -11,13 +11,12 @@
 #include "Platform.h"
 #include "GroundEnemy.h"
 #include "Collision.h"
-#include "BossStage1.h"
 
-class Stage1 : public State{
+class BossStage1 : public State{
 	public:
-		Stage1();
-		~Stage1();
-
+		BossStage1();
+		~BossStage1();
+		
 		void LoadAssets();
         void Update(float dt);
         void Render();
@@ -28,7 +27,6 @@ class Stage1 : public State{
 
     private:
         Music backgroundMusic;
-	
 };
 
 #endif

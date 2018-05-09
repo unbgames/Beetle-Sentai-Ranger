@@ -10,6 +10,7 @@ ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage
 
 	this->damage = damage;
 	this->speed.x = speed*cos(angle);
+	this->speed.y = 0;
 }
 ShitBall::~ShitBall(){}
 void ShitBall::Update(float dt){

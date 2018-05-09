@@ -30,19 +30,4 @@ void Camera::Update(float dt){
 			pos.x = 4976;
 		}
 	}
-	else{
-		if(input.IsKeyDown(SDLK_LEFT))
-			speed.x += dt;
-		
-		if(input.IsKeyDown(SDLK_RIGHT))
-			speed.x -= dt;
-		
-		if(input.IsKeyDown(SDLK_UP))
-			speed.y += dt;
-		
-		if(input.IsKeyDown(SDLK_DOWN))
-			speed.y -= dt;
-		
-		pos = pos + speed;
-	}
 }

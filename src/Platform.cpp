@@ -3,6 +3,11 @@
 Platform::Platform(GameObject* associated, string file, TileSet* tileSet) : Component(associated){
 	this->tileSet = tileSet;
 	Load(file);
+	associated->Box.w = tileSet->GetTileWidth()*tileNumber;
+	associated->Box.h = tileSet->GetTileHeight();
+
+	Collider* colisor = new Collider(associated);
+	associated->AddComponent(colisor);
 }
 Platform::~Platform(){}
 void Platform::Load(string file){
@@ -55,3 +60,5 @@ void Platform::Update(float dt){}
 bool Platform::Is(string type){
 	return(type == "Platform");
 }
+
+void Platform::NotifyCollision(GameObject* other){}

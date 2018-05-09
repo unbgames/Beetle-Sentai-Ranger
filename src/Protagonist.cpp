@@ -18,12 +18,20 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	hp = 5;
 	flip = false;
 	state = PlayerState::NORMAL;
+
+	Collider* colisor = new Collider(associated);
+	associated->AddComponent(colisor);
 }
 
 void Protagonist::SetSprite(Sprite* newSprite){
+	
+	if (sprite != nullptr){
+		sprite->SetEnabled(false);
+	}
 	sprite = newSprite;
 	associated->Box.w = sprite->GetWidth();
 	associated->Box.h = sprite->GetHeight();
+	sprite->SetEnabled(true);
 }
 
 Protagonist::~Protagonist(){}
@@ -48,15 +56,13 @@ void Protagonist::Update(float dt){
 			}
 		}
 
-		if(input.KeyPress(SDLK_UP) && jumpCount < 3){
+		if(input.KeyPress(SDLK_UP) && jumpCount < 1){
 			jumpCount++;
-			speed.y = -400*dt;
+			speed.y = -600*dt;
 		}	
 		if(input.IsKeyDown(SDLK_LEFT)){
 			if (sprite->GetTag() == "ProtagIdle"){
-				sprite->SetEnabled(false);
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
-				sprite->SetEnabled(true);
 			}
 			speed.x = -400*dt;
 			flip = true;
@@ -65,9 +71,7 @@ void Protagonist::Update(float dt){
 		else if(input.IsKeyDown(SDLK_RIGHT)){
 
 			if (sprite->GetTag() == "ProtagIdle"){
-				sprite->SetEnabled(false);
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagRun"));
-				sprite->SetEnabled(true);
 			}
 			speed.x = 400*dt;
 			flip = false;
@@ -75,9 +79,7 @@ void Protagonist::Update(float dt){
 		}
 		else{
 			if (sprite->GetTag() == "ProtagRun"){
-				sprite->SetEnabled(false);
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
-				sprite->SetEnabled(true);
 				sprite->SetFlip(flip);
 			}
 		}
@@ -85,6 +87,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::DASHING){
+		speed.y = 0;
 		if (flip){
 			speed.x = -1000*dt;
 		}
@@ -152,6 +155,11 @@ void Protagonist::Update(float dt){
 		jumpCount = 0;
 		associated->Box.y = 600 - associated->Box.h;
 	}
+
+	if ((associated->Box.y) < 0){
+		speed.y = 0;
+		associated->Box.y = 0;
+	}
 	
 
 	//Camera::pos.x = associated->Box.x+512;
@@ -161,7 +169,17 @@ bool Protagonist::Is(string type){
 	return(type == "Protagonist");
 }
 void Protagonist::Start(){}
-void Protagonist::NotifyCollision(GameObject* other){}
+void Protagonist::NotifyCollision(GameObject* other){
+	Platform* base = (Platform*) other->GetComponent("Platform");
+	if (base != nullptr){
+		if ((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))){
+			associated->Box.y = other->Box.y - associated->Box.h;
+			speed.y = 0;
+			jumpCount = 0;
+		}
+
+	}
+}
 
 //espera angulo em radianos
 void Protagonist::ShootShit(float angle){

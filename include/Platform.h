@@ -20,6 +20,7 @@ class Platform : public Component{
 		void RenderRow(int cameraX = 0, int cameraY = 0);
 		int GetTileNumber();
 		bool Is(string type);
+		void NotifyCollision(GameObject* other);
 
 	private:
 		vector<int> tileList;

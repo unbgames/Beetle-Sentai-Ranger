@@ -4,6 +4,7 @@
 #define STAGE1_BACKGROUND "assets/img/6000x600.png"
 #define STAGE1_TILESET "assets/img/tileset.png"
 #define STAGE1_GROUND_ENEMY_IDLE_ANIMATION "assets/img/Louva-God.png"
+#define STAGE1_BOSS_BACKGROUND "assets/img/ocean.jpg"
 
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"
 

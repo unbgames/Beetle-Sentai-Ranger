@@ -8,6 +8,7 @@
 #include "ShitBall.h"
 #include "Collider.h"
 #include "Timer.h"
+#include "Platform.h"
 
 class Protagonist : public Component{
 	public:
@@ -23,11 +24,11 @@ class Protagonist : public Component{
 		void SetSprite(Sprite* newSprite);
 
 	private:
-		typedef enum PlayerState {FLYING, DASHING, NORMAL};
+		typedef enum PlayerState {FLYING, DASHING, NORMAL, BLOCKING};
 		PlayerState state;
 		int hp;
 		Vec2 speed;
-		Sprite* sprite;
+		Sprite* sprite =nullptr;
 		int jumpCount = 0;
 		bool flip;
 		Timer counter;

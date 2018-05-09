@@ -1,39 +1,25 @@
-#include "Stage1.h"
+#include "BossStage1.h"
 
-Stage1::Stage1(){
+BossStage1::BossStage1(){
 	quitRequested = false;
 	popRequested = false;
 }
-Stage1::~Stage1(){
+BossStage1::~BossStage1(){
 	backgroundMusic.Stop();
 	ObjectArray.clear();
 }
 
-void Stage1::LoadAssets(){
-
+void BossStage1::LoadAssets(){
 	GameObject* aux = new GameObject();
 
 	aux->Box.x = 0;
 	aux->Box.y = 0;
 	
-	Sprite* bg = new Sprite(aux, STAGE1_BACKGROUND);
+	Sprite* bg = new Sprite(aux, STAGE1_BOSS_BACKGROUND);
 
 	aux->AddComponent(bg);
 
 	ObjectArray.emplace_back(aux);
-
-	GameObject* aux3 = new GameObject();
-
-	aux3->Box.x = 600;
-	aux3->Box.y = 290;
-
-	TileSet* set = new TileSet(aux3, 64, 64, STAGE1_TILESET);
-	
-	Platform* plataforma = new Platform(aux3, PLATFORM_TYPE1, set);
-
-	aux3->AddComponent(plataforma);
-
-	ObjectArray.emplace_back(aux3);
 
 	GameObject* aux2 = new GameObject();
 
@@ -54,23 +40,9 @@ void Stage1::LoadAssets(){
 	run->SetEnabled(false);
 	aux2->AddComponent(run);
 
-	Camera::Follow(aux2);
-
 	ObjectArray.emplace_back(aux2);
-
-	GameObject* aux4 = new GameObject();
-
-	aux4->Box.x = 2000;
-	aux4->Box.y = 500;
-	
-	GroundEnemy* enemy = new GroundEnemy(aux4, STAGE1_GROUND_ENEMY_IDLE_ANIMATION, 5, 0.3);
-
-	aux4->AddComponent(enemy);
-
-	ObjectArray.emplace_back(aux4);
-
 }
-void Stage1::Update(float dt){
+void BossStage1::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 	
@@ -79,12 +51,6 @@ void Stage1::Update(float dt){
 
 	if (input.KeyPress(SDLK_ESCAPE))
 		popRequested = true;
-
-	if (input.KeyPress(SDLK_p)){
-		Game* game = Game::GetInstance();
-		game->Push(new BossStage1());
-		popRequested = true;
-	}
 
 	Camera::Update(dt);
 
@@ -109,13 +75,16 @@ void Stage1::Update(float dt){
 
 	//SDL_Log("%d", ObjectArray.size());
 }
-void Stage1::Render(){
+void BossStage1::Render(){
 	RenderArray();
 }
 
-void Stage1::Start(){
+void BossStage1::Start(){
+	Camera::Unfollow();
+	Camera::pos.x = 0;
+	Camera::pos.y = 0;
 	LoadAssets();
 	StartArray();
 }
-void Stage1::Pause(){}
-void Stage1::Resume(){}
+void BossStage1::Pause(){}
+void BossStage1::Resume(){}
