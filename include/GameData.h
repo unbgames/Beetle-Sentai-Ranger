@@ -4,6 +4,7 @@
 #define STAGE1_BACKGROUND "assets/img/Background/6000x600.png"
 #define STAGE1_TILESET "assets/img/Background/tileset.png"
 #define STAGE1_GROUND_ENEMY_IDLE_ANIMATION "assets/img/GroundEnemy1/Louva-God.png"
+#define STAGE1_GROUND_ENEMY_PUNCH_ANIMATION "assets/img/GroundEnemy1/Punch Louvagod_spritesheet.png"
 #define STAGE1_BOSS_BACKGROUND "assets/img/Background/chefao600.png"
 #define STAGE1_BACKGROUNDMUSIC "assets/audio/TemadaFloresta.wav"
 
