@@ -10,7 +10,29 @@ GroundEnemy::GroundEnemy(GameObject* associated, string file, int frameCount, fl
 	associated->AddComponent(sprite);
 	flip = false;
 }
+GroundEnemy::GroundEnemy(GameObject* associated) : Component(associated){
+	speed.x = 0;
+	speed.y = 0;
+	hp = 5;
+	flip = false;
+	state = EnemyState::SEARCHING;
+
+	Collider* colisor = new Collider(associated);
+	associated->AddComponent(colisor);
+}
 GroundEnemy::~GroundEnemy(){}
+
+void GroundEnemy::SetSprite(Sprite* newSprite){
+	if (sprite != nullptr){
+		sprite->SetEnabled(false);
+	}
+	sprite = newSprite;
+	associated->Box.w = sprite->GetWidth();
+	associated->Box.h = sprite->GetHeight();
+	sprite->SetEnabled(true);
+	sprite->SetFlip(flip);
+}
+
 void GroundEnemy::Update(float dt){
 
 	speed.x = 0;
@@ -51,8 +73,13 @@ void GroundEnemy::Update(float dt){
 	}
 
 	if ((associated->Box.y+associated->Box.h) > 600){
-		jumpCount = 0;
+		Land();
 		associated->Box.y = 600 - associated->Box.h;
+	}
+
+	if ((associated->Box.y) < 0){
+		speed.y = 0;
+		associated->Box.y = 0;
 	}
 	
 
@@ -62,5 +89,17 @@ void GroundEnemy::Render(){}
 bool GroundEnemy::Is(string type){
 	return(type == "GroundEnemy");
 }
-void GroundEnemy::Start(){}
+void GroundEnemy::Start(){
+	Sprite* idle = new Sprite(associated, STAGE1_GROUND_ENEMY_IDLE_ANIMATION, 5, 0.3, 0);
+	idle->SetTag("EnemyIdle");
+	idle->SetEnabled(true);
+	SetSprite(idle);
+	associated->AddComponent(idle);
+}
 void GroundEnemy::NotifyCollision(GameObject* other){}
+
+void GroundEnemy::Punch(){}
+void GroundEnemy::Land(){
+	speed.y = 0;
+	jumpCount = 0;
+}

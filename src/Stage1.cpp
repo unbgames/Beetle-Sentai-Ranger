@@ -1,8 +1,14 @@
 #include "Stage1.h"
 
-Stage1::Stage1(){
+Stage1::Stage1() : State(){
 	quitRequested = false;
 	popRequested = false;
+	SDL_Log("chegou aqui");
+	/*backgroundMusic.Open(STAGE1_BACKGROUNDMUSIC);
+	SDL_Log("chegou aqui2");
+	backgroundMusic.Play(-1);
+	SDL_Log("chegou aqui3");*/
+
 }
 Stage1::~Stage1(){
 	backgroundMusic.Stop();
@@ -43,17 +49,6 @@ void Stage1::LoadAssets(){
 	Protagonist* ranger = new Protagonist(aux2);
 	aux2->AddComponent(ranger);
 
-	Sprite* idle = new Sprite(aux2, PROTAGONIST_IDLE_ANIMATION, 5, 0.3, 0);
-	idle->SetTag("ProtagIdle");
-	idle->SetEnabled(true);
-	ranger->SetSprite(idle);
-	aux2->AddComponent(idle);
-
-	Sprite* run = new Sprite(aux2, PROTAGONIST_RUN_ANIMATION, 6, 0.3, 0);
-	run->SetTag("ProtagRun");
-	run->SetEnabled(false);
-	aux2->AddComponent(run);
-
 	Camera::Follow(aux2);
 
 	ObjectArray.emplace_back(aux2);
@@ -63,7 +58,7 @@ void Stage1::LoadAssets(){
 	aux4->Box.x = 2000;
 	aux4->Box.y = 500;
 	
-	GroundEnemy* enemy = new GroundEnemy(aux4, STAGE1_GROUND_ENEMY_IDLE_ANIMATION, 5, 0.3);
+	GroundEnemy* enemy = new GroundEnemy(aux4);
 
 	aux4->AddComponent(enemy);
 

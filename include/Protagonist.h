@@ -20,11 +20,13 @@ class Protagonist : public Component{
 		bool Is(string type);
 		void Start();
 		void NotifyCollision(GameObject* other);
-		void ShootShit(float angle);
 		void SetSprite(Sprite* newSprite);
+		void ShootShit(float angle);
+		void Punch();
+		void Land();
 
 	private:
-		typedef enum PlayerState {FLYING, DASHING, NORMAL, BLOCKING};
+		typedef enum PlayerState {FLYING, DASHING, NORMAL, BLOCKING, PUNCHING};
 		PlayerState state;
 		int hp;
 		Vec2 speed;

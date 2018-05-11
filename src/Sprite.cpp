@@ -143,3 +143,10 @@ void Sprite::SetFrameTime(float frameTime){
 void Sprite::SetFlip(bool Flip){
 	flip = Flip;
 }
+
+bool Sprite::IsAnimationOver(){
+	if (currentFrame == frameCount-1){
+		return(true);
+	}
+	return(false);
+}

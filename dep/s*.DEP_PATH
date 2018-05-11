@@ -1,15 +1,13 @@
-bin/BossStage1.o: src/BossStage1.cpp include/BossStage1.h include/State.h \
- include/SDL_include.h include/GameObject.h include/Rect.h include/Vec2.h \
- include/Component.h include/GameData.h include/Sprite.h include/Sound.h \
- include/Resources.h include/Game.h include/InputManager.h \
- include/Timer.h include/Camera.h include/Protagonist.h \
- include/ShitBall.h include/Collider.h include/Platform.h \
- include/TileSet.h include/CameraFollower.h include/Music.h \
- include/GroundEnemy.h include/Collision.h
+bin/GroundEnemy.o: src/GroundEnemy.cpp include/GroundEnemy.h \
+ include/Component.h include/SDL_include.h include/GameObject.h \
+ include/Rect.h include/Vec2.h include/Sprite.h include/Sound.h \
+ include/Resources.h include/Game.h include/State.h include/GameData.h \
+ include/InputManager.h include/Timer.h include/Camera.h \
+ include/ShitBall.h include/Collider.h
 
-include/BossStage1.h:
+include/GroundEnemy.h:
 
-include/State.h:
+include/Component.h:
 
 include/SDL_include.h:
 
@@ -19,10 +17,6 @@ include/Rect.h:
 
 include/Vec2.h:
 
-include/Component.h:
-
-include/GameData.h:
-
 include/Sprite.h:
 
 include/Sound.h:
@@ -31,26 +25,16 @@ include/Resources.h:
 
 include/Game.h:
 
+include/State.h:
+
+include/GameData.h:
+
 include/InputManager.h:
 
 include/Timer.h:
 
 include/Camera.h:
 
-include/Protagonist.h:
-
 include/ShitBall.h:
 
 include/Collider.h:
-
-include/Platform.h:
-
-include/TileSet.h:
-
-include/CameraFollower.h:
-
-include/Music.h:
-
-include/GroundEnemy.h:
-
-include/Collision.h:

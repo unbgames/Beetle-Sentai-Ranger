@@ -1,15 +1,19 @@
 #ifndef GAMEDATA
 #define GAMEDATA
 
-#define STAGE1_BACKGROUND "assets/img/6000x600.png"
-#define STAGE1_TILESET "assets/img/tileset.png"
-#define STAGE1_GROUND_ENEMY_IDLE_ANIMATION "assets/img/Louva-God.png"
-#define STAGE1_BOSS_BACKGROUND "assets/img/ocean.jpg"
+#define STAGE1_BACKGROUND "assets/img/Background/6000x600.png"
+#define STAGE1_TILESET "assets/img/Background/tileset.png"
+#define STAGE1_GROUND_ENEMY_IDLE_ANIMATION "assets/img/GroundEnemy1/Louva-God.png"
+#define STAGE1_BOSS_BACKGROUND "assets/img/Background/chefao600.png"
+#define STAGE1_BACKGROUNDMUSIC "assets/audio/TemadaFloresta.wav"
 
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"
 
-#define PROTAGONIST_IDLE_ANIMATION "assets/img/Fightpose.png"
-#define PROTAGONIST_RUN_ANIMATION "assets/img/Run_Sprite.png"
+#define PROTAGONIST_IDLE_ANIMATION "assets/img/Beetle/Fightpose.png"
+#define PROTAGONIST_RUN_ANIMATION "assets/img/Beetle/Run_sprite_.png"
+#define PROTAGONIST_JUMP_ANIMATION "assets/img/Beetle/Jump_spritesheet.png"
+#define PROTAGONIST_SHITBALL_ANIMATION "assets/img/Beetle/Poo.png"
+#define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 
 class GameData{
 	public:

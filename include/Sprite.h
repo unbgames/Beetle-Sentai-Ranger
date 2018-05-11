@@ -35,6 +35,7 @@ class Sprite : public Component{
         void SetFrameCount(int frameCount);
         void SetFrameTime(float frameTime);
         void SetFlip(bool Flip);
+        bool IsAnimationOver();
 
     private:
         SDL_Texture* texture;

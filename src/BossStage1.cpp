@@ -29,17 +29,6 @@ void BossStage1::LoadAssets(){
 	Protagonist* ranger = new Protagonist(aux2);
 	aux2->AddComponent(ranger);
 
-	Sprite* idle = new Sprite(aux2, PROTAGONIST_IDLE_ANIMATION, 5, 0.3, 0);
-	idle->SetTag("ProtagIdle");
-	idle->SetEnabled(true);
-	ranger->SetSprite(idle);
-	aux2->AddComponent(idle);
-
-	Sprite* run = new Sprite(aux2, PROTAGONIST_RUN_ANIMATION, 6, 0.3, 0);
-	run->SetTag("ProtagRun");
-	run->SetEnabled(false);
-	aux2->AddComponent(run);
-
 	ObjectArray.emplace_back(aux2);
 }
 void BossStage1::Update(float dt){
