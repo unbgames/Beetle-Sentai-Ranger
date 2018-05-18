@@ -15,9 +15,19 @@ Protagonist::Protagonist(GameObject* associated, string file, int frameCount, fl
 Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	speed.x = 0;
 	speed.y = 0;
-	hp = 5;
 	flip = false;
 	state = PlayerState::NORMAL;
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	HPBar = state->AddObject(go);
+
+	HealthBar* barra = new HealthBar(go, 5, PROTAGONIST_HEALTHBAR);
+	go->AddComponent(barra);
+
+	limit = state->GetLimit();
 
 	Collider* colisor = new Collider(associated);
 	associated->AddComponent(colisor);
@@ -43,6 +53,7 @@ void Protagonist::Update(float dt){
 	if(input.KeyPress(SDLK_x)){
 		state = PlayerState::DASHING;
 	}
+	
 
 	if (state == PlayerState::PUNCHING){
 		if (sprite->IsAnimationOver()){
@@ -160,21 +171,21 @@ void Protagonist::Update(float dt){
 	associated->Box.x += speed.x;
 	associated->Box.y += speed.y;
 
-	if ((associated->Box.x) < 0){
-		associated->Box.x = 0;
+	if ((associated->Box.x) < limit.x){
+		associated->Box.x = limit.x;
 	}
-	if ((associated->Box.x+associated->Box.w) > 6000){
-		associated->Box.x = 6000 - associated->Box.w;
+	if ((associated->Box.x+associated->Box.w) > limit.x+limit.w){
+		associated->Box.x = limit.x+limit.w - associated->Box.w;
 	}
 
-	if ((associated->Box.y+associated->Box.h) > 600){
+	if ((associated->Box.y+associated->Box.h) > limit.y+limit.h){
 		Land();
-		associated->Box.y = 600 - associated->Box.h;
+		associated->Box.y = limit.y+limit.h - associated->Box.h;
 	}
 
-	if ((associated->Box.y) < 0){
+	if ((associated->Box.y) < limit.y){
 		speed.y = 0;
-		associated->Box.y = 0;
+		associated->Box.y = limit.y;
 	}
 	
 
@@ -185,23 +196,23 @@ bool Protagonist::Is(string type){
 	return(type == "Protagonist");
 }
 void Protagonist::Start(){
-	Sprite* idle = new Sprite(associated, PROTAGONIST_IDLE_ANIMATION, 5, 0.3, 0);
+	Sprite* idle = new Sprite(associated, PROTAGONIST_IDLE_ANIMATION, 5, 0.15, 0);
 	idle->SetTag("ProtagIdle");
 	idle->SetEnabled(true);
 	SetSprite(idle);
 	associated->AddComponent(idle);
 
-	Sprite* run = new Sprite(associated, PROTAGONIST_RUN_ANIMATION, 6, 0.2, 0);
+	Sprite* run = new Sprite(associated, PROTAGONIST_RUN_ANIMATION, 6, 0.1, 0);
 	run->SetTag("ProtagRun");
 	run->SetEnabled(false);
 	associated->AddComponent(run);
 
-	Sprite* jump = new Sprite(associated, PROTAGONIST_JUMP_ANIMATION, 11, 0.3, 0);
+	Sprite* jump = new Sprite(associated, PROTAGONIST_JUMP_ANIMATION, 11, 0.1, 0);
 	jump->SetTag("ProtagJump");
 	jump->SetEnabled(false);
 	associated->AddComponent(jump);
 
-	Sprite* punch = new Sprite(associated, PROTAGONIST_PUNCH_ANIMATION, 4, 0.1, 0);
+	Sprite* punch = new Sprite(associated, PROTAGONIST_PUNCH_ANIMATION, 6, 0.07, 0);
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
@@ -227,7 +238,7 @@ void Protagonist::ShootShit(float angle){
 	go->Box.Centralize(associated->Box.GetCenter().x , associated->Box.GetCenter().y);
 	go->tag = "shitball";
 
-	ShitBall* shitball = new ShitBall(go, angle, 200.0, 1,PROTAGONIST_SHITBALL_ANIMATION, 4);
+	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1,PROTAGONIST_SHITBALL_ANIMATION, 4);
 
 	go->AddComponent(shitball);
 	state->AddObject(go);

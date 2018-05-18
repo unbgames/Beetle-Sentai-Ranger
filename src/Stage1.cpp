@@ -3,12 +3,8 @@
 Stage1::Stage1() : State(){
 	quitRequested = false;
 	popRequested = false;
-	SDL_Log("chegou aqui");
-	/*backgroundMusic.Open(STAGE1_BACKGROUNDMUSIC);
-	SDL_Log("chegou aqui2");
+	backgroundMusic.Open(STAGE1_BACKGROUNDMUSIC);		
 	backgroundMusic.Play(-1);
-	SDL_Log("chegou aqui3");*/
-
 }
 Stage1::~Stage1(){
 	backgroundMusic.Stop();
@@ -17,16 +13,33 @@ Stage1::~Stage1(){
 
 void Stage1::LoadAssets(){
 
-	GameObject* aux = new GameObject();
+	GameObject* backobj = new GameObject();
 
-	aux->Box.x = 0;
-	aux->Box.y = 0;
+	backobj->Box.x = 0;
+	backobj->Box.y = 0;
 	
-	Sprite* bg = new Sprite(aux, STAGE1_BACKGROUND);
+	Sprite* bg = new Sprite(backobj, STAGE1_BACKGROUND);
 
-	aux->AddComponent(bg);
+	backobj->AddComponent(bg);
 
-	ObjectArray.emplace_back(aux);
+	ObjectArray.emplace_back(backobj);
+
+	GameObject* backobj2 = new GameObject();
+
+	backobj2->Box.x = bg->GetWidth();
+	backobj2->Box.y = 0;
+	
+	Sprite* bg2 = new Sprite(backobj2, STAGE1_BOSS_BACKGROUND);
+
+	backobj2->AddComponent(bg2);
+
+	ObjectArray.emplace_back(backobj2);
+
+	limit = Rect(0, 0, bg->GetWidth() + bg2->GetWidth(), bg->GetHeight());
+
+	/*
+	*
+	*/
 
 	GameObject* aux3 = new GameObject();
 
@@ -48,6 +61,7 @@ void Stage1::LoadAssets(){
 	
 	Protagonist* ranger = new Protagonist(aux2);
 	aux2->AddComponent(ranger);
+	GameData::Player = ranger;
 
 	Camera::Follow(aux2);
 
@@ -77,7 +91,13 @@ void Stage1::Update(float dt){
 
 	if (input.KeyPress(SDLK_p)){
 		Game* game = Game::GetInstance();
-		game->Push(new BossStage1());
+		game->Push(new BossStage1(GameData::Player->GetAssociated()->Box.x - Camera::pos.x,GameData::Player->GetAssociated()->Box.y  - Camera::pos.y));
+		popRequested = true;
+	}
+
+	if (GameData::Player->GetAssociated()->Box.x >= 6600){
+		Game* game = Game::GetInstance();
+		game->Push(new BossStage1(GameData::Player->GetAssociated()->Box.x - Camera::pos.x,GameData::Player->GetAssociated()->Box.y  - Camera::pos.y));
 		popRequested = true;
 	}
 

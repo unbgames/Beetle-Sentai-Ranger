@@ -1,11 +1,10 @@
-bin/GroundEnemy.o: src/GroundEnemy.cpp include/GroundEnemy.h \
+bin/HealthBar.o: src/HealthBar.cpp include/HealthBar.h \
  include/Component.h include/SDL_include.h include/GameObject.h \
  include/Rect.h include/Vec2.h include/Sprite.h include/Sound.h \
  include/Resources.h include/Game.h include/State.h include/GameData.h \
- include/InputManager.h include/Timer.h include/Camera.h \
- include/ShitBall.h include/Collider.h
+ include/InputManager.h include/Timer.h include/Camera.h
 
-include/GroundEnemy.h:
+include/HealthBar.h:
 
 include/Component.h:
 
@@ -34,7 +33,3 @@ include/InputManager.h:
 include/Timer.h:
 
 include/Camera.h:
-
-include/ShitBall.h:
-
-include/Collider.h:

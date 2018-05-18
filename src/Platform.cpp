@@ -41,14 +41,14 @@ void Platform::RenderRow(int cameraX, int cameraY){
 
 	for (int i = 0; i < tileNumber; ++i){
 
-		tileSet->RenderTile(tileList[i], x+cameraX, y+cameraY);
+		tileSet->RenderTile(tileList[i], x-cameraX, y-cameraY);
 		x+= tileSet->GetTileWidth();
 	}
 	
 }
 void Platform::Render(){
 
-	RenderRow(-Camera::pos.x, -Camera::pos.y);
+	RenderRow(Camera::pos.x, Camera::pos.y);
 	
 }
 int Platform::GetTileNumber(){

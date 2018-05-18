@@ -9,6 +9,8 @@
 #include "Collider.h"
 #include "Timer.h"
 #include "Platform.h"
+#include "State.h"
+#include <HealthBar.h>
 
 class Protagonist : public Component{
 	public:
@@ -34,6 +36,8 @@ class Protagonist : public Component{
 		int jumpCount = 0;
 		bool flip;
 		Timer counter;
+		Rect limit;
+		weak_ptr<GameObject> HPBar;
 };
 
 #endif

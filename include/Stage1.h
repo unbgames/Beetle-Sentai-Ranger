@@ -28,6 +28,7 @@ class Stage1 : public State{
 
     private:
         Music backgroundMusic;
+        int portal;
 	
 };
 

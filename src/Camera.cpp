@@ -16,18 +16,21 @@ void Camera::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+	Rect limit = state->GetLimit();
+
 	speed.x = 0;
 	speed.y = 0;
 
-	dt = dt*50;
 
 	if (focus != nullptr){
 		pos = Vec2(focus->Box.x-512, 0);
-		if (pos.x < 0){
-			pos.x = 0;
+		if (pos.x < limit.x){
+			pos.x = limit.x;
 		}
-		if (pos.x > 4976){
-			pos.x = 4976;
+		if (pos.x > limit.x+limit.w - 1024){
+			pos.x = limit.x+limit.w - 1024;
 		}
 	}
 }

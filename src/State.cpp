@@ -71,3 +71,7 @@ void State::RenderArray(){
 		ObjectArray[i]->Render();
 	}
 }
+
+Rect State::GetLimit(){
+	return(limit);
+}

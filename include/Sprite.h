@@ -4,6 +4,7 @@
 #define INCLUDE_SDL
 #define INCLUDE_SDL_IMAGE
 #define INCLUDE_SDL_MIXER
+#include "Component.h"
 #include "SDL_include.h"
 #include <string>
 #include "Sound.h"

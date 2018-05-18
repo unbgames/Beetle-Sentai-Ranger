@@ -2,6 +2,8 @@
 
 Game* Game::instance = nullptr;
 
+Protagonist* GameData::Player = nullptr;
+
 Game* Game::GetInstance(){
 	if (instance == nullptr){
 		instance = new Game("Beetle Sentai Ranger", 1024, 600);
@@ -38,7 +40,7 @@ void Game::Run(){
 	
 	while(!(state->QuitRequested() || stateStack.empty())){
 		CalculateDeltaTime();
-		//SDL_Log("%d", stateStack.size());
+		SDL_Log("%d", stateStack.size());
 
 		state = stateStack.top().get();
 		

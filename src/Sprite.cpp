@@ -71,8 +71,8 @@ void Sprite::Render(int x, int y){
 	SDL_Rect dstrect;
 	dstrect.x = x;
 	dstrect.y = y;
-	dstrect.w = ClipRect.w;
-	dstrect.h = ClipRect.h;
+	dstrect.w = ClipRect.w*scale.x;
+	dstrect.h = ClipRect.h*scale.y;
 
 	SDL_RenderCopy(game->GetRenderer(), texture, &ClipRect, &dstrect);
 }

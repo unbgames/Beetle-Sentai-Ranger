@@ -58,8 +58,9 @@ void GroundEnemy::Update(float dt){
 		}
 
 		if(move == 0 && jumpCount < 1){
+			SetSprite((Sprite*) associated->GetComponentByTag("EnemyJump"));
 			jumpCount++;
-			speed.y = -400*dt;
+			speed.y = -600*dt;
 		}
 
 		if(move == 1){
@@ -116,6 +117,11 @@ void GroundEnemy::Start(){
 	punch->SetTag("EnemyPunch");
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
+
+	Sprite* jump= new Sprite(associated, STAGE1_GROUND_ENEMY_JUMP_ANIMATION, 11, 0.1, 0);
+	jump->SetTag("EnemyJump");
+	jump->SetEnabled(false);
+	associated->AddComponent(jump);
 }
 void GroundEnemy::NotifyCollision(GameObject* other){}
 
@@ -128,4 +134,7 @@ void GroundEnemy::Punch(){
 void GroundEnemy::Land(){
 	speed.y = 0;
 	jumpCount = 0;
+	if (sprite->GetTag() == "EnemyJump"){
+		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
+	}
 }

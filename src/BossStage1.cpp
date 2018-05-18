@@ -1,8 +1,11 @@
 #include "BossStage1.h"
 
-BossStage1::BossStage1(){
+BossStage1::BossStage1(float x, float y){
 	quitRequested = false;
 	popRequested = false;
+
+	PlayerPos.x = x;
+	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
 	backgroundMusic.Stop();
@@ -21,10 +24,12 @@ void BossStage1::LoadAssets(){
 
 	ObjectArray.emplace_back(aux);
 
+	limit = Rect(0, 0, bg->GetWidth(), bg->GetHeight());
+
 	GameObject* aux2 = new GameObject();
 
-	aux2->Box.x = 200;
-	aux2->Box.y = 500;
+	aux2->Box.x = PlayerPos.x;
+	aux2->Box.y = PlayerPos.y;
 	
 	Protagonist* ranger = new Protagonist(aux2);
 	aux2->AddComponent(ranger);

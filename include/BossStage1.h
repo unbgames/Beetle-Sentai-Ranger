@@ -14,7 +14,7 @@
 
 class BossStage1 : public State{
 	public:
-		BossStage1();
+		BossStage1(float x, float y);
 		~BossStage1();
 		
 		void LoadAssets();
@@ -27,6 +27,7 @@ class BossStage1 : public State{
 
     private:
         Music backgroundMusic;
+        Vec2 PlayerPos;
 };
 
 #endif
