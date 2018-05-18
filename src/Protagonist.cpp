@@ -22,10 +22,11 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	State* state = game->GetCurrentState();
 
 	GameObject* go = new GameObject();
-	HPBar = state->AddObject(go);
+	state->AddObject(go);
 
 	HealthBar* barra = new HealthBar(go, 5, PROTAGONIST_HEALTHBAR);
 	go->AddComponent(barra);
+	HPBar = barra;
 
 	limit = state->GetLimit();
 
@@ -50,8 +51,15 @@ void Protagonist::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
+	if (HPBar->GetHP() <= 0){
+		Die();
+	}
+
 	if(input.KeyPress(SDLK_x)){
 		state = PlayerState::DASHING;
+	}
+	if(input.KeyPress(SDLK_w)){
+		TakeDamage(1);
 	}
 	
 
@@ -61,6 +69,7 @@ void Protagonist::Update(float dt){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));	
 			}
 			state = PlayerState::NORMAL;
+			Soco.lock()->RequestDelete();
 		}
 		speed.y += 20*dt;
 	}
@@ -107,7 +116,7 @@ void Protagonist::Update(float dt){
 		}
 
 		if(input.KeyPress(SDLK_a)){
-			Punch();
+			Attack();
 		}
 
 		speed.y += 20*dt;
@@ -252,9 +261,39 @@ void Protagonist::Land(){
 	}
 }
 
-void Protagonist::Punch(){
+void Protagonist::Attack(){
 	speed.x = 0;
 	state = PlayerState::PUNCHING;
 	SetSprite((Sprite*) associated->GetComponentByTag("ProtagPunch"));
 	sprite->SetFrame(0);
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	go->Box.w = 40;
+	go->Box.h = 10;
+	if (flip){
+		go->Box.Centralize(associated->Box.GetCenter().x- 50, associated->Box.GetCenter().y+5);
+
+	}
+	else{
+		go->Box.Centralize(associated->Box.GetCenter().x+ 50, associated->Box.GetCenter().y+5);
+
+	}
+	
+	Punch* punch = new Punch(go,2);
+
+	go->AddComponent(punch);
+	Soco = state->AddObject(go);
+}
+
+void Protagonist::TakeDamage(int dmg){
+	HPBar->AddHP(-dmg);
+}
+
+void Protagonist::Die(){
+	Camera::Unfollow();
+	associated->RequestDelete();
+	GameData::Player = nullptr;
 }

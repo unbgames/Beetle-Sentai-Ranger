@@ -11,6 +11,9 @@ ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage
 	this->damage = damage;
 	this->speed.x = speed*cos(angle);
 	this->speed.y = 0;
+
+	Collider* colisor = new Collider(associated);
+	associated->AddComponent(colisor);
 }
 ShitBall::~ShitBall(){}
 void ShitBall::Update(float dt){

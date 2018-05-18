@@ -95,7 +95,7 @@ void Stage1::Update(float dt){
 		popRequested = true;
 	}
 
-	if (GameData::Player->GetAssociated()->Box.x >= 6600){
+	if (GameData::Player != nullptr && GameData::Player->GetAssociated()->Box.x >= 6600){
 		Game* game = Game::GetInstance();
 		game->Push(new BossStage1(GameData::Player->GetAssociated()->Box.x - Camera::pos.x,GameData::Player->GetAssociated()->Box.y  - Camera::pos.y));
 		popRequested = true;

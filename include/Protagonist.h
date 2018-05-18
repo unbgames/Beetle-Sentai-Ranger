@@ -10,7 +10,8 @@
 #include "Timer.h"
 #include "Platform.h"
 #include "State.h"
-#include <HealthBar.h>
+#include "HealthBar.h"
+#include "Punch.h"
 
 class Protagonist : public Component{
 	public:
@@ -24,8 +25,10 @@ class Protagonist : public Component{
 		void NotifyCollision(GameObject* other);
 		void SetSprite(Sprite* newSprite);
 		void ShootShit(float angle);
-		void Punch();
+		void Attack();
 		void Land();
+		void TakeDamage(int dmg);
+		void Die();
 
 	private:
 		typedef enum PlayerState {FLYING, DASHING, NORMAL, BLOCKING, PUNCHING};
@@ -37,7 +40,8 @@ class Protagonist : public Component{
 		bool flip;
 		Timer counter;
 		Rect limit;
-		weak_ptr<GameObject> HPBar;
+		HealthBar* HPBar;
+		weak_ptr<GameObject> Soco;
 };
 
 #endif

@@ -20,15 +20,16 @@ class GroundEnemy : public Component{
 		void Start();
 		void NotifyCollision(GameObject* other);
 		void SetSprite(Sprite* newSprite);
-		void Punch();
+		void Attack();
 		void Land();
+		void Kill();
 
 	private:
 		typedef enum EnemyState {SEARCHING, ATTACKING};
 		EnemyState state;
 		int hp;
 		Vec2 speed;
-		Sprite* sprite;
+		Sprite* sprite = nullptr;
 		int jumpCount = 0;
 		bool flip;	
 };

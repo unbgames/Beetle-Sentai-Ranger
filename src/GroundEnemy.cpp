@@ -74,7 +74,7 @@ void GroundEnemy::Update(float dt){
 			sprite->SetFlip(flip);
 		}
 		if(move == 3){
-			Punch();
+			Attack();
 		}
 	}
 	speed.y += 20*dt;
@@ -125,7 +125,7 @@ void GroundEnemy::Start(){
 }
 void GroundEnemy::NotifyCollision(GameObject* other){}
 
-void GroundEnemy::Punch(){
+void GroundEnemy::Attack(){
 	speed.x = 0;
 	state = EnemyState::ATTACKING;
 	SetSprite((Sprite*) associated->GetComponentByTag("EnemyPunch"));
@@ -137,4 +137,8 @@ void GroundEnemy::Land(){
 	if (sprite->GetTag() == "EnemyJump"){
 		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 	}
+}
+
+void GroundEnemy::Kill(){
+	associated->RequestDelete();
 }

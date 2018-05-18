@@ -26,7 +26,6 @@ bool HealthBar::Is(string type){
 	return(type == "Healthbar");
 }
 void HealthBar::Start(){
-
 }
 int HealthBar::GetHP(){
 	return(hp);
