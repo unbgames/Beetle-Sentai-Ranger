@@ -72,7 +72,7 @@ void Stage1::LoadAssets(){
 	aux4->Box.x = 2000;
 	aux4->Box.y = 500;
 	
-	GroundEnemy* enemy = new GroundEnemy(aux4);
+	GroundEnemy* enemy = new GroundEnemy(aux4, 5);
 
 	aux4->AddComponent(enemy);
 

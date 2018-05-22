@@ -11,6 +11,7 @@
 #include "Platform.h"
 #include "GroundEnemy.h"
 #include "Collision.h"
+#include "Frog.h"
 
 class BossStage1 : public State{
 	public:

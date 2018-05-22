@@ -51,12 +51,9 @@ void Protagonist::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if (HPBar->GetHP() <= 0){
-		Die();
-	}
-
 	if(input.KeyPress(SDLK_x)){
 		state = PlayerState::DASHING;
+		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 	}
 	if(input.KeyPress(SDLK_w)){
 		TakeDamage(1);
@@ -136,16 +133,19 @@ void Protagonist::Update(float dt){
 		if (counter.Get() >= 0.5){
 			state = PlayerState::NORMAL;
 			counter.Restart();
+			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
+
 		}
 	}
 
 	if (state == PlayerState::FLYING){
 		speed.x = 0;
 		speed.y = 0;
-		SDL_Log("voando");
+		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 
 		if(input.KeyPress(SDLK_c)){
 			state = PlayerState::NORMAL;
+			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 		}
 		if(input.KeyPress(SDLK_z)){
 			if (flip){
@@ -225,6 +225,11 @@ void Protagonist::Start(){
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
+
+	Sprite* fly = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.008, 0);
+	fly->SetTag("ProtagFly");
+	fly->SetEnabled(false);
+	associated->AddComponent(fly);
 }
 void Protagonist::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
@@ -290,10 +295,26 @@ void Protagonist::Attack(){
 
 void Protagonist::TakeDamage(int dmg){
 	HPBar->AddHP(-dmg);
+	if (HPBar->GetHP() <= 0){
+		Die();
+	}
 }
 
 void Protagonist::Die(){
 	Camera::Unfollow();
 	associated->RequestDelete();
 	GameData::Player = nullptr;
+
+	associated->RequestDelete();
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	go->Box.x = associated->Box.x;
+	go->Box.y = associated->Box.y;
+	state->AddObject(go);
+
+	Sprite* sprite = new Sprite(go, PROTAGONIST_DEATH_ANIMATION,14,0.1,1.4);
+	go->AddComponent(sprite);
 }

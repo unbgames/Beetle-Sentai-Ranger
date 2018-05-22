@@ -1,16 +1,6 @@
 #include "GroundEnemy.h"
 
-GroundEnemy::GroundEnemy(GameObject* associated, string file, int frameCount, float frameTime) : Component(associated){
-	speed.x = 0;
-	speed.y = 0;
-	hp = 5;
-	sprite = new Sprite(associated, file, frameCount, frameTime, 0);
-	associated->Box.w = sprite->GetWidth();
-	associated->Box.h = sprite->GetHeight();
-	associated->AddComponent(sprite);
-	flip = false;
-}
-GroundEnemy::GroundEnemy(GameObject* associated) : Component(associated){
+GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP){
 	speed.x = 0;
 	speed.y = 0;
 	hp = 5;
@@ -21,17 +11,6 @@ GroundEnemy::GroundEnemy(GameObject* associated) : Component(associated){
 	associated->AddComponent(colisor);
 }
 GroundEnemy::~GroundEnemy(){}
-
-void GroundEnemy::SetSprite(Sprite* newSprite){
-	if (sprite != nullptr){
-		sprite->SetEnabled(false);
-	}
-	sprite = newSprite;
-	associated->Box.w = sprite->GetWidth();
-	associated->Box.h = sprite->GetHeight();
-	sprite->SetEnabled(true);
-	sprite->SetFlip(flip);
-}
 
 void GroundEnemy::Update(float dt){
 
@@ -101,10 +80,6 @@ void GroundEnemy::Update(float dt){
 	
 
 	//Camera::pos.x = associated->Box.x+512;
-}
-void GroundEnemy::Render(){}
-bool GroundEnemy::Is(string type){
-	return(type == "GroundEnemy");
 }
 void GroundEnemy::Start(){
 	Sprite* idle = new Sprite(associated, STAGE1_GROUND_ENEMY_IDLE_ANIMATION, 5, 0.3, 0);

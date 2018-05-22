@@ -35,6 +35,17 @@ void BossStage1::LoadAssets(){
 	aux2->AddComponent(ranger);
 
 	ObjectArray.emplace_back(aux2);
+
+	GameObject* aux4 = new GameObject();
+
+	aux4->Box.x = 50;
+	aux4->Box.y = -2000;
+	
+	Frog* enemy = new Frog(aux4, 50);
+
+	aux4->AddComponent(enemy);
+
+	ObjectArray.emplace_back(aux4);
 }
 void BossStage1::Update(float dt){
 
