@@ -1,13 +1,11 @@
-bin/Frog.o: src/Frog.cpp include/Frog.h include/Enemy.h \
- include/Component.h include/SDL_include.h include/GameObject.h \
- include/Rect.h include/Vec2.h include/Sprite.h include/Sound.h \
- include/Resources.h include/Game.h include/State.h include/GameData.h \
- include/InputManager.h include/Timer.h include/Camera.h \
- include/ShitBall.h include/Collider.h
+bin/Punch.o: src/Punch.cpp include/Punch.h include/Component.h \
+ include/SDL_include.h include/GameObject.h include/Rect.h include/Vec2.h \
+ include/Collider.h include/Sprite.h include/Sound.h include/Resources.h \
+ include/Game.h include/State.h include/GameData.h include/InputManager.h \
+ include/Timer.h include/Camera.h include/GroundEnemy.h include/Enemy.h \
+ include/ShitBall.h
 
-include/Frog.h:
-
-include/Enemy.h:
+include/Punch.h:
 
 include/Component.h:
 
@@ -18,6 +16,8 @@ include/GameObject.h:
 include/Rect.h:
 
 include/Vec2.h:
+
+include/Collider.h:
 
 include/Sprite.h:
 
@@ -37,6 +37,8 @@ include/Timer.h:
 
 include/Camera.h:
 
-include/ShitBall.h:
+include/GroundEnemy.h:
 
-include/Collider.h:
+include/Enemy.h:
+
+include/ShitBall.h:

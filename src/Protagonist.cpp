@@ -31,6 +31,7 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	limit = state->GetLimit();
 
 	Collider* colisor = new Collider(associated);
+	colisor->SetScale(Vec2(0.5,1));
 	associated->AddComponent(colisor);
 }
 
@@ -42,6 +43,7 @@ void Protagonist::SetSprite(Sprite* newSprite){
 	sprite = newSprite;
 	associated->Box.w = sprite->GetWidth();
 	associated->Box.h = sprite->GetHeight();
+
 	sprite->SetEnabled(true);
 	sprite->SetFlip(flip);
 }
@@ -216,7 +218,7 @@ void Protagonist::Start(){
 	run->SetEnabled(false);
 	associated->AddComponent(run);
 
-	Sprite* jump = new Sprite(associated, PROTAGONIST_JUMP_ANIMATION, 11, 0.1, 0);
+	Sprite* jump = new Sprite(associated, PROTAGONIST_JUMP_ANIMATION, 8, 0.1, 0);
 	jump->SetTag("ProtagJump");
 	jump->SetEnabled(false);
 	associated->AddComponent(jump);
@@ -226,7 +228,7 @@ void Protagonist::Start(){
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
 
-	Sprite* fly = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.008, 0);
+	Sprite* fly = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.005, 0);
 	fly->SetTag("ProtagFly");
 	fly->SetEnabled(false);
 	associated->AddComponent(fly);
@@ -262,6 +264,7 @@ void Protagonist::Land(){
 	speed.y = 0;
 	jumpCount = 0;
 	if (sprite->GetTag() == "ProtagJump"){
+		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
 	}
 }
@@ -304,8 +307,6 @@ void Protagonist::Die(){
 	Camera::Unfollow();
 	associated->RequestDelete();
 	GameData::Player = nullptr;
-
-	associated->RequestDelete();
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();

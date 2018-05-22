@@ -8,6 +8,7 @@ GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP)
 	state = EnemyState::SEARCHING;
 
 	Collider* colisor = new Collider(associated);
+	colisor->SetScale(Vec2(0.5,1));
 	associated->AddComponent(colisor);
 }
 GroundEnemy::~GroundEnemy(){}

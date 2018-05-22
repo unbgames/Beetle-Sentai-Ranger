@@ -33,6 +33,7 @@ void BossStage1::LoadAssets(){
 	
 	Protagonist* ranger = new Protagonist(aux2);
 	aux2->AddComponent(ranger);
+	GameData::Player = ranger;
 
 	ObjectArray.emplace_back(aux2);
 
@@ -56,6 +57,11 @@ void BossStage1::Update(float dt){
 
 	if (input.KeyPress(SDLK_ESCAPE))
 		popRequested = true;
+
+	/*if (GameData::Player == nullptr){
+		SDL_Log("game over");
+		popRequested = true;
+	}*/
 
 	Camera::Update(dt);
 

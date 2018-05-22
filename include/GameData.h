@@ -14,7 +14,7 @@
 
 #define PROTAGONIST_IDLE_ANIMATION "assets/img/Beetle/Fightpose.png"
 #define PROTAGONIST_RUN_ANIMATION "assets/img/Beetle/Run_sprite_.png"
-#define PROTAGONIST_JUMP_ANIMATION "assets/img/Beetle/Jump_spritesheet.png"
+#define PROTAGONIST_JUMP_ANIMATION "assets/img/Beetle/Jump Beetle.png"
 #define PROTAGONIST_SHITBALL_ANIMATION "assets/img/Beetle/Shit_spritesheet.png"
 #define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 #define PROTAGONIST_DEATH_ANIMATION "assets/img/Beetle/Death.png"

@@ -2,6 +2,9 @@
 #define FROG
 
 #include "Enemy.h"
+#include "Timer.h"
+#include "Protagonist.h"
+#include "BossStage1.h"
 
 class Frog : public Enemy{
 	
@@ -14,6 +17,11 @@ class Frog : public Enemy{
 		void Attack();
 		void Land();
 		void Kill();
+		void SetSprite(Sprite* newSprite);
+
+	private:
+		Timer SearchTimer;
+		Vec2 destination;
 };
 
 #endif
