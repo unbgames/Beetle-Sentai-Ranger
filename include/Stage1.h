@@ -15,7 +15,7 @@
 
 class Stage1 : public State{
 	public:
-		Stage1();
+		Stage1(int nEnemy);
 		~Stage1();
 
 		void LoadAssets();
@@ -26,10 +26,11 @@ class Stage1 : public State{
         void Pause();
         void Resume();
 
+        void SpawnEnemy();
+
     private:
         Music backgroundMusic;
-        int portal;
-	
+        int TotalEnemy;	
 };
 
 #endif

@@ -1,10 +1,12 @@
 #include "Stage1.h"
 
-Stage1::Stage1() : State(){
+Stage1::Stage1(int nEnemy) : State(){
 	quitRequested = false;
 	popRequested = false;
 	backgroundMusic.Open(STAGE1_BACKGROUNDMUSIC);		
 	backgroundMusic.Play(-1);
+
+	TotalEnemy = nEnemy;
 }
 Stage1::~Stage1(){
 	backgroundMusic.Stop();
@@ -67,17 +69,6 @@ void Stage1::LoadAssets(){
 
 	ObjectArray.emplace_back(aux2);
 
-	GameObject* aux4 = new GameObject();
-
-	aux4->Box.x = 2000;
-	aux4->Box.y = 500;
-	
-	GroundEnemy* enemy = new GroundEnemy(aux4, 5);
-
-	aux4->AddComponent(enemy);
-
-	ObjectArray.emplace_back(aux4);
-
 }
 void Stage1::Update(float dt){
 
@@ -95,15 +86,19 @@ void Stage1::Update(float dt){
 		popRequested = true;
 	}
 
-	if (GameData::Player == nullptr){
+	/*if (GameData::Player == nullptr){
 		SDL_Log("game over");
 		popRequested = true;
-	}
+	}*/
 
 	if (GameData::Player != nullptr && GameData::Player->GetAssociated()->Box.x >= 6600){
 		Game* game = Game::GetInstance();
 		game->Push(new BossStage1(GameData::Player->GetAssociated()->Box.x - Camera::pos.x,GameData::Player->GetAssociated()->Box.y  - Camera::pos.y));
 		popRequested = true;
+	}
+
+	if (GroundEnemy::nEnemy < TotalEnemy){
+		SpawnEnemy();
 	}
 
 	Camera::Update(dt);
@@ -128,7 +123,8 @@ void Stage1::Update(float dt){
 	}
 
 
-	//SDL_Log("%d", ObjectArray.size());
+	SDL_Log("obj: %d", ObjectArray.size());
+	SDL_Log("enemy: %d", GroundEnemy::nEnemy);
 }
 void Stage1::Render(){
 	RenderArray();
@@ -140,3 +136,22 @@ void Stage1::Start(){
 }
 void Stage1::Pause(){}
 void Stage1::Resume(){}
+
+void Stage1::SpawnEnemy(){
+	GameObject* obj = new GameObject();
+
+	obj->Box.x = GameData::Player->GetAssociated()->Box.x+600;
+	obj->Box.y = 500;
+
+	if (obj->Box.x >= limit.x+limit.w-1024){
+		obj->Box.x = GameData::Player->GetAssociated()->Box.x-600;
+	}
+	
+	GroundEnemy* enemy = new GroundEnemy(obj, 5);
+
+	obj->AddComponent(enemy);
+
+	AddObject(obj);
+
+	GroundEnemy::nEnemy++;
+}

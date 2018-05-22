@@ -31,7 +31,6 @@ bool Collider::Is(string type){
 }
 void Collider::SetScale(Vec2 scale){
 	this->scale = scale;
-	SDL_Log("%f %f", this->scale.x, this->scale.y);
 }
 void Collider::SetOffset(Vec2 offset){
 	this->offset = offset;

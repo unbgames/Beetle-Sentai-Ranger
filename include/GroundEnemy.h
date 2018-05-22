@@ -18,6 +18,7 @@ class GroundEnemy : public Enemy{
 		void Attack();
 		void Land();
 		void Kill();
+		static int nEnemy;
 };
 
 #endif

@@ -1,7 +1,6 @@
-#include "ShitBall.h"
+#include "AcidSplash.h"
 
-ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage, string sprite, int frameCount) : Component(associated){
-	
+AcidSplash::AcidSplash(GameObject* associated, double angle, float speed, int damage, string sprite, int frameCount) : Component(associated){
 	Sprite* novo = new Sprite(associated, sprite,frameCount,0.3, 0);
 	associated->Box.w = novo->GetWidth();
 	associated->Box.h = novo->GetHeight();
@@ -10,14 +9,13 @@ ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage
 
 	this->damage = damage;
 	this->speed.x = speed*cos(angle);
-	this->speed.y = 0;
+	this->speed.y = speed*sin(angle);
 
 	Collider* colisor = new Collider(associated);
 	associated->AddComponent(colisor);
 }
-ShitBall::~ShitBall(){}
-void ShitBall::Update(float dt){
-
+AcidSplash::~AcidSplash(){}
+void AcidSplash::Update(float dt){
 	speed.y += 20*dt;
 
 	associated->Box.x += speed.x*dt;
@@ -26,19 +24,18 @@ void ShitBall::Update(float dt){
 	if (associated->Box.x > 6000 || associated->Box.x < 0 || associated->Box.y < 0 || associated->Box.y > 600){
 		associated->RequestDelete();
 	}
-
 }
-void ShitBall::Render(){}
-bool ShitBall::Is(string type){
-	return(type == "ShitBall");
+void AcidSplash::Render(){}
+bool AcidSplash::Is(string type){
+	return(type == "AcidSplash");
 }
-int ShitBall::GetDamage(){
+int AcidSplash::GetDamage(){
 	return(damage);
 }
-void ShitBall::NotifyCollision(GameObject* other){
+void AcidSplash::NotifyCollision(GameObject* other){
 	Enemy* base = (Enemy*) other->GetComponent("Enemy");
 	if (base != nullptr){
 		base->TakeDamage(damage);
-		associated->RequestDelete();
+		speed.x = 0;
 	}
 }

@@ -78,6 +78,14 @@ void Protagonist::Update(float dt){
 	
 		speed.x = 0;
 
+		if(input.KeyPress(SDLK_s)){
+			if (flip){
+				ShootAcid((4*PI)/6);
+			}
+			else{
+				ShootAcid((2*PI)/6);
+			}
+		}
 		if(input.KeyPress(SDLK_z)){
 			if (flip){
 				ShootShit(PI);
@@ -149,6 +157,14 @@ void Protagonist::Update(float dt){
 		if(input.KeyPress(SDLK_c)){
 			state = PlayerState::NORMAL;
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
+		}
+		if(input.KeyPress(SDLK_s)){
+			if (flip){
+				ShootAcid((4*PI)/6);
+			}
+			else{
+				ShootAcid((2*PI)/6);
+			}
 		}
 		if(input.KeyPress(SDLK_z)){
 			if (flip){
@@ -258,6 +274,20 @@ void Protagonist::ShootShit(float angle){
 	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1,PROTAGONIST_SHITBALL_ANIMATION, 4);
 
 	go->AddComponent(shitball);
+	state->AddObject(go);
+}
+
+void Protagonist::ShootAcid(float angle){
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	go->Box.Centralize(associated->Box.GetCenter().x , associated->Box.GetCenter().y);
+	go->tag = "acid";
+
+	AcidSplash* acid = new AcidSplash(go, angle, 200.0, 1,PROTAGONIST_ACID_ANIMATION, 5);
+
+	go->AddComponent(acid);
 	state->AddObject(go);
 }
 

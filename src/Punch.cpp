@@ -17,7 +17,7 @@ int Punch::GetDamage(){
 void Punch::NotifyCollision(GameObject* other){
 	Enemy* base = (Enemy*) other->GetComponent("Enemy");
 	if (base != nullptr){
-		base->TakeDamage(2);
+		base->TakeDamage(damage);
 		associated->RequestDelete();
 	}
 }

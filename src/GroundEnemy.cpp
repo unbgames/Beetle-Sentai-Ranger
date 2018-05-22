@@ -1,5 +1,7 @@
 #include "GroundEnemy.h"
 
+int GroundEnemy::nEnemy = 0;
+
 GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP){
 	Collider* colisor = new Collider(associated);
 	colisor->SetScale(Vec2(0.5,1));
@@ -8,7 +10,6 @@ GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP)
 GroundEnemy::~GroundEnemy(){}
 
 void GroundEnemy::Update(float dt){
-
 	speed.x = 0;
 
 	if (state == EnemyState::ATTACKING){
@@ -73,10 +74,10 @@ void GroundEnemy::Update(float dt){
 		associated->Box.y = 0;
 	}
 	
-
 	//Camera::pos.x = associated->Box.x+512;
 }
 void GroundEnemy::Start(){
+
 	Sprite* idle = new Sprite(associated, STAGE1_GROUND_ENEMY_IDLE_ANIMATION, 5, 0.3, 0);
 	idle->SetTag("EnemyIdle");
 	idle->SetEnabled(true);
@@ -88,7 +89,7 @@ void GroundEnemy::Start(){
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
 
-	Sprite* jump= new Sprite(associated, STAGE1_GROUND_ENEMY_JUMP_ANIMATION, 11, 0.1, 0);
+	Sprite* jump= new Sprite(associated, STAGE1_GROUND_ENEMY_JUMP_ANIMATION, 8, 0.1, 0);
 	jump->SetTag("EnemyJump");
 	jump->SetEnabled(false);
 	associated->AddComponent(jump);
@@ -105,6 +106,24 @@ void GroundEnemy::Land(){
 	speed.y = 0;
 	jumpCount = 0;
 	if (sprite->GetTag() == "EnemyJump"){
+		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 	}
+}
+
+void GroundEnemy::Kill(){
+	associated->RequestDelete();
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	go->Box.x = associated->Box.x;
+	go->Box.y = associated->Box.y;
+	state->AddObject(go);
+
+	Sprite* sprite = new Sprite(go, STAGE1_GROUND_ENEMY_DEATH_ANIMATION,12,0.1,1.2);
+	go->AddComponent(sprite);
+
+	GroundEnemy::nEnemy--;
 }

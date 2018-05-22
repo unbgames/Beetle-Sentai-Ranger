@@ -13,16 +13,16 @@ class Enemy : public Component{
 	public:
 		Enemy(GameObject* associated, int HP);
 		~Enemy();
-		void Update(float dt);
-		void Render();
+		virtual void Update(float dt);
+		virtual void Render();
 		bool Is(string type);
-		void Start();
-		void NotifyCollision(GameObject* other);
-		void SetSprite(Sprite* newSprite);
-		void Attack();
-		void Land();
-		void Kill();
-		void TakeDamage(int dmg);
+		virtual void Start();
+		virtual void NotifyCollision(GameObject* other);
+		virtual void SetSprite(Sprite* newSprite);
+		virtual void Attack();
+		virtual void Land();
+		virtual void Kill();
+		virtual void TakeDamage(int dmg);
 
 	protected:
 		typedef enum EnemyState {SEARCHING, ATTACKING};

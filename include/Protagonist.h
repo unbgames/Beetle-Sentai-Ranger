@@ -12,6 +12,7 @@
 #include "State.h"
 #include "HealthBar.h"
 #include "Punch.h"
+#include "AcidSplash.h"
 
 class Protagonist : public Component{
 	public:
@@ -25,6 +26,7 @@ class Protagonist : public Component{
 		void NotifyCollision(GameObject* other);
 		void SetSprite(Sprite* newSprite);
 		void ShootShit(float angle);
+		void ShootAcid(float angle);
 		void Attack();
 		void Land();
 		void TakeDamage(int dmg);
