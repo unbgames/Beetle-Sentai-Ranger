@@ -22,6 +22,7 @@ class Enemy : public Component{
 		void Attack();
 		void Land();
 		void Kill();
+		void TakeDamage(int dmg);
 
 	protected:
 		typedef enum EnemyState {SEARCHING, ATTACKING};

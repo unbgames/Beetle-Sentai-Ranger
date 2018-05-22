@@ -6,9 +6,6 @@ Enemy::Enemy(GameObject* associated, int HP) : Component(associated){
 	hp = HP;
 	flip = false;
 	state = EnemyState::SEARCHING;
-
-	Collider* colisor = new Collider(associated);
-	associated->AddComponent(colisor);
 }
 Enemy::~Enemy(){}
 void Enemy::Update(float dt){}
@@ -30,4 +27,12 @@ void Enemy::SetSprite(Sprite* newSprite){
 }
 void Enemy::Attack(){}
 void Enemy::Land(){}
-void Enemy::Kill(){}
+void Enemy::Kill(){
+	associated->RequestDelete();
+}
+void Enemy::TakeDamage(int dmg){
+	hp-=dmg;
+	if(hp <= 0){
+	Kill();
+	}
+}

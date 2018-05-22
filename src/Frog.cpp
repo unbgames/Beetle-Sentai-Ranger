@@ -2,6 +2,10 @@
 
 Frog::Frog(GameObject* associated, int HP) : Enemy(associated, HP){
 	SearchTimer.Restart();
+
+	Collider* colisor = new Collider(associated);
+	colisor->SetScale(Vec2(0.7,1));
+	associated->AddComponent(colisor);
 }
 Frog::~Frog(){}
 
@@ -21,16 +25,20 @@ void Frog::SetSprite(Sprite* newSprite){
 
 void Frog::Update(float dt){
 
-	float hipo = dt*1500;
+	float hipo = dt*700;
 	Rect limit = Game::GetInstance()->GetCurrentState()->GetLimit();
 
 	speed.y += 20*dt;
+
+	associated->Box.x += speed.x;
+	associated->Box.y += speed.y;
 
 
 	if ((associated->Box.x) < limit.x){
 		state = EnemyState::SEARCHING;
 		associated->Box.x = limit.x;
 	}
+
 	if ((associated->Box.x+associated->Box.w) > limit.x+limit.w){
 		state = EnemyState::SEARCHING;
 		associated->Box.x = limit.x+limit.w - associated->Box.w;
@@ -52,6 +60,7 @@ void Frog::Update(float dt){
 		if (GameData::Player == nullptr){
 			return;
 		}
+
 		destination = GameData::Player->GetAssociated()->Box.GetCenter();
 		
 		Vec2 centro = associated->Box.GetCenter();
@@ -89,7 +98,7 @@ void Frog::Start(){
 }
 void Frog::NotifyCollision(GameObject* other){
 	Protagonist* base = (Protagonist*) other->GetComponent("Protagonist");
-	if (base != nullptr){
+	if (base != nullptr && state == EnemyState::ATTACKING){
 		base->TakeDamage(1);
 		associated->Box.x -= speed.x;
 		associated->Box.y -= speed.y;

@@ -44,9 +44,9 @@ void Stage1::LoadAssets(){
 	GameObject* aux3 = new GameObject();
 
 	aux3->Box.x = 600;
-	aux3->Box.y = 290;
+	aux3->Box.y = 450;
 
-	TileSet* set = new TileSet(aux3, 64, 64, STAGE1_TILESET);
+	TileSet* set = new TileSet(aux3, 32, 32, STAGE1_TILESET);
 	
 	Platform* plataforma = new Platform(aux3, PLATFORM_TYPE1, set);
 
@@ -126,6 +126,7 @@ void Stage1::Update(float dt){
 			}
 		}
 	}
+
 
 	//SDL_Log("%d", ObjectArray.size());
 }

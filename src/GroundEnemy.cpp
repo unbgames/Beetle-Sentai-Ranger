@@ -1,12 +1,6 @@
 #include "GroundEnemy.h"
 
 GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP){
-	speed.x = 0;
-	speed.y = 0;
-	hp = 5;
-	flip = false;
-	state = EnemyState::SEARCHING;
-
 	Collider* colisor = new Collider(associated);
 	colisor->SetScale(Vec2(0.5,1));
 	associated->AddComponent(colisor);
@@ -113,8 +107,4 @@ void GroundEnemy::Land(){
 	if (sprite->GetTag() == "EnemyJump"){
 		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 	}
-}
-
-void GroundEnemy::Kill(){
-	associated->RequestDelete();
 }

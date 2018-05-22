@@ -68,7 +68,8 @@ void Protagonist::Update(float dt){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));	
 			}
 			state = PlayerState::NORMAL;
-			Soco.lock()->RequestDelete();
+			if(Soco.lock() != nullptr)
+				Soco.lock()->RequestDelete();
 		}
 		speed.y += 20*dt;
 	}
@@ -93,7 +94,7 @@ void Protagonist::Update(float dt){
 		if(input.KeyPress(SDLK_UP) && jumpCount < 1){
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 			jumpCount++;
-			speed.y = -600*dt;
+			speed.y = -450*dt;
 		}	
 		if(input.IsKeyDown(SDLK_LEFT)){
 			speed.x = -400*dt;
@@ -223,7 +224,7 @@ void Protagonist::Start(){
 	jump->SetEnabled(false);
 	associated->AddComponent(jump);
 
-	Sprite* punch = new Sprite(associated, PROTAGONIST_PUNCH_ANIMATION, 6, 0.07, 0);
+	Sprite* punch = new Sprite(associated, PROTAGONIST_PUNCH_ANIMATION, 6, 0.03, 0);
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);

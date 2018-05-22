@@ -2,12 +2,12 @@
 #define GAMEDATA
 
 #define STAGE1_BACKGROUND "assets/img/Background/6000x600.png"
-#define STAGE1_TILESET "assets/img/Background/tileset.png"
+#define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
 #define STAGE1_GROUND_ENEMY_IDLE_ANIMATION "assets/img/GroundEnemy1/Louva-God.png"
 #define STAGE1_GROUND_ENEMY_PUNCH_ANIMATION "assets/img/GroundEnemy1/Punch Louvagod_spritesheet.png"
 #define STAGE1_GROUND_ENEMY_JUMP_ANIMATION "assets/img/GroundEnemy1/JumpEnemy_spritesheet.png"
 #define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Grande Sapo.png"
-#define STAGE1_BOSS_BACKGROUND "assets/img/Background/chefao600.png"
+#define STAGE1_BOSS_BACKGROUND "assets/img/Background/Boss1.png"
 #define STAGE1_BACKGROUNDMUSIC "assets/audio/TemadaFloresta.ogg"
 
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"

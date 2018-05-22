@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "Rect.h"
 #include "Collider.h"
-#include "GroundEnemy.h"
+#include "Enemy.h"
 
 class Punch : public Component{
 	public:

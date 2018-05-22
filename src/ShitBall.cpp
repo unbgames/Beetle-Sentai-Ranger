@@ -35,4 +35,10 @@ bool ShitBall::Is(string type){
 int ShitBall::GetDamage(){
 	return(damage);
 }
-void ShitBall::NotifyCollision(GameObject* other){}
+void ShitBall::NotifyCollision(GameObject* other){
+	Enemy* base = (Enemy*) other->GetComponent("Enemy");
+	if (base != nullptr){
+		base->TakeDamage(1);
+		associated->RequestDelete();
+	}
+}

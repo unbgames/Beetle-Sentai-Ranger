@@ -6,6 +6,7 @@
 #include "Vec2.h"
 #include "Sprite.h"
 #include "Collider.h"
+#include "Enemy.h"
 
 class ShitBall : public Component{
 	public:
