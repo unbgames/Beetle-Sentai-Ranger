@@ -2,6 +2,8 @@
 
 Game* Game::instance = nullptr;
 
+Protagonist* GameData::Player = nullptr;
+
 Game* Game::GetInstance(){
 	if (instance == nullptr){
 		instance = new Game("Beetle Sentai Ranger", 1024, 600);
@@ -41,6 +43,12 @@ void Game::Run(){
 		//SDL_Log("%d", stateStack.size());
 
 		state = stateStack.top().get();
+		
+		input.Update();
+		state->Update(dt);
+		state->Render();
+		SDL_RenderPresent(renderer);
+
 		if(state->PopRequested()){
 			stateStack.pop();
 			
@@ -61,11 +69,6 @@ void Game::Run(){
 			state = stateStack.top().get();
 			state->Resume();
 		}
-		
-		input.Update();
-		state->Update(dt);
-		state->Render();
-		SDL_RenderPresent(renderer);
 
 		SDL_Delay(33);
 	}

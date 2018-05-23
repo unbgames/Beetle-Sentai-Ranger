@@ -50,7 +50,6 @@ bool State::QuitRequested(){
 }
 
 void State::StartArray(){
-	LoadAssets();
 	
 	for (int i = 0; i < ObjectArray.size(); ++i){
 		ObjectArray[i]->Start();
@@ -71,4 +70,8 @@ void State::RenderArray(){
 	for (int i = 0; i < ObjectArray.size(); ++i){
 		ObjectArray[i]->Render();
 	}
+}
+
+Rect State::GetLimit(){
+	return(limit);
 }
