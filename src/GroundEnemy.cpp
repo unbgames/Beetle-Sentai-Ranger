@@ -125,5 +125,8 @@ void GroundEnemy::Kill(){
 	Sprite* sprite = new Sprite(go, STAGE1_GROUND_ENEMY_DEATH_ANIMATION,12,0.1,1.2);
 	go->AddComponent(sprite);
 
-	GroundEnemy::nEnemy--;
+	if (GroundEnemy::nEnemy > 0)
+		GroundEnemy::nEnemy--;
+
+	SDL_Log("chegou aqui");
 }

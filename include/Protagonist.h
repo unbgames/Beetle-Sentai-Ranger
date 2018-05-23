@@ -26,7 +26,7 @@ class Protagonist : public Component{
 		void NotifyCollision(GameObject* other);
 		void SetSprite(Sprite* newSprite);
 		void ShootShit(float angle);
-		void ShootAcid(float angle);
+		void ShootAcid(double angle);
 		void Attack();
 		void Land();
 		void TakeDamage(int dmg);

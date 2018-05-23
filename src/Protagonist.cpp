@@ -31,7 +31,8 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	limit = state->GetLimit();
 
 	Collider* colisor = new Collider(associated);
-	colisor->SetScale(Vec2(0.5,1));
+	colisor->SetScale(Vec2(0.4,0.7));
+	colisor->SetOffset(Vec2(0,10));
 	associated->AddComponent(colisor);
 }
 
@@ -80,10 +81,10 @@ void Protagonist::Update(float dt){
 
 		if(input.KeyPress(SDLK_s)){
 			if (flip){
-				ShootAcid((4*PI)/6);
+				ShootAcid((8*PI)/6);
 			}
 			else{
-				ShootAcid((2*PI)/6);
+				ShootAcid((10*PI)/6);
 			}
 		}
 		if(input.KeyPress(SDLK_z)){
@@ -160,10 +161,10 @@ void Protagonist::Update(float dt){
 		}
 		if(input.KeyPress(SDLK_s)){
 			if (flip){
-				ShootAcid((4*PI)/6);
+				ShootAcid((8*PI)/6);
 			}
 			else{
-				ShootAcid((2*PI)/6);
+				ShootAcid((10*PI)/6);
 			}
 		}
 		if(input.KeyPress(SDLK_z)){
@@ -277,15 +278,22 @@ void Protagonist::ShootShit(float angle){
 	state->AddObject(go);
 }
 
-void Protagonist::ShootAcid(float angle){
+void Protagonist::ShootAcid(double angle){
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
 
 	GameObject* go = new GameObject();
-	go->Box.Centralize(associated->Box.GetCenter().x , associated->Box.GetCenter().y);
 	go->tag = "acid";
 
 	AcidSplash* acid = new AcidSplash(go, angle, 200.0, 1,PROTAGONIST_ACID_ANIMATION, 5);
+
+	
+	if (flip){
+		go->Box.Centralize(associated->Box.x, associated->Box.y);
+	}
+	else{
+		go->Box.Centralize(associated->Box.x + associated->Box.w , associated->Box.y);
+	}
 
 	go->AddComponent(acid);
 	state->AddObject(go);

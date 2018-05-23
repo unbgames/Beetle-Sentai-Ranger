@@ -18,6 +18,8 @@ class AcidSplash : public Component{
 		int GetDamage();
 		void NotifyCollision(GameObject* other);
 	private:
+		typedef enum AcidState {FLYING, STICKING};
+		AcidState state;
 		Vec2 speed;
 		int damage;
 		Timer timer;

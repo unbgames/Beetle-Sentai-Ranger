@@ -42,7 +42,7 @@ void BossStage1::LoadAssets(){
 	aux4->Box.x = 50;
 	aux4->Box.y = -2000;
 	
-	Frog* enemy = new Frog(aux4, 50);
+	Frog* enemy = new Frog(aux4, 5000);
 
 	aux4->AddComponent(enemy);
 
