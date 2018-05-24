@@ -107,8 +107,12 @@ void GroundEnemy::NotifyCollision(GameObject* other){
 		Vec2 aux = base->GetAssociated()->Box.GetCenter();
 		Vec2 aux2 = colisor->Box.GetCenter();
 
+		/*if ((colisor->Box.y + colisor->Box.h) >= base->GetAssociated()->Box.y && (colisor->Box.y + colisor->Box.h) <= (base->GetAssociated()->Box.y + (base->GetAssociated()->Box.h/2))){
+			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;*/
+
 		//Caso a plataforma esteja abaixo
 		if (aux.y > aux2.y){
+			SDL_Log("chegou aqui");
 			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;
 			Land();
 		}
@@ -125,7 +129,9 @@ void GroundEnemy::NotifyCollision(GameObject* other){
 
 		//Caso a plataforma esteja acima
 		else if (aux.y < aux2.y){
+			SDL_Log("chegou aqui4");
 			colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h;
+			speed.y = 0;
 		}
 	}
 }
