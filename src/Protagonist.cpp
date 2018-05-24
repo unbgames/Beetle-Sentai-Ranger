@@ -256,23 +256,28 @@ void Protagonist::NotifyCollision(GameObject* other){
 			Land();
 		}
 
-		//Caso a plataforma esteja a direita
-		else if (aux.x > aux2.x){
-			colisor->Box.x = base->GetAssociated()->Box.x - colisor->Box.w;
-		}
-
-		//Caso a plataforma esteja a esquerda
-		else if (aux.x < aux2.x){
-			colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w;
-		}
-
 		//Caso a plataforma esteja acima
 		else if (aux.y < aux2.y){
 			SDL_Log("chegou aqui4");
 			colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h;
 			speed.y = 0;
 		}
+		//Caso a plataforma esteja a direita
+		else if (aux.x > aux2.x){
+			SDL_Log("chegou aqui2");
+			colisor->Box.x = base->GetAssociated()->Box.x - colisor->Box.w;
+			speed.x = 0;
+		}
+		//Caso a plataforma esteja a esquerda
+		else if (aux.x < aux2.x){
+			SDL_Log("chegou aqui3");
+			colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w;
+			speed.x = 0;
+		}
 
+		
+
+		associated->Box.Centralize(colisor->Box.GetCenter());
 	}
 }
 
