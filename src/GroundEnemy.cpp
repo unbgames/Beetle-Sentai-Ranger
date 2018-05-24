@@ -3,9 +3,8 @@
 int GroundEnemy::nEnemy = 0;
 
 GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP){
-	Collider* colisor = new Collider(associated);
-	colisor->SetScale(Vec2(0.5,1));
-	associated->AddComponent(colisor);
+	colisor->SetScale(Vec2(0.3,0.7));
+	colisor->SetOffset(Vec2(0,15));
 }
 GroundEnemy::~GroundEnemy(){}
 
@@ -35,11 +34,11 @@ void GroundEnemy::Update(float dt){
 			move = 4;
 		}
 
-		/*if(move == 0 && jumpCount < 1){
+		if(move == 0 && jumpCount < 1){
 			SetSprite((Sprite*) associated->GetComponentByTag("EnemyJump"));
 			jumpCount++;
 			speed.y = -450*dt;
-		}*/
+		}
 
 		if(move == 1){
 			speed.x = -300*dt;
@@ -101,7 +100,35 @@ void GroundEnemy::Start(){
 	jump->SetEnabled(false);
 	associated->AddComponent(jump);
 }
-void GroundEnemy::NotifyCollision(GameObject* other){}
+void GroundEnemy::NotifyCollision(GameObject* other){
+	Platform* base = (Platform*) other->GetComponent("Platform");
+	if (base != nullptr){
+
+		Vec2 aux = base->GetAssociated()->Box.GetCenter();
+		Vec2 aux2 = colisor->Box.GetCenter();
+
+		//Caso a plataforma esteja abaixo
+		if (aux.y > aux2.y){
+			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;
+			Land();
+		}
+
+		//Caso a plataforma esteja a direita
+		else if (aux.x > aux2.x){
+			colisor->Box.x = base->GetAssociated()->Box.x - colisor->Box.w;
+		}
+
+		//Caso a plataforma esteja a esquerda
+		else if (aux.x < aux2.x){
+			colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w;
+		}
+
+		//Caso a plataforma esteja acima
+		else if (aux.y < aux2.y){
+			colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h;
+		}
+	}
+}
 
 void GroundEnemy::Attack(){
 	speed.x = 0;

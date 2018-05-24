@@ -112,7 +112,7 @@ void Stage1::Update(float dt){
 			Collider* colisorJ = (Collider*) ObjectArray[j]->GetComponent("Collider");
 
 			if ((i != j) && (colisorI != nullptr) && (colisorJ != nullptr)){
-				if(Collision::IsColliding(colisorI->box, colisorJ->box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
+				if(Collision::IsColliding(colisorI->Box, colisorJ->Box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
 
 
 					ObjectArray[i]->NotifyCollision(ObjectArray[j].get());

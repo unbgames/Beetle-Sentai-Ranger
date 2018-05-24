@@ -11,7 +11,7 @@ class Collider : public Component{
 	public:
 		Collider(GameObject* associated, Vec2 scale = Vec2(1,1), Vec2 offset = Vec2(0,0));
 		~Collider();
-		Rect box;
+		Rect Box;
 		void Update(float dt);
 		void Render();
 		bool Is(string type);
