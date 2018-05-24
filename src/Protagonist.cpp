@@ -32,7 +32,7 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 
 	Collider* colisor = new Collider(associated);
 	colisor->SetScale(Vec2(0.4,0.7));
-	colisor->SetOffset(Vec2(0,10));
+	colisor->SetOffset(Vec2(0,15));
 	associated->AddComponent(colisor);
 }
 
@@ -287,13 +287,7 @@ void Protagonist::ShootAcid(double angle){
 
 	AcidSplash* acid = new AcidSplash(go, angle, 200.0, 1,PROTAGONIST_ACID_ANIMATION, 5);
 
-	
-	if (flip){
-		go->Box.Centralize(associated->Box.x, associated->Box.y);
-	}
-	else{
-		go->Box.Centralize(associated->Box.x + associated->Box.w , associated->Box.y);
-	}
+	go->Box.Centralize(associated->Box.x + associated->Box.w/2 , associated->Box.y + associated->Box.h/4);
 
 	go->AddComponent(acid);
 	state->AddObject(go);

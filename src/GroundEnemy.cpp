@@ -18,13 +18,16 @@ void GroundEnemy::Update(float dt){
 				SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));	
 			}
 			state = EnemyState::SEARCHING;
+			if(Soco.lock() != nullptr)
+				Soco.lock()->RequestDelete();
 		}
-		speed.y += 20*dt;
 	}
 
 	if (state == EnemyState::SEARCHING){
 
 		int move = rand()%4;
+
+
 
 		InputManager& input = InputManager::GetInstance();
 
@@ -32,19 +35,19 @@ void GroundEnemy::Update(float dt){
 			move = 4;
 		}
 
-		if(move == 0 && jumpCount < 1){
+		/*if(move == 0 && jumpCount < 1){
 			SetSprite((Sprite*) associated->GetComponentByTag("EnemyJump"));
 			jumpCount++;
-			speed.y = -600*dt;
-		}
+			speed.y = -450*dt;
+		}*/
 
 		if(move == 1){
-			speed.x = -400*dt;
+			speed.x = -300*dt;
 			flip = true;
 			sprite->SetFlip(flip);
 		}
 		if(move == 2){
-			speed.x = 400*dt;
+			speed.x = 300*dt;
 			flip = false;
 			sprite->SetFlip(flip);
 		}
@@ -52,6 +55,10 @@ void GroundEnemy::Update(float dt){
 			Attack();
 		}
 	}
+
+	/*
+	*
+	*/
 	speed.y += 20*dt;
 
 	associated->Box.x += speed.x;
@@ -101,6 +108,26 @@ void GroundEnemy::Attack(){
 	state = EnemyState::ATTACKING;
 	SetSprite((Sprite*) associated->GetComponentByTag("EnemyPunch"));
 	sprite->SetFrame(0);
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	go->Box.w = 15;
+	go->Box.h = 70;
+	if (flip){
+		go->Box.Centralize(associated->Box.GetCenter().x- 45, associated->Box.GetCenter().y+10);
+
+	}
+	else{
+		go->Box.Centralize(associated->Box.GetCenter().x+ 45, associated->Box.GetCenter().y+5);
+
+	}
+	
+	Punch* punch = new Punch(go,2, true);
+
+	go->AddComponent(punch);
+	Soco = state->AddObject(go);
 }
 void GroundEnemy::Land(){
 	speed.y = 0;
@@ -127,6 +154,4 @@ void GroundEnemy::Kill(){
 
 	if (GroundEnemy::nEnemy > 0)
 		GroundEnemy::nEnemy--;
-
-	SDL_Log("chegou aqui");
 }
