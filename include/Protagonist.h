@@ -9,6 +9,7 @@
 #include "Collider.h"
 #include "Timer.h"
 #include "Platform.h"
+#include "Column.h"
 #include "State.h"
 #include "HealthBar.h"
 #include "Punch.h"

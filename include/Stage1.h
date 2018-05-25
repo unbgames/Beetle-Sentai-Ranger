@@ -9,6 +9,7 @@
 #include "Music.h"
 #include "TileSet.h"
 #include "Platform.h"
+#include "Column.h"
 #include "GroundEnemy.h"
 #include "Collision.h"
 #include "BossStage1.h"
@@ -30,7 +31,7 @@ class Stage1 : public State{
 
     private:
         Music backgroundMusic;
-        int TotalEnemy;	
+        int TotalEnemy;
 };
 
 #endif

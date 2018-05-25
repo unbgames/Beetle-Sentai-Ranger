@@ -13,6 +13,7 @@
 #define STAGE1_BACKGROUNDMUSIC "assets/audio/TemadaFloresta.ogg"
 
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"
+#define COLUMN_TYPE1 "assets/map/Column.txt"
 
 #define PROTAGONIST_IDLE_ANIMATION "assets/img/Beetle/Fightpose.png"
 #define PROTAGONIST_RUN_ANIMATION "assets/img/Beetle/Run_sprite_.png"
@@ -32,6 +33,6 @@ class GameData{
 		~GameData();
 		static bool playerVictory;
 		static Protagonist* Player;
-		
+
 };
 #endif
