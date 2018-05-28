@@ -248,36 +248,44 @@ void Protagonist::NotifyCollision(GameObject* other){
 
 		/*if ((colisor->Box.y + colisor->Box.h) >= base->GetAssociated()->Box.y && (colisor->Box.y + colisor->Box.h) <= (base->GetAssociated()->Box.y + (base->GetAssociated()->Box.h/2))){
 			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;*/
-
+		
 		//Caso a plataforma esteja abaixo
-		if (aux.y > aux2.y){
-			SDL_Log("chegou aqui");
+		if (aux.y > aux2.y && colisor->Box.x + colisor->Box.w > base->GetAssociated()->Box.x && colisor->Box.x < base->GetAssociated()->Box.x + base->GetAssociated()->Box.w){
+			//SDL_Log("chegou aqui");
+			SDL_Log("%f",associated->Box.y);
+			
 			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;
+			associated->Box.y -= 2*speed.y;
 			Land();
 		}
-
 		//Caso a plataforma esteja acima
-		else if (aux.y < aux2.y){
-			SDL_Log("chegou aqui4");
+		else if (aux.y < aux2.y && colisor->Box.x + colisor->Box.w > base->GetAssociated()->Box.x && colisor->Box.x < base->GetAssociated()->Box.x + base->GetAssociated()->Box.w){
+			SDL_Log("chegou aqui2");
+			associated->Box.y -= 2*speed.y;
 			colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h;
 			speed.y = 0;
 		}
+		
 		//Caso a plataforma esteja a direita
-		else if (aux.x > aux2.x){
-			SDL_Log("chegou aqui2");
-			colisor->Box.x = base->GetAssociated()->Box.x - colisor->Box.w;
+		else if (aux.x > aux2.x && colisor->Box.x + colisor->Box.w >= base->GetAssociated()->Box.x) {
+			SDL_Log("chegou aqui3");
+			//colisor->Box.x = base->GetAssociated()->Box.x - colisor->Box.w;
+			associated->Box.x -= 2*speed.x;
 			speed.x = 0;
 		}
 		//Caso a plataforma esteja a esquerda
 		else if (aux.x < aux2.x){
-			SDL_Log("chegou aqui3");
-			colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w;
+			SDL_Log("chegou aqui4");
+			associated->Box.x -= 2*speed.x;
+			//colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w;
 			speed.x = 0;
 		}
 
 		
 
-		associated->Box.Centralize(colisor->Box.GetCenter());
+		
+
+		//associated->Box.Centralize(colisor->Box.GetCenter());
 	}
 }
 
@@ -345,6 +353,11 @@ void Protagonist::Attack(){
 	Punch* punch = new Punch(go,2);
 
 	go->AddComponent(punch);
+
+	Sound* sound = new Sound(go, PROTAGONIST_PUNCH_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
+	
 	Soco = state->AddObject(go);
 }
 

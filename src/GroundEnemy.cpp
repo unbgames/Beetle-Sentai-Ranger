@@ -160,6 +160,11 @@ void GroundEnemy::Attack(){
 	Punch* punch = new Punch(go,2, true);
 
 	go->AddComponent(punch);
+
+	Sound* sound = new Sound(go, STAGE1_GROUND_ENEMY_ATTACK_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
+
 	Soco = state->AddObject(go);
 }
 void GroundEnemy::Land(){
@@ -173,6 +178,10 @@ void GroundEnemy::Land(){
 
 void GroundEnemy::Kill(){
 	associated->RequestDelete();
+
+	if (Soco.lock() != nullptr){
+		Soco.lock()->RequestDelete();
+	}
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();

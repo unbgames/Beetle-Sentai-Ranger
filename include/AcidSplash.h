@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "Collider.h"
 #include "Enemy.h"
+#include "Sound.h"
 
 class AcidSplash : public Component{
 	public:

@@ -48,6 +48,10 @@ void AcidSplash::NotifyCollision(GameObject* other){
 			speed.x = 0;
 			speed.y = 0;
 			state = AcidSplash::STICKING;
+
+			Sound* sound = new Sound(associated, PROTAGONIST_ACID_SOUND);
+			sound->Play(1);
+			associated->AddComponent(sound);
 		}
 		if (state == AcidSplash::STICKING){
 			float aux = associated->Box.y;
