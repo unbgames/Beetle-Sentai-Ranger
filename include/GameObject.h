@@ -24,6 +24,7 @@ class GameObject{
 		void Start();
 		void NotifyCollision(GameObject* other);
 		Component* GetComponent(string type);
+		Component* GetComponentByTag(string tag);
 		Rect Box;
 		double angleDeg = 0.0;
 		string tag;

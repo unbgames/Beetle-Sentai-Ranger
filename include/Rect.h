@@ -16,6 +16,7 @@ class Rect{
 		void Centralize(Vec2 vec);
 		bool Contains(float X, float Y);
 		Vec2 GetCenter();
+		Rect operator=(Rect rec);
 };
 
 #endif

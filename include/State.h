@@ -8,6 +8,8 @@
 #include <memory>
 #include <stack>
 #include "GameObject.h"
+#include "GameData.h"
+#include "Game.h"
 
 
 using namespace std;
@@ -31,6 +33,7 @@ class State{
 
 		bool PopRequested();
 		bool QuitRequested();
+		Rect GetLimit();
 
 	protected:
 		void StartArray();
@@ -41,6 +44,7 @@ class State{
 		bool quitRequested;
 		bool started;
 		vector<shared_ptr<GameObject>> ObjectArray;
+		Rect limit;
 
 };
 

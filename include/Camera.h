@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Vec2.h"
 #include "InputManager.h"
+#include "State.h"
 
 class Camera{
 	public:

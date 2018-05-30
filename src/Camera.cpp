@@ -16,27 +16,21 @@ void Camera::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+	Rect limit = state->GetLimit();
+
 	speed.x = 0;
 	speed.y = 0;
 
-	dt = dt*50;
 
 	if (focus != nullptr){
-		pos = Vec2(512, 300) - focus->Box.GetCenter();
-	}
-	else{
-		if(input.IsKeyDown(SDLK_LEFT))
-			speed.x += dt;
-		
-		if(input.IsKeyDown(SDLK_RIGHT))
-			speed.x -= dt;
-		
-		if(input.IsKeyDown(SDLK_UP))
-			speed.y += dt;
-		
-		if(input.IsKeyDown(SDLK_DOWN))
-			speed.y -= dt;
-		
-		pos = pos + speed;
+		pos = Vec2(focus->Box.x-512, 0);
+		if (pos.x < limit.x){
+			pos.x = limit.x;
+		}
+		if (pos.x > limit.x+limit.w - 1024){
+			pos.x = limit.x+limit.w - 1024;
+		}
 	}
 }

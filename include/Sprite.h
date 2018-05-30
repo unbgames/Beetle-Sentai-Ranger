@@ -4,6 +4,7 @@
 #define INCLUDE_SDL
 #define INCLUDE_SDL_IMAGE
 #define INCLUDE_SDL_MIXER
+#include "Component.h"
 #include "SDL_include.h"
 #include <string>
 #include "Sound.h"
@@ -35,6 +36,7 @@ class Sprite : public Component{
         void SetFrameCount(int frameCount);
         void SetFrameTime(float frameTime);
         void SetFlip(bool Flip);
+        bool IsAnimationOver();
 
     private:
         SDL_Texture* texture;

@@ -46,8 +46,8 @@ void Sprite::Render(){
 
 	Game* game = Game::GetInstance();
 	SDL_Rect dstrect;
-	dstrect.x = associated->Box.x + Camera::pos.x;
-	dstrect.y = associated->Box.y + Camera::pos.y;
+	dstrect.x = associated->Box.x - Camera::pos.x;
+	dstrect.y = associated->Box.y - Camera::pos.y;
 	dstrect.w = ClipRect.w*scale.x;
 	dstrect.h = ClipRect.h*scale.y;
 	angle = associated->angleDeg;
@@ -71,8 +71,8 @@ void Sprite::Render(int x, int y){
 	SDL_Rect dstrect;
 	dstrect.x = x;
 	dstrect.y = y;
-	dstrect.w = ClipRect.w;
-	dstrect.h = ClipRect.h;
+	dstrect.w = ClipRect.w*scale.x;
+	dstrect.h = ClipRect.h*scale.y;
 
 	SDL_RenderCopy(game->GetRenderer(), texture, &ClipRect, &dstrect);
 }
@@ -81,6 +81,7 @@ void Sprite::Update(float dt){
 	selfDestructCount.Update(dt);
 	timeElapsed +=dt;
 	currentFrame = ((int)floor(timeElapsed/frameTime))%frameCount;
+	//SDL_Log("TE:%f FT:%f FC:%f", timeElapsed, frameTime, frameCount);
 	SetClip((currentFrame*GetWidth()) , 0, width, height);
 
 	if (secondsToSelfDestruct > 0){
@@ -141,4 +142,11 @@ void Sprite::SetFrameTime(float frameTime){
 
 void Sprite::SetFlip(bool Flip){
 	flip = Flip;
+}
+
+bool Sprite::IsAnimationOver(){
+	if (currentFrame == frameCount-1){
+		return(true);
+	}
+	return(false);
 }

@@ -20,19 +20,22 @@ void GameObject::Start(){
 
 void GameObject::Update(float dt){
 	for (int i = 0; i < components.size(); ++i){
-		components[i]->Update(dt);
+		if (components[i]->IsEnabled())
+				components[i]->Update(dt);
 	}
 }
 
 void GameObject::Render(){
 	for (int i = 0; i < components.size(); ++i){
-		components[i]->Render();
+		if (components[i]->IsEnabled())
+			components[i]->Render();
 	}
 }
 
 void GameObject::NotifyCollision(GameObject* other){
 	for (int i = 0; i < components.size(); ++i){
-		components[i]->NotifyCollision(other);
+		if (components[i]->IsEnabled())
+			components[i]->NotifyCollision(other);
 	}
 }
 
@@ -61,6 +64,14 @@ void GameObject::RemoveComponent(Component* cpt){
 Component* GameObject::GetComponent(string type){
 	for (int i = 0; i < components.size(); ++i){
 		if(components[i]->Is(type))
+			return(components[i]);
+	}
+	return(nullptr);
+}
+
+Component* GameObject::GetComponentByTag(string tag){
+	for (int i = 0; i < components.size(); ++i){
+		if(components[i]->GetTag() == tag)
 			return(components[i]);
 	}
 	return(nullptr);

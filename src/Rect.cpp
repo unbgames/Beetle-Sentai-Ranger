@@ -1,6 +1,11 @@
 #include "Rect.h"
 
-Rect::Rect(){}
+Rect::Rect(){
+	x = 0;
+	y = 0;
+	w = 0;
+	h = 0;
+}
 Rect::Rect(float X, float Y, float W, float H){
 	x = X;
 	y = Y;
@@ -22,4 +27,12 @@ void Rect::Centralize(Vec2 vec){
 }
 Vec2 Rect::GetCenter(){
 	return(Vec2((x + w/2),(y + h/2)));
+}
+
+Rect Rect::operator=(Rect rec){
+	x = rec.x;
+	y = rec.y;
+	w = rec.w;
+	h = rec.h;
+	return(*this);
 }

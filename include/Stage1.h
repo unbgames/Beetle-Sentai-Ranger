@@ -7,10 +7,15 @@
 #include "Camera.h"
 #include "CameraFollower.h"
 #include "Music.h"
+#include "TileSet.h"
+#include "Platform.h"
+#include "GroundEnemy.h"
+#include "Collision.h"
+#include "BossStage1.h"
 
 class Stage1 : public State{
 	public:
-		Stage1();
+		Stage1(int nEnemy);
 		~Stage1();
 
 		void LoadAssets();
@@ -21,9 +26,12 @@ class Stage1 : public State{
         void Pause();
         void Resume();
 
+        void SpawnEnemy();
+
     private:
-        Music backgroundMusic;
-	
+        Music backgroundIntro;
+        Music backgroundLoop;
+        int TotalEnemy;	
 };
 
 #endif
