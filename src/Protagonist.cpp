@@ -25,7 +25,7 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 }
 
 void Protagonist::SetSprite(Sprite* newSprite){
-	
+
 	if (sprite != nullptr){
 		sprite->SetEnabled(false);
 	}
@@ -49,12 +49,12 @@ void Protagonist::Update(float dt){
 	if(input.KeyPress(SDLK_w)){
 		TakeDamage(1);
 	}
-	
+
 
 	if (state == PlayerState::PUNCHING){
 		if (sprite->IsAnimationOver()){
 			if (sprite->GetTag() != "ProtagJump"){
-				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));	
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
 			}
 			state = PlayerState::NORMAL;
 			if(Soco.lock() != nullptr)
@@ -64,7 +64,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::NORMAL){
-	
+
 		speed.x = 0;
 
 		if(input.KeyPress(SDLK_s)){
@@ -92,7 +92,7 @@ void Protagonist::Update(float dt){
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 			jumpCount++;
 			speed.y = -450*dt;
-		}	
+		}
 		if(input.IsKeyDown(SDLK_LEFT)){
 			speed.x = -400*dt;
 			flip = true;
@@ -166,7 +166,7 @@ void Protagonist::Update(float dt){
 
 		if(input.IsKeyDown(SDLK_UP)){
 			speed.y = -400*dt;
-		}	
+		}
 		if(input.IsKeyDown(SDLK_DOWN)){
 			speed.y = 400*dt;
 		}
@@ -204,7 +204,7 @@ void Protagonist::Update(float dt){
 		speed.y = 0;
 		associated->Box.y = limit.y;
 	}
-	
+
 
 	//Camera::pos.x = associated->Box.x+512;
 }
@@ -248,12 +248,12 @@ void Protagonist::NotifyCollision(GameObject* other){
 
 		/*if ((colisor->Box.y + colisor->Box.h) >= base->GetAssociated()->Box.y && (colisor->Box.y + colisor->Box.h) <= (base->GetAssociated()->Box.y + (base->GetAssociated()->Box.h/2))){
 			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;*/
-		
+
 		//Caso a plataforma esteja abaixo
 		if (aux.y > aux2.y && colisor->Box.x + colisor->Box.w > base->GetAssociated()->Box.x && colisor->Box.x < base->GetAssociated()->Box.x + base->GetAssociated()->Box.w){
 			//SDL_Log("chegou aqui");
 			SDL_Log("%f",associated->Box.y);
-			
+
 			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;
 			associated->Box.y -= 2*speed.y;
 			Land();
@@ -265,7 +265,7 @@ void Protagonist::NotifyCollision(GameObject* other){
 			colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h;
 			speed.y = 0;
 		}
-		
+
 		//Caso a plataforma esteja a direita
 		else if (aux.x > aux2.x && colisor->Box.x + colisor->Box.w >= base->GetAssociated()->Box.x) {
 			SDL_Log("chegou aqui3");
@@ -281,12 +281,44 @@ void Protagonist::NotifyCollision(GameObject* other){
 			speed.x = 0;
 		}
 
-		
 
-		
+
+
 
 		//associated->Box.Centralize(colisor->Box.GetCenter());
 	}
+
+	Column* coluna = (Column*) other->GetComponent("Column");
+	if(coluna != nullptr)
+	{
+		//std::cout << "flip = " << flip << std::endl;
+		if((other->Box.x) < (associated->Box.x + associated->Box.w)
+		&& !flip
+		&& !((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))))
+		{
+			associated->Box.x = other->Box.x + other->Box.w - associated->Box.w;
+			speed.x = 0;
+			speed.y = 0;
+			SDL_Log("Colisão pela esquerda!");
+		}
+
+		if((other->Box.x + other->Box.w) > associated->Box.x
+		&& flip
+		&& !((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))))
+		{
+			associated->Box.x = other->Box.x;
+			speed.x = 0;
+			speed.y = 0;
+			SDL_Log("Colisão pela direita!");
+		}
+
+		if ((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))){
+			associated->Box.y = other->Box.y - associated->Box.h;
+			speed.y = 0;
+			Land();
+		}
+	}
+
 }
 
 //espera angulo em radianos
@@ -349,7 +381,7 @@ void Protagonist::Attack(){
 		go->Box.Centralize(associated->Box.GetCenter().x+ 50, associated->Box.GetCenter().y+5);
 
 	}
-	
+
 	Punch* punch = new Punch(go,2);
 
 	go->AddComponent(punch);
@@ -357,7 +389,7 @@ void Protagonist::Attack(){
 	Sound* sound = new Sound(go, PROTAGONIST_PUNCH_SOUND);
 	sound->Play(1);
 	go->AddComponent(sound);
-	
+
 	Soco = state->AddObject(go);
 }
 
