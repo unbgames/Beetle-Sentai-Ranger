@@ -29,7 +29,8 @@ class Stage1 : public State{
         void SpawnEnemy();
 
     private:
-        Music backgroundMusic;
+        Music backgroundIntro;
+        Music backgroundLoop;
         int TotalEnemy;	
 };
 

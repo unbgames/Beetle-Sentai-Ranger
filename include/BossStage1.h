@@ -27,7 +27,8 @@ class BossStage1 : public State{
         void Resume();
 
     private:
-        Music backgroundMusic;
+        Music backgroundIntro;
+        Music backgroundLoop;
         Vec2 PlayerPos;
 };
 

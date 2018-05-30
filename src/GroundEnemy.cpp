@@ -24,11 +24,35 @@ void GroundEnemy::Update(float dt){
 
 	if (state == EnemyState::SEARCHING){
 
-		int move = rand()%4;
-
-
+		int move = 0;
 
 		InputManager& input = InputManager::GetInstance();
+
+		Vec2 centro = associated->Box.GetCenter();
+
+		if(GameData::Player == nullptr)
+			return;
+
+		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
+
+		if (centroPlayer.x > centro.x){
+			//andar para a direita
+			move = 2;
+		}
+		else{
+			//andar para a esquerda
+			move = 1;
+		}
+
+		if (centroPlayer.Distance(centro) < 60){
+			//atacar
+			move = 3;
+		}
+
+		if (PathBlocked){
+			//pular
+			move = 0;
+		}
 
 		if(input.IsKeyDown(SDLK_q)){
 			move = 4;
@@ -55,6 +79,7 @@ void GroundEnemy::Update(float dt){
 		}
 	}
 
+	PathBlocked = false;
 	/*
 	*
 	*/
@@ -103,6 +128,7 @@ void GroundEnemy::Start(){
 void GroundEnemy::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
 	if (base != nullptr){
+		PathBlocked = true;
 
 		Vec2 aux = base->GetAssociated()->Box.GetCenter();
 		Vec2 aux2 = colisor->Box.GetCenter();

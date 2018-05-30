@@ -19,9 +19,10 @@ class Music{
         void Stop(int msToStop = 1500);
         void Open(string file);
         bool IsOpen();
+        bool IsPlaying();
 
     private:
-        Mix_Music* music;
+        Mix_Music* music = nullptr;
 };
 
 #endif

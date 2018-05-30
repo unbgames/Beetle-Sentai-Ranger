@@ -383,4 +383,8 @@ void Protagonist::Die(){
 
 	Sprite* sprite = new Sprite(go, PROTAGONIST_DEATH_ANIMATION,14,0.1,1.4);
 	go->AddComponent(sprite);
+
+	Sound* sound = new Sound(go, PROTAGONIST_DEATH_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
 }

@@ -4,11 +4,15 @@ BossStage1::BossStage1(float x, float y){
 	quitRequested = false;
 	popRequested = false;
 
+	backgroundIntro.Open(STAGE1_BOSS_BACKGROUNDMUSIC_INTRO);	
+	backgroundLoop.Open(STAGE1_BOSS_BACKGROUNDMUSIC_LOOP);	
+	backgroundIntro.Play(1);
+
 	PlayerPos.x = x;
 	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
-	backgroundMusic.Stop();
+	backgroundIntro.Stop();
 	ObjectArray.clear();
 }
 
@@ -49,6 +53,11 @@ void BossStage1::LoadAssets(){
 	ObjectArray.emplace_back(aux4);
 }
 void BossStage1::Update(float dt){
+
+	if (!backgroundIntro.IsPlaying()){
+		backgroundIntro.Stop(0);
+		backgroundLoop.Play(-1);
+	}
 
 	InputManager& input = InputManager::GetInstance();
 	
