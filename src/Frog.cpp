@@ -3,10 +3,8 @@
 Frog::Frog(GameObject* associated, int HP) : Enemy(associated, HP){
 	SearchTimer.Restart();
 
-	Collider* colisor = new Collider(associated);
 	colisor->SetScale(Vec2(0.7,0.8));
 	colisor->SetOffset(Vec2(-10,20));
-	associated->AddComponent(colisor);
 }
 Frog::~Frog(){}
 

@@ -29,5 +29,8 @@ bool Music::IsOpen(){
         return(false);
     else
         return(true);
-    
+}
+
+bool Music::IsPlaying(){
+    return(Mix_PlayingMusic());
 }

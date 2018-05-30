@@ -3,13 +3,15 @@
 Stage1::Stage1(int nEnemy) : State(){
 	quitRequested = false;
 	popRequested = false;
-	backgroundMusic.Open(STAGE1_BACKGROUNDMUSIC);
-	backgroundMusic.Play(-1);
+
+	backgroundIntro.Open(STAGE1_BACKGROUNDMUSIC_INTRO);
+	backgroundLoop.Open(STAGE1_BACKGROUNDMUSIC_LOOP);
+	backgroundIntro.Play(1);
 
 	TotalEnemy = nEnemy;
 }
 Stage1::~Stage1(){
-	backgroundMusic.Stop();
+	backgroundLoop.Stop();
 	ObjectArray.clear();
 }
 
@@ -81,9 +83,13 @@ void Stage1::LoadAssets(){
 	Camera::Follow(aux2);
 
 	ObjectArray.emplace_back(aux2);
-
 }
 void Stage1::Update(float dt){
+
+	if (!backgroundIntro.IsPlaying()){
+		backgroundIntro.Stop(0);
+		backgroundLoop.Play(-1);
+	}
 
 	InputManager& input = InputManager::GetInstance();
 
@@ -125,7 +131,7 @@ void Stage1::Update(float dt){
 			Collider* colisorJ = (Collider*) ObjectArray[j]->GetComponent("Collider");
 
 			if ((i != j) && (colisorI != nullptr) && (colisorJ != nullptr)){
-				if(Collision::IsColliding(colisorI->box, colisorJ->box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
+				if(Collision::IsColliding(colisorI->Box, colisorJ->Box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
 
 
 					ObjectArray[i]->NotifyCollision(ObjectArray[j].get());
@@ -136,10 +142,9 @@ void Stage1::Update(float dt){
 	}
 
 
-	SDL_Log("obj: %d", ObjectArray.size());
-	SDL_Log("enemy: %d", GroundEnemy::nEnemy);
+	//SDL_Log("obj: %d", ObjectArray.size());
+	//SDL_Log("enemy: %d", GroundEnemy::nEnemy);
 }
-
 void Stage1::Render(){
 	RenderArray();
 }
@@ -154,11 +159,13 @@ void Stage1::Resume(){}
 void Stage1::SpawnEnemy(){
 	GameObject* obj = new GameObject();
 
-	obj->Box.x = GameData::Player->GetAssociated()->Box.x+600;
+	int offset = 600 + rand()%1500;
+
+	obj->Box.x = GameData::Player->GetAssociated()->Box.x+offset;
 	obj->Box.y = 500;
 
 	if (obj->Box.x >= limit.x+limit.w-1024){
-		obj->Box.x = GameData::Player->GetAssociated()->Box.x-600;
+		obj->Box.x = GameData::Player->GetAssociated()->Box.x-offset;
 	}
 
 	GroundEnemy* enemy = new GroundEnemy(obj, 5);

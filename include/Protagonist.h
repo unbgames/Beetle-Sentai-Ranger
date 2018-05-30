@@ -17,7 +17,6 @@
 
 class Protagonist : public Component{
 	public:
-		Protagonist(GameObject* associated, string file, int frameCount, float frameTime);
 		Protagonist(GameObject* associated);
 		~Protagonist();
 		void Update(float dt);
@@ -45,6 +44,7 @@ class Protagonist : public Component{
 		Rect limit;
 		HealthBar* HPBar;
 		weak_ptr<GameObject> Soco;
+		Collider* colisor = nullptr;
 };
 
 #endif

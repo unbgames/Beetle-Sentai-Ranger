@@ -6,6 +6,9 @@ Enemy::Enemy(GameObject* associated, int HP) : Component(associated){
 	hp = HP;
 	flip = false;
 	state = EnemyState::SEARCHING;
+
+	colisor = new Collider(associated);
+	associated->AddComponent(colisor);
 }
 Enemy::~Enemy(){}
 void Enemy::Update(float dt){}

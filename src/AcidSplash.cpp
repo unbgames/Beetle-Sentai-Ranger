@@ -22,6 +22,7 @@ AcidSplash::~AcidSplash(){}
 void AcidSplash::Update(float dt){
 	
 
+
 	associated->Box.x += speed.x*dt;
 	associated->Box.y += speed.y*dt;
 
@@ -41,11 +42,16 @@ void AcidSplash::NotifyCollision(GameObject* other){
 	Enemy* base = (Enemy*) other->GetComponent("Enemy");
 	if (base != nullptr){
 		if (state == AcidSplash::FLYING){
+			associated->angleDeg = 0;
 			base->TakeDamage(damage);
 			associated->Box.Centralize(base->GetAssociated()->Box.GetCenter());
 			speed.x = 0;
 			speed.y = 0;
 			state = AcidSplash::STICKING;
+
+			Sound* sound = new Sound(associated, PROTAGONIST_ACID_SOUND);
+			sound->Play(1);
+			associated->AddComponent(sound);
 		}
 		if (state == AcidSplash::STICKING){
 			float aux = associated->Box.y;

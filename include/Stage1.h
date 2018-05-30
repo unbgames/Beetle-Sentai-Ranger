@@ -9,7 +9,6 @@
 #include "Music.h"
 #include "TileSet.h"
 #include "Platform.h"
-#include "Column.h"
 #include "GroundEnemy.h"
 #include "Collision.h"
 #include "BossStage1.h"
@@ -30,8 +29,9 @@ class Stage1 : public State{
         void SpawnEnemy();
 
     private:
-        Music backgroundMusic;
-        int TotalEnemy;
+        Music backgroundIntro;
+        Music backgroundLoop;
+        int TotalEnemy;	
 };
 
 #endif

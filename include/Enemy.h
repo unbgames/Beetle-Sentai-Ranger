@@ -32,6 +32,7 @@ class Enemy : public Component{
 		Sprite* sprite = nullptr;
 		int jumpCount = 0;
 		bool flip;
+		Collider* colisor = nullptr;
 };
 
 #endif

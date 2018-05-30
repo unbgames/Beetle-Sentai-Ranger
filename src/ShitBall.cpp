@@ -9,11 +9,17 @@ ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage
 	associated->AddComponent(novo);
 
 	this->damage = damage;
-	this->speed.x = speed*cos(angle);
+	this->speed.x = speed*cos(angle)/2;
 	this->speed.y = 0;
 
 	Collider* colisor = new Collider(associated);
+	colisor->SetScale(Vec2(0.4,0.37));
+	colisor->SetOffset(Vec2(13,0));
 	associated->AddComponent(colisor);
+
+	Sound* sound = new Sound(associated, PROTAGONIST_SHIT_SOUND);
+	sound->Play(1);
+	associated->AddComponent(sound);
 }
 ShitBall::~ShitBall(){}
 void ShitBall::Update(float dt){
