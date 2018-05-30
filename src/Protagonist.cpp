@@ -1,4 +1,5 @@
 #include "Protagonist.h"
+#include <iostream>
 
 Protagonist::Protagonist(GameObject* associated, string file, int frameCount, float frameTime) : Component(associated){
 	speed.x = 0;
@@ -263,19 +264,22 @@ void Protagonist::NotifyCollision(GameObject* other){
 	Column* coluna = (Column*) other->GetComponent("Column");
 	if(coluna != nullptr)
 	{
-		if((other->Box.x - other->Box.w) < associated->Box.x
+		//std::cout << "flip = " << flip << std::endl;
+		if((other->Box.x) < (associated->Box.x + associated->Box.w)
+		&& !flip
 		&& !((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))))
 		{
-			associated->Box.x = other->Box.x - other->Box.w - associated->Box.w;
+			associated->Box.x = other->Box.x + other->Box.w - associated->Box.w;
 			speed.x = 0;
 			speed.y = 0;
 			SDL_Log("Colisão pela esquerda!");
 		}
 
 		if((other->Box.x + other->Box.w) > associated->Box.x
+		&& flip
 		&& !((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))))
 		{
-			associated->Box.x = other->Box.x + other->Box.w - associated->Box.w;
+			associated->Box.x = other->Box.x;
 			speed.x = 0;
 			speed.y = 0;
 			SDL_Log("Colisão pela direita!");

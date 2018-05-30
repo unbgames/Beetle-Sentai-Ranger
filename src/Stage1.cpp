@@ -139,6 +139,7 @@ void Stage1::Update(float dt){
 	SDL_Log("obj: %d", ObjectArray.size());
 	SDL_Log("enemy: %d", GroundEnemy::nEnemy);
 }
+
 void Stage1::Render(){
 	RenderArray();
 }
