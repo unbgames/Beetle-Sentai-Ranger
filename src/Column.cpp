@@ -1,4 +1,5 @@
 #include "Column.h"
+#include <iostream>
 
 Column::Column(GameObject* associated, string file, TileSet* tileSet) : Component(associated){
 	this->tileSet = tileSet;

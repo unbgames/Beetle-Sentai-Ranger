@@ -1,16 +1,21 @@
-bin/CameraFollower.o: src/CameraFollower.cpp include/CameraFollower.h \
- include/Component.h include/SDL_include.h include/Camera.h \
- include/GameObject.h include/Rect.h include/Vec2.h \
- include/InputManager.h include/State.h include/GameData.h include/Game.h \
- include/Resources.h
+bin/Column.o: src/Column.cpp include/Column.h include/TileSet.h \
+ include/Sprite.h include/Component.h include/SDL_include.h \
+ include/Sound.h include/GameObject.h include/Rect.h include/Vec2.h \
+ include/Resources.h include/Game.h include/State.h include/GameData.h \
+ include/InputManager.h include/Timer.h include/Camera.h \
+ include/Collider.h
 
-include/CameraFollower.h:
+include/Column.h:
+
+include/TileSet.h:
+
+include/Sprite.h:
 
 include/Component.h:
 
 include/SDL_include.h:
 
-include/Camera.h:
+include/Sound.h:
 
 include/GameObject.h:
 
@@ -18,12 +23,18 @@ include/Rect.h:
 
 include/Vec2.h:
 
-include/InputManager.h:
+include/Resources.h:
+
+include/Game.h:
 
 include/State.h:
 
 include/GameData.h:
 
-include/Game.h:
+include/InputManager.h:
 
-include/Resources.h:
+include/Timer.h:
+
+include/Camera.h:
+
+include/Collider.h:
