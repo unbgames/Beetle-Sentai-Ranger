@@ -3,9 +3,9 @@
 Stage1::Stage1(int nEnemy) : State(){
 	quitRequested = false;
 	popRequested = false;
-	
-	backgroundIntro.Open(STAGE1_BACKGROUNDMUSIC_INTRO);	
-	backgroundLoop.Open(STAGE1_BACKGROUNDMUSIC_LOOP);	
+
+	backgroundIntro.Open(STAGE1_BACKGROUNDMUSIC_INTRO);
+	backgroundLoop.Open(STAGE1_BACKGROUNDMUSIC_LOOP);
 	backgroundIntro.Play(1);
 
 	TotalEnemy = nEnemy;
@@ -21,7 +21,7 @@ void Stage1::LoadAssets(){
 
 	backobj->Box.x = 0;
 	backobj->Box.y = 0;
-	
+
 	Sprite* bg = new Sprite(backobj, STAGE1_BACKGROUND);
 
 	backobj->AddComponent(bg);
@@ -32,7 +32,7 @@ void Stage1::LoadAssets(){
 
 	backobj2->Box.x = bg->GetWidth();
 	backobj2->Box.y = 0;
-	
+
 	Sprite* bg2 = new Sprite(backobj2, STAGE1_BOSS_BACKGROUND);
 
 	backobj2->AddComponent(bg2);
@@ -51,18 +51,31 @@ void Stage1::LoadAssets(){
 	aux3->Box.y = 450;
 
 	TileSet* set = new TileSet(aux3, 32, 32, STAGE1_TILESET);
-	
+
 	Platform* plataforma = new Platform(aux3, PLATFORM_TYPE1, set);
 
 	aux3->AddComponent(plataforma);
 
 	ObjectArray.emplace_back(aux3);
 
+	GameObject* aux4 = new GameObject();
+
+	aux4->Box.x = 400;
+	aux4->Box.y = 500;
+
+	TileSet* setColumn = new TileSet(aux4, 32, 32, STAGE1_TILESET);
+
+	Column* coluna = new Column(aux4, COLUMN_TYPE1, setColumn);
+
+	aux4->AddComponent(coluna);
+
+	ObjectArray.emplace_back(aux4);
+
 	GameObject* aux2 = new GameObject();
 
 	aux2->Box.x = 200;
 	aux2->Box.y = 500;
-	
+
 	Protagonist* ranger = new Protagonist(aux2);
 	aux2->AddComponent(ranger);
 	GameData::Player = ranger;
@@ -70,7 +83,6 @@ void Stage1::LoadAssets(){
 	Camera::Follow(aux2);
 
 	ObjectArray.emplace_back(aux2);
-
 }
 void Stage1::Update(float dt){
 
@@ -80,7 +92,7 @@ void Stage1::Update(float dt){
 	}
 
 	InputManager& input = InputManager::GetInstance();
-	
+
 	if(input.QuitRequested())
 		quitRequested = true;
 
@@ -155,7 +167,7 @@ void Stage1::SpawnEnemy(){
 	if (obj->Box.x >= limit.x+limit.w-1024){
 		obj->Box.x = GameData::Player->GetAssociated()->Box.x-offset;
 	}
-	
+
 	GroundEnemy* enemy = new GroundEnemy(obj, 5);
 
 	obj->AddComponent(enemy);
