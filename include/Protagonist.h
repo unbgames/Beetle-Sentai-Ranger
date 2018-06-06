@@ -40,6 +40,7 @@ class Protagonist : public Component{
 		Sprite* sprite =nullptr;
 		int jumpCount = 0;
 		bool flip;
+		bool OnGround = false;
 		Timer counter;
 		Rect limit;
 		HealthBar* HPBar;

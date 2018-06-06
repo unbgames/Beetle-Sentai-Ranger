@@ -10,6 +10,7 @@
 #include "TileSet.h"
 #include "Platform.h"
 #include "GroundEnemy.h"
+#include "FlyingEnemy.h"
 #include "Collision.h"
 #include "BossStage1.h"
 
@@ -27,6 +28,7 @@ class Stage1 : public State{
         void Resume();
 
         void SpawnEnemy();
+        void SpawnFlyingEnemy();
 
     private:
         Music backgroundIntro;

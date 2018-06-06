@@ -7,10 +7,13 @@
 #define STAGE1_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
 
 #define STAGE1_GROUND_ENEMY_IDLE_ANIMATION "assets/img/GroundEnemy1/Louva-God.png"
+#define STAGE1_GROUND_ENEMY_RUN_ANIMATION "assets/img/GroundEnemy1/LouvaRun.png"
 #define STAGE1_GROUND_ENEMY_PUNCH_ANIMATION "assets/img/GroundEnemy1/Punch Louvagod_spritesheet.png"
 #define STAGE1_GROUND_ENEMY_JUMP_ANIMATION "assets/img/GroundEnemy1/Jumping.png"
 #define STAGE1_GROUND_ENEMY_DEATH_ANIMATION "assets/img/GroundEnemy1/Enemy death.png"
 #define STAGE1_GROUND_ENEMY_ATTACK_SOUND "assets/audio/Sounds/Ataque Louva-Deus 1.wav"
+
+#define STAGE1_FLYING_ENEMY_IDLE_ANIMATION "assets/img/FlyingEnemy1/Fly_Louva.png"
 
 #define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Grande Sapo.png"
 #define STAGE1_BOSS_BACKGROUND "assets/img/Background/Boss1.png"
