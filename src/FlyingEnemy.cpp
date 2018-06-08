@@ -86,4 +86,3 @@ void FlyingEnemy::Start(){
 void FlyingEnemy::NotifyCollision(GameObject* other){}
 void FlyingEnemy::Attack(){}
 void FlyingEnemy::Land(){}
-void FlyingEnemy::Kill(){}

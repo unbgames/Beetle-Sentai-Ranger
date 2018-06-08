@@ -18,7 +18,6 @@ class FlyingEnemy : public Enemy{
 		void NotifyCollision(GameObject* other);
 		void Attack();
 		void Land();
-		void Kill();
 		static int nEnemy;
 
 	private:

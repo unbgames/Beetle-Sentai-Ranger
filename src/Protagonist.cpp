@@ -1,6 +1,7 @@
 #include "Protagonist.h"
 
 Protagonist::Protagonist(GameObject* associated) : Component(associated){
+	associated->AddComponent(this);
 	speed.x = 0;
 	speed.y = 0;
 	flip = false;
@@ -248,120 +249,63 @@ void Protagonist::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
 	if (base != nullptr){
 
-		bool D = false, E = false, A = false, B = false;
+		Rect box1 = colisor->Box;
+		Rect box2 = base->GetAssociated()->Box;
 
-		Vec2 plat = base->GetAssociated()->Box.GetCenter();
-		Vec2 protag = colisor->Box.GetCenter();
+		float dx = box1.x - box2.x;
+	    float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
 
-		/*if ((colisor->Box.y + colisor->Box.h) >= base->GetAssociated()->Box.y && (colisor->Box.y + colisor->Box.h) <= (base->GetAssociated()->Box.y + (base->GetAssociated()->Box.h/2))){
-			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;*/
-		
-		//Caso a plataforma esteja acima
-		if(plat.y < protag.y){
-			A = true;
-		}
-		//Caso a plataforma esteja abaixo
-		if(plat.y > protag.y){
-			B = true;
-		}
-		
-		//Caso a plataforma esteja a direita
-		if(plat.x > protag.x){
-			D = true;
-		}
-		//Caso a plataforma esteja a esquerda
-		if(plat.x < protag.x){
-			E = true;
-		}
+	    float offx = 0;
+	    float offy = 0;
 
-		SDL_Log("A: %d B: %d D: %d E: %d", A, B, D, E);
+	    float dy = box1.y - box2.y;
+	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
 
-		float subx = 0;
-		float suby = 0;
-		float offset = 5;
-		if (!OnGround)
-		{
-			
+	            // Collision detected 
 
-			if (B && (protag.x > base->GetAssociated()->Box.x && protag.x < base->GetAssociated()->Box.x + base->GetAssociated()->Box.w)){
-				colisor->Box.y = base->GetAssociated()->Box.y - (colisor->Box.h + offset);
-				Land();
-			}
-			else if(A && (protag.x > base->GetAssociated()->Box.x && protag.x < base->GetAssociated()->Box.x + base->GetAssociated()->Box.w)){
-				speed.y = 0;
-				colisor->Box.y = base->GetAssociated()->Box.y + (base->GetAssociated()->Box.h + offset);
-			}
-			else if (A && D){
-				subx = abs(colisor->Box.x + colisor->Box.w - base->GetAssociated()->Box.x);
-				suby = abs(colisor->Box.y - base->GetAssociated()->Box.y + base->GetAssociated()->Box.h);
-				
-				if (suby > subx){
-					speed.y = 0;
-					colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h + offset;
-				}
-				else{
-					speed.x = 0;
-					colisor->Box.x = base->GetAssociated()->Box.x - (colisor->Box.w + offset);
-				}
-			}
-			else if (A && E){
-				subx = abs(base->GetAssociated()->Box.x + base->GetAssociated()->Box.w - colisor->Box.x);
-				suby = abs(colisor->Box.y - base->GetAssociated()->Box.y + base->GetAssociated()->Box.h);
+	            if(px < py){
+	            	speed.x = 0;
+	                //project in x
+	                if(dx < 0){
+	                    //project to the left
+	                    px *= -1;
+	                    py *= 0;
+	                    offx = box2.w;
+	                }
+	                else{
+	                    //proj to right
+	                    py = 0;
+	                    offx = -box1.w;
+	                }
+	            }
+	            else{
+	            	speed.y = 0;               
+	                //project in y
+	                if(dy < 0){
+	                    //project up
+	                    px = 0;
+	                    py *= -1;
+	                    offy = box2.h;
+	                    Land();
+	                }
+	                else{
+	                    //project down
+	                    px = 0;
+	                    offy = -box1.h;
 
-				if (suby > subx){
-					speed.y = 0;
-					colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h + offset;
-				}
-				else{
-					speed.x = 0;
-					colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w + offset;
-				}
-				
-			}
-			else if (A){
-				speed.y = 0;
-				colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h + offset;
-			}
+	                }
+	            }
+	            // we get px and py , penetration vector
+	            box1.x += px + offx;
+	            box1.y += py + offy;
 
-			if (B && D){
-				subx = abs(colisor->Box.x + colisor->Box.w - base->GetAssociated()->Box.x);
-				suby = abs(colisor->Box.y - base->GetAssociated()->Box.y + base->GetAssociated()->Box.h);
+	            associated->Box.x += px + offx;
+	            associated->Box.y += py + offy;
 
-				if (suby > subx){
-					SDL_Log("chegou no Y maior");
-					speed.y = 0;
-					colisor->Box.y = base->GetAssociated()->Box.y - (colisor->Box.h + offset);
-					Land();
-				}
-				else{
-					SDL_Log("chegou no X maior");
-					speed.x = 0;
-					colisor->Box.x = base->GetAssociated()->Box.x - (colisor->Box.w + offset);
-				}
-			}
-			else if (B && E){
-				subx = abs(base->GetAssociated()->Box.x + base->GetAssociated()->Box.w - colisor->Box.x);
-				suby = abs(colisor->Box.y + colisor->Box.h - base->GetAssociated()->Box.y);
+	            colisor->Box = box1;
+				base->GetAssociated()->Box = box2;
 
-				if (suby > subx){
-					speed.y = 0;
-					colisor->Box.y = base->GetAssociated()->Box.y - (colisor->Box.h + offset);
-					Land();
-				}
-				else{
-					speed.x = 0;
-					colisor->Box.x = base->GetAssociated()->Box.x + (base->GetAssociated()->Box.w + offset);
-				}
-			}
-			else if (B){
-				colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h + offset;
-				Land();
-			}
-
-				associated->Box.Centralize(colisor->Box.GetCenter());
-		}
-	
-		
+				//associated->Box.Centralize(colisor->Box.GetCenter());
 	}
 
 	Column* coluna = (Column*) other->GetComponent("Column");
@@ -431,7 +375,7 @@ void Protagonist::ShootAcid(double angle){
 void Protagonist::Land(){
 	speed.y = 0;
 	jumpCount = 0;
-	OnGround = true;
+	//OnGround = true;
 	if (sprite->GetTag() == "ProtagJump"){
 		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));

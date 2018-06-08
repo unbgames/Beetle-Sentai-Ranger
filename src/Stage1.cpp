@@ -65,7 +65,7 @@ void Stage1::LoadAssets(){
 	aux2->Box.y = 500;
 	
 	Protagonist* ranger = new Protagonist(aux2);
-	aux2->AddComponent(ranger);
+	//aux2->AddComponent(ranger);
 	GameData::Player = ranger;
 
 	Camera::Follow(aux2);
