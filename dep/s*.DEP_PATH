@@ -1,21 +1,19 @@
-bin/Column.o: src/Column.cpp include/Column.h include/TileSet.h \
- include/Sprite.h include/Component.h include/SDL_include.h \
- include/Sound.h include/GameObject.h include/Rect.h include/Vec2.h \
- include/Resources.h include/Game.h include/State.h include/GameData.h \
- include/InputManager.h include/Timer.h include/Camera.h \
- include/Collider.h
+bin/Stage1.o: src/Stage1.cpp include/Stage1.h include/State.h \
+ include/SDL_include.h include/GameObject.h include/Rect.h include/Vec2.h \
+ include/Component.h include/GameData.h include/Game.h \
+ include/InputManager.h include/Resources.h include/Sprite.h \
+ include/Sound.h include/Timer.h include/Camera.h include/Protagonist.h \
+ include/ShitBall.h include/Collider.h include/Enemy.h include/Platform.h \
+ include/TileSet.h include/Column.h include/Terrain.h include/HealthBar.h \
+ include/Punch.h include/AcidSplash.h include/CameraFollower.h \
+ include/Music.h include/GroundEnemy.h include/FlyingEnemy.h \
+ include/Collision.h include/BossStage1.h include/Frog.h
 
-include/Column.h:
+include/Stage1.h:
 
-include/TileSet.h:
-
-include/Sprite.h:
-
-include/Component.h:
+include/State.h:
 
 include/SDL_include.h:
-
-include/Sound.h:
 
 include/GameObject.h:
 
@@ -23,18 +21,56 @@ include/Rect.h:
 
 include/Vec2.h:
 
-include/Resources.h:
-
-include/Game.h:
-
-include/State.h:
+include/Component.h:
 
 include/GameData.h:
 
+include/Game.h:
+
 include/InputManager.h:
+
+include/Resources.h:
+
+include/Sprite.h:
+
+include/Sound.h:
 
 include/Timer.h:
 
 include/Camera.h:
 
+include/Protagonist.h:
+
+include/ShitBall.h:
+
 include/Collider.h:
+
+include/Enemy.h:
+
+include/Platform.h:
+
+include/TileSet.h:
+
+include/Column.h:
+
+include/Terrain.h:
+
+include/HealthBar.h:
+
+include/Punch.h:
+
+include/AcidSplash.h:
+
+include/CameraFollower.h:
+
+include/Music.h:
+
+include/GroundEnemy.h:
+
+include/FlyingEnemy.h:
+
+include/Collision.h:
+
+include/BossStage1.h:
+
+include/Frog.h:

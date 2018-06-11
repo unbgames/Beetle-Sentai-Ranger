@@ -10,6 +10,7 @@
 #include "Timer.h"
 #include "Platform.h"
 #include "Column.h"
+#include "Terrain.h"
 #include "State.h"
 #include "HealthBar.h"
 #include "Punch.h"
@@ -40,6 +41,7 @@ class Protagonist : public Component{
 		Sprite* sprite =nullptr;
 		int jumpCount = 0;
 		bool flip;
+		bool OnGround = false;
 		Timer counter;
 		Rect limit;
 		HealthBar* HPBar;

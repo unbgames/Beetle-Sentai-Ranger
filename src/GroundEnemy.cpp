@@ -65,11 +65,13 @@ void GroundEnemy::Update(float dt){
 		}
 
 		if(move == 1){
+			SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
 			speed.x = -300*dt;
 			flip = true;
 			sprite->SetFlip(flip);
 		}
 		if(move == 2){
+			SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
 			speed.x = 300*dt;
 			flip = false;
 			sprite->SetFlip(flip);
@@ -114,6 +116,12 @@ void GroundEnemy::Start(){
 	idle->SetEnabled(true);
 	SetSprite(idle);
 	associated->AddComponent(idle);
+
+	Sprite* run = new Sprite(associated, STAGE1_GROUND_ENEMY_RUN_ANIMATION, 6, 0.1, 0);
+	run->SetTag("EnemyRun");
+	run->SetEnabled(true);
+	SetSprite(run);
+	associated->AddComponent(run);
 
 	Sprite* punch = new Sprite(associated, STAGE1_GROUND_ENEMY_PUNCH_ANIMATION, 4, 0.1, 0);
 	punch->SetTag("EnemyPunch");

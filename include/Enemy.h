@@ -33,6 +33,7 @@ class Enemy : public Component{
 		int jumpCount = 0;
 		bool flip;
 		Collider* colisor = nullptr;
+		Vec2 scaleAnimations;
 };
 
 #endif
