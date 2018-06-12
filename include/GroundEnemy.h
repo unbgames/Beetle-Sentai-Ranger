@@ -19,6 +19,7 @@ class GroundEnemy : public Enemy{
 		void Attack();
 		void Land();
 		void Kill();
+		void TakeDamage(int dmg);
 		static int nEnemy;
 
 	private:

@@ -14,6 +14,7 @@
 #define HUD_SHIT_COOLDOWN_ICON "assets/img/FristPlane/Shit_cooldown.png"
 #define HUD_FLY_ICON "assets/img/FristPlane/Wings.png"
 #define HUD_FLY_COOLDOWN_ICON "assets/img/FristPlane/Wings_cooldown.png"
+#define HUD_HEALTHBAR "assets/img/FristPlane/Life.png"
 
 
 #define PROTAGONIST_IDLE_ANIMATION "assets/img/Beetle/Fightpose.png"
@@ -24,7 +25,7 @@
 #define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 #define PROTAGONIST_DEATH_ANIMATION "assets/img/Beetle/Death.png"
 #define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/Flying.png"
-#define PROTAGONIST_HEALTHBAR "assets/img/FristPlane/Life.png"
+#define PROTAGONIST_GETHURT_ANIMATION "assets/img/Beetle/Dano.png"
 #define PROTAGONIST_DEATH_SOUND "assets/audio/Sounds/Morrendo 2.wav"
 #define PROTAGONIST_ACID_SOUND "assets/audio/Sounds/Acido.wav"
 #define PROTAGONIST_PUNCH_SOUND "assets/audio/Sounds/Soco.wav"
@@ -40,6 +41,7 @@
 #define STAGE1_GROUND_ENEMY_PUNCH_ANIMATION "assets/img/GroundEnemy1/Punch Louvagod_spritesheet.png"
 #define STAGE1_GROUND_ENEMY_JUMP_ANIMATION "assets/img/GroundEnemy1/Jumping.png"
 #define STAGE1_GROUND_ENEMY_DEATH_ANIMATION "assets/img/GroundEnemy1/Enemy death.png"
+#define STAGE1_GROUND_ENEMY_GETHURT_ANIMATION "assets/img/GroundEnemy1/Enemy hit.png"
 #define STAGE1_GROUND_ENEMY_ATTACK_SOUND "assets/audio/Sounds/Ataque Louva-Deus 1.wav"
 
 #define STAGE1_FLYING_ENEMY_IDLE_ANIMATION "assets/img/FlyingEnemy1/RedFly.png"

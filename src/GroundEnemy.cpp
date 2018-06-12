@@ -14,6 +14,13 @@ void GroundEnemy::Update(float dt){
 	AttackTimer.Update(dt);
 	speed.x = 0;
 
+	if (state == EnemyState::HURTING){
+		if (sprite->IsAnimationOver()){
+			SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
+			state = EnemyState::SEARCHING;
+		}
+	}
+
 	if (state == EnemyState::ATTACKING){
 		if (sprite->IsAnimationOver()){
 			if (sprite->GetTag() != "EnemyJump"){
@@ -47,24 +54,18 @@ void GroundEnemy::Update(float dt){
 			move = 1;
 		}
 
-		if (abs(centroPlayer.x - associated->Box.x) < 600 && AttackTimer.Get() > 1.5){
+		if (abs(centroPlayer.x - associated->Box.x) < 55 && AttackTimer.Get() > 1.5){
 			//atacar
 			AttackTimer.Restart();
 			move = 3;
 
 		}
 
-
-		if (PathBlocked){
-			//pular
+		if(input.IsKeyDown(SDLK_q)){
 			move = 0;
 		}
 
-		if(input.IsKeyDown(SDLK_q)){
-			move = 4;
-		}
-
-		if(move == 0 && jumpCount < 1){
+		if(PathBlocked && jumpCount < 1){
 			SetSprite((Sprite*) associated->GetComponentByTag("EnemyJump"));
 			jumpCount++;
 			speed.y = -450*dt;
@@ -72,13 +73,15 @@ void GroundEnemy::Update(float dt){
 		}
 
 		if(move == 1){
-			SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
+			if (sprite->GetTag() == "EnemyIdle")
+				SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
 			speed.x = -300*dt;
 			flip = true;
 			sprite->SetFlip(flip);
 		}
 		if(move == 2){
-			SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
+			if (sprite->GetTag() == "EnemyIdle")
+				SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
 			speed.x = 300*dt;
 			flip = false;
 			sprite->SetFlip(flip);
@@ -135,10 +138,15 @@ void GroundEnemy::Start(){
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
 
-	Sprite* jump= new Sprite(associated, STAGE1_GROUND_ENEMY_JUMP_ANIMATION, 8, 0.1, 0);
+	Sprite* jump = new Sprite(associated, STAGE1_GROUND_ENEMY_JUMP_ANIMATION, 8, 0.1, 0);
 	jump->SetTag("EnemyJump");
 	jump->SetEnabled(false);
 	associated->AddComponent(jump);
+
+	Sprite* hurt = new Sprite(associated, STAGE1_GROUND_ENEMY_GETHURT_ANIMATION, 5, 0.06, 0);
+	hurt->SetTag("EnemyHurt");
+	hurt->SetEnabled(false);
+	associated->AddComponent(hurt);
 }
 void GroundEnemy::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
@@ -368,6 +376,16 @@ void GroundEnemy::Land(){
 		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 	}
+}
+
+void GroundEnemy::TakeDamage(int dmg){
+	hp-=dmg;
+	if(hp <= 0){
+		Kill();
+	}
+	SetSprite((Sprite*) associated->GetComponentByTag("EnemyHurt"));
+	sprite->SetFrame(0);
+	state = EnemyState::HURTING;
 }
 
 void GroundEnemy::Kill(){

@@ -35,7 +35,7 @@ class Protagonist : public Component{
 		void Die();
 
 	private:
-		typedef enum PlayerState {FLYING, DASHING, NORMAL, BLOCKING, PUNCHING};
+		typedef enum PlayerState {FLYING, DASHING, NORMAL, HURTING, PUNCHING};
 		PlayerState state;
 		int hp;
 		Vec2 speed;

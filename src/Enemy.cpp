@@ -38,6 +38,6 @@ void Enemy::Kill(){
 void Enemy::TakeDamage(int dmg){
 	hp-=dmg;
 	if(hp <= 0){
-	Kill();
+		Kill();
 	}
 }
