@@ -16,11 +16,13 @@ class FlyingEnemy : public Enemy{
 		void Update(float dt);
 		void Start();
 		void NotifyCollision(GameObject* other);
-		void Attack();
+		void Attack(Vec2 target);
 		void Land();
+		void Kill();
 		static int nEnemy;
 
 	private:
+		Timer ShootTimer;
 		bool PathBlocked = false;
 		weak_ptr<GameObject> Soco;
 };

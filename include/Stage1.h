@@ -9,6 +9,8 @@
 #include "Music.h"
 #include "TileSet.h"
 #include "Platform.h"
+#include "Column.h"
+#include "Terrain.h"
 #include "GroundEnemy.h"
 #include "FlyingEnemy.h"
 #include "Collision.h"
@@ -28,12 +30,14 @@ class Stage1 : public State{
         void Resume();
 
         void SpawnEnemy();
+				void SpawnEnemy(int positionX, int positionY);
         void SpawnFlyingEnemy();
+				void SpawnFlyingEnemy(int positionX, int positionY);
 
     private:
         Music backgroundIntro;
         Music backgroundLoop;
-        int TotalEnemy;	
+        int TotalEnemy;
 };
 
 #endif

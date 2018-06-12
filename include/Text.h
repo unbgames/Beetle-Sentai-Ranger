@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Resources.h"
 #include "Camera.h"
+#include "Vec2.h"
 
 class Text : public Component{
 
@@ -21,6 +22,7 @@ class Text : public Component{
 		void SetStyle(TextStyle style);
 		void SetFontFile(string fontFile);
 		void SetFontSize(int fontSize);
+		void SetOffset(Vec2 newOffset);
 
 	private:
 		void RemakeTexture();
@@ -30,6 +32,7 @@ class Text : public Component{
 		TextStyle style;
 		string fontFile;
 		int fontSize;
-		SDL_Color color;	
+		SDL_Color color;
+		Vec2 offset;	
 };
 #endif

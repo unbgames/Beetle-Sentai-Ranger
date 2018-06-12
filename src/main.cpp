@@ -8,7 +8,7 @@ int main (int argc, char** argv) {
     srand(time(NULL));
 
     game = Game::GetInstance();
-    game->Push(new Stage1(0));
+    game->Push(new Stage1(4));
     game->Run();
     delete game;
 

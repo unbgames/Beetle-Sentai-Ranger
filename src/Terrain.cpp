@@ -1,19 +1,19 @@
-#include "Column.h"
+#include "Terrain.h"
 #include <iostream>
 
-Column::Column(GameObject* associated, string file, TileSet* tileSet) : Component(associated){
+Terrain::Terrain(GameObject* associated, string file, TileSet* tileSet) : Component(associated){
 	this->tileSet = tileSet;
 	Load(file);
-	associated->Box.w = tileSet->GetTileWidth()*3;
+	associated->Box.w = tileSet->GetTileWidth()*15;
 	associated->Box.h = tileSet->GetTileHeight()*tileNumber;
 
 	Collider* colisor = new Collider(associated);
 	associated->AddComponent(colisor);
 }
 
-Column::~Column(){}
+Terrain::~Terrain(){}
 
-void Column::Load(string file){
+void Terrain::Load(string file){
 
 	ifstream mapa(file);
 	string aux;
@@ -33,18 +33,18 @@ void Column::Load(string file){
 	mapa.close();
 }
 
-void Column::SetTileSet(TileSet* tileSet){
+void Terrain::SetTileSet(TileSet* tileSet){
 	this->tileSet = tileSet;
 }
 
-void Column::RenderColumn(int cameraX, int cameraY){
+void Terrain::RenderTerrain(int cameraX, int cameraY){
 
 	float x = associated->Box.x;
 	float y = associated->Box.y;
 
 	float aux_y = y;
 
-	for(int j = 0; j < 3; ++j)
+	for(int j = 0; j < 15; ++j)
 	{
 		for (int i = 0; i < tileNumber; ++i)
 	  {
@@ -55,19 +55,19 @@ void Column::RenderColumn(int cameraX, int cameraY){
 		y = aux_y;
 	}
 }
-void Column::Render()
+void Terrain::Render()
 {
-	RenderColumn(Camera::pos.x, Camera::pos.y);
+	RenderTerrain(Camera::pos.x, Camera::pos.y);
 }
 
-int Column::GetTileNumber(){
+int Terrain::GetTileNumber(){
 	return(tileNumber);
 }
 
-void Column::Update(float dt){}
+void Terrain::Update(float dt){}
 
-bool Column::Is(string type){
-	return(type == "Column");
+bool Terrain::Is(string type){
+	return(type == "Terrain");
 }
 
-void Column::NotifyCollision(GameObject* other){}
+void Terrain::NotifyCollision(GameObject* other){}

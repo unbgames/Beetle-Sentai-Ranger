@@ -3,9 +3,11 @@ bin/FlyingEnemy.o: src/FlyingEnemy.cpp include/FlyingEnemy.h \
  include/GameObject.h include/Rect.h include/Vec2.h include/Sprite.h \
  include/Sound.h include/Resources.h include/Game.h include/State.h \
  include/GameData.h include/InputManager.h include/Timer.h \
- include/Camera.h include/ShitBall.h include/Collider.h include/Punch.h \
+ include/Camera.h include/ShitBall.h include/Collider.h \
  include/Protagonist.h include/Platform.h include/TileSet.h \
- include/Column.h include/HealthBar.h include/AcidSplash.h
+ include/Column.h include/Terrain.h include/HealthBar.h include/Punch.h \
+ include/AcidSplash.h include/Skill.h include/Text.h \
+ include/CameraFollower.h
 
 include/FlyingEnemy.h:
 
@@ -43,8 +45,6 @@ include/ShitBall.h:
 
 include/Collider.h:
 
-include/Punch.h:
-
 include/Protagonist.h:
 
 include/Platform.h:
@@ -53,6 +53,16 @@ include/TileSet.h:
 
 include/Column.h:
 
+include/Terrain.h:
+
 include/HealthBar.h:
 
+include/Punch.h:
+
 include/AcidSplash.h:
+
+include/Skill.h:
+
+include/Text.h:
+
+include/CameraFollower.h:

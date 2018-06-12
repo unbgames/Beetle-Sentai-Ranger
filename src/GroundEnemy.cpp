@@ -5,10 +5,13 @@ int GroundEnemy::nEnemy = 0;
 GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP){
 	colisor->SetScale(Vec2(0.3,0.7));
 	colisor->SetOffset(Vec2(0,15));
+
+	AttackTimer.Restart();
 }
 GroundEnemy::~GroundEnemy(){}
 
 void GroundEnemy::Update(float dt){
+	AttackTimer.Update(dt);
 	speed.x = 0;
 
 	if (state == EnemyState::ATTACKING){
@@ -35,19 +38,22 @@ void GroundEnemy::Update(float dt){
 
 		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
 
-		if (centroPlayer.x > centro.x){
+		if (centroPlayer.x > centro.x && abs(centroPlayer.x - centro.x) > 55){
 			//andar para a direita
 			move = 2;
 		}
-		else{
+		else if(abs(centroPlayer.x - centro.x) > 55){
 			//andar para a esquerda
 			move = 1;
 		}
 
-		if (centroPlayer.Distance(centro) < 60){
+		if (abs(centroPlayer.x - associated->Box.x) < 600 && AttackTimer.Get() > 1.5){
 			//atacar
+			AttackTimer.Restart();
 			move = 3;
+
 		}
+
 
 		if (PathBlocked){
 			//pular
@@ -62,6 +68,7 @@ void GroundEnemy::Update(float dt){
 			SetSprite((Sprite*) associated->GetComponentByTag("EnemyJump"));
 			jumpCount++;
 			speed.y = -450*dt;
+			PathBlocked = false;
 		}
 
 		if(move == 1){
@@ -136,40 +143,193 @@ void GroundEnemy::Start(){
 void GroundEnemy::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
 	if (base != nullptr){
-		PathBlocked = true;
 
-		Vec2 aux = base->GetAssociated()->Box.GetCenter();
-		Vec2 aux2 = colisor->Box.GetCenter();
+		Rect box1 = colisor->Box;
+		Rect box2 = base->GetAssociated()->Box;
 
-		/*if ((colisor->Box.y + colisor->Box.h) >= base->GetAssociated()->Box.y && (colisor->Box.y + colisor->Box.h) <= (base->GetAssociated()->Box.y + (base->GetAssociated()->Box.h/2))){
-			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;*/
+		float dx = box1.x - box2.x;
+	    float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
 
-		//Caso a plataforma esteja abaixo
-		if (aux.y > aux2.y){
-			SDL_Log("chegou aqui");
-			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;
-			Land();
+	    float offx = 0;
+	    float offy = 0;
+
+	    float dy = box1.y - box2.y;
+	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
+
+	            // Collision detected
+
+	            if(px < py){
+	            	PathBlocked = true;
+	            	speed.x = 0;
+	                //project in x
+	                if(dx < 0){
+	                    //project to the left
+	                    px *= -1;
+	                    py *= 0;
+	                    offx = box2.w;
+	                }
+	                else{
+	                    //proj to right
+	                    py = 0;
+	                    offx = -box1.w;
+	                }
+	            }
+	            else{
+	            	speed.y = 0;
+	                //project in y
+	                if(dy < 0){
+	                    //project up
+	                    px = 0;
+	                    py *= -1;
+	                    offy = box2.h;
+	                    Land();
+	                }
+	                else{
+	                    //project down
+	                    px = 0;
+	                    offy = -box1.h;
+
+	                }
+	            }
+	            // we get px and py , penetration vector
+	            box1.x += px + offx;
+	            box1.y += py + offy;
+
+	            associated->Box.x += px + offx;
+	            associated->Box.y += py + offy;
+
+	            colisor->Box = box1;
+				base->GetAssociated()->Box = box2;
+
+				//associated->Box.Centralize(colisor->Box.GetCenter());
+	}
+
+	Column* coluna = (Column*) other->GetComponent("Column");
+	if(coluna != nullptr)
+	{
+		Rect box1 = colisor->Box;
+		Rect box2 = coluna->GetAssociated()->Box;
+
+		float dx = box1.x - box2.x;
+	  float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
+
+	  float offx = 0;
+	  float offy = 0;
+
+	  float dy = box1.y - box2.y;
+	  float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
+
+	  // Collision detected
+
+	  if(px < py){
+	  	PathBlocked = true;
+	  	speed.x = 0;
+	    //project in x
+	    if(dx < 0){
+	    	//project to the left
+	      px *= -1;
+	    	py *= 0;
+	      offx = box2.w;
+	    }
+	    else
+			{
+	    	//proj to right
+	      py = 0;
+	      offx = -box1.w;
+	    }
+	  }
+	  else{
+	  	speed.y = 0;
+	    //project in y
+	    if(dy < 0){
+	    	//project up
+	      px = 0;
+	      py *= -1;
+	      offy = box2.h;
+	      Land();
 		}
+	  else{
+	  	//project down
+	    px = 0;
+	    offy = -box1.h;
+    }
+  }
+		// we get px and py , penetration vector
+		box1.x += px + offx;
+		box1.y += py + offy;
 
-		//Caso a plataforma esteja a direita
-		else if (aux.x > aux2.x){
-			colisor->Box.x = base->GetAssociated()->Box.x - colisor->Box.w;
-		}
+		associated->Box.x += px + offx;
+		associated->Box.y += py + offy;
 
-		//Caso a plataforma esteja a esquerda
-		else if (aux.x < aux2.x){
-			colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w;
-		}
+		colisor->Box = box1;
+		coluna->GetAssociated()->Box = box2;
 
-		//Caso a plataforma esteja acima
-		else if (aux.y < aux2.y){
-			SDL_Log("chegou aqui4");
-			colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h;
-			speed.y = 0;
+		//associated->Box.Centralize(colisor->Box.GetCenter());
+	}
+
+	Terrain* terrain = (Terrain*) other->GetComponent("Terrain");
+	if(terrain != nullptr)
+	{
+		Rect box1 = colisor->Box;
+		Rect box2 = terrain->GetAssociated()->Box;
+
+		float dx = box1.x - box2.x;
+	  float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
+
+	  float offx = 0;
+	  float offy = 0;
+
+	  float dy = box1.y - box2.y;
+	  float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
+
+	  // Collision detected
+
+	  if(px < py){
+	  	PathBlocked = true;
+	  	speed.x = 0;
+	    //project in x
+	    if(dx < 0){
+	    	//project to the left
+	      px *= -1;
+	    	py *= 0;
+	      offx = box2.w;
+	    }
+	    else
+			{
+	    	//proj to right
+	      py = 0;
+	      offx = -box1.w;
+	    }
+	  }
+	  else{
+	  	speed.y = 0;
+	    //project in y
+	    if(dy < 0){
+	    	//project up
+	      px = 0;
+	      py *= -1;
+	      offy = box2.h;
+	      Land();
 		}
+	  else{
+	  	//project down
+	    px = 0;
+	    offy = -box1.h;
+    }
+  }
+		// we get px and py , penetration vector
+		box1.x += px + offx;
+		box1.y += py + offy;
+
+		associated->Box.x += px + offx;
+		associated->Box.y += py + offy;
+
+		colisor->Box = box1;
+		terrain->GetAssociated()->Box = box2;
+
+		//associated->Box.Centralize(colisor->Box.GetCenter());
 	}
 }
-
 void GroundEnemy::Attack(){
 	speed.x = 0;
 	state = EnemyState::ATTACKING;

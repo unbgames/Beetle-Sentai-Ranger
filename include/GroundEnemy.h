@@ -22,6 +22,7 @@ class GroundEnemy : public Enemy{
 		static int nEnemy;
 
 	private:
+		Timer AttackTimer;
 		bool PathBlocked = false;
 		weak_ptr<GameObject> Soco;
 };

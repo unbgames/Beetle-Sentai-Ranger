@@ -8,6 +8,7 @@
 #include "ShitBall.h"
 #include "Collider.h"
 #include "GameData.h"
+#include "Timer.h"
 
 class Enemy : public Component{
 	public:

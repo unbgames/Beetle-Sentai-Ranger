@@ -10,10 +10,12 @@
 #include "Timer.h"
 #include "Platform.h"
 #include "Column.h"
+#include "Terrain.h"
 #include "State.h"
 #include "HealthBar.h"
 #include "Punch.h"
 #include "AcidSplash.h"
+#include "Skill.h"
 
 class Protagonist : public Component{
 	public:
@@ -46,6 +48,10 @@ class Protagonist : public Component{
 		HealthBar* HPBar;
 		weak_ptr<GameObject> Soco;
 		Collider* colisor = nullptr;
+		Skill* shit = nullptr;
+		Skill* dash = nullptr;
+		Skill* fly = nullptr;
+		Skill* acid = nullptr;
 };
 
 #endif
