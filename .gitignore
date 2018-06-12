@@ -1,1 +1,4 @@
 *.xcf
+bin/ 
+dep/ 
+JOGO
