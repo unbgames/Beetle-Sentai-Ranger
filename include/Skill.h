@@ -17,12 +17,17 @@ class Skill : public Component{
 		bool Is(string type);
 		void Start();
 		bool IsActive();
+		bool IsOnCooldown();
 		bool Use();
+		void SetDuration(float val);
+		void SetColor(int R, int G, int B, int alpha);
 		
 	private:
-		bool Active = true;
+		typedef enum SkillState {ACTIVE, COOLDOWN, RUNNING};
+		SkillState state;
 		Timer timer;
-		int CooldownTime = 0;
+		float CooldownTime = 0;
+		float duration = -1;
 		Sprite* Activesprite = nullptr;
 		Sprite* Cooldownsprite = nullptr;
 		Text* display = nullptr;

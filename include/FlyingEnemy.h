@@ -24,7 +24,6 @@ class FlyingEnemy : public Enemy{
 	private:
 		Timer ShootTimer;
 		bool PathBlocked = false;
-		weak_ptr<GameObject> Soco;
 };
 
 #endif

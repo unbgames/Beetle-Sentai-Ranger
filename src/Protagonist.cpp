@@ -4,8 +4,8 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	associated->AddComponent(this);
 	speed.x = 0;
 	speed.y = 0;
-	flip = false;
 	state = PlayerState::NORMAL;
+	LastState = PlayerState::NORMAL;
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
@@ -45,7 +45,7 @@ void Protagonist::Update(float dt){
 
 	if(input.KeyPress(SDLK_x) && dash->IsActive()){
 		dash->Use();
-		state = PlayerState::DASHING;
+		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 	}
 	if(input.KeyPress(SDLK_w)){
@@ -54,8 +54,12 @@ void Protagonist::Update(float dt){
 
 	if (state == PlayerState::HURTING){
 		if (sprite->IsAnimationOver()){
-			SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
-			state = PlayerState::NORMAL;
+			if (LastState == PlayerState::FLYING)
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
+			else
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+
+			ChangeState(LastState);
 		}
 		speed.y += 20*dt;
 	}
@@ -66,7 +70,7 @@ void Protagonist::Update(float dt){
 			if (sprite->GetTag() != "ProtagJump"){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
 			}
-			state = PlayerState::NORMAL;
+			ChangeState(PlayerState::NORMAL);
 			if(Soco.lock() != nullptr)
 				Soco.lock()->RequestDelete();
 		}
@@ -140,10 +144,14 @@ void Protagonist::Update(float dt){
 		counter.Update(dt);
 
 		if (counter.Get() >= 0.5){
-			state = PlayerState::NORMAL;
 			counter.Restart();
-			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 
+			if (LastState == PlayerState::FLYING)
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
+			else
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+
+			ChangeState(LastState);
 		}
 	}
 
@@ -152,8 +160,8 @@ void Protagonist::Update(float dt){
 		speed.y = 0;
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 
-		if(input.KeyPress(SDLK_c)){
-			state = PlayerState::NORMAL;
+		if(fly->IsOnCooldown()){
+			ChangeState(PlayerState::NORMAL);
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 		}
 		if(input.KeyPress(SDLK_s)){
@@ -190,8 +198,9 @@ void Protagonist::Update(float dt){
 			sprite->SetFlip(flip);
 		}
 	}
-	else if(input.KeyPress(SDLK_c)){
-		state = PlayerState::FLYING;
+	else if(input.KeyPress(SDLK_c) && fly->IsActive()){
+		ChangeState(PlayerState::FLYING);
+		fly->Use();
 	}
 
 	associated->Box.x += speed.x;
@@ -289,6 +298,8 @@ void Protagonist::Start(){
 	go4->Box.y = 0;
 
 	fly = new Skill(go4, 5.0, HUD_FLY_ICON, HUD_FLY_COOLDOWN_ICON);
+	fly->SetDuration(5.0);
+	fly->SetColor(0,0,0,0);
 	state->AddObject(go4);
 	go4->AddComponent(fly);
 
@@ -535,7 +546,7 @@ void Protagonist::Land(){
 
 void Protagonist::Attack(){
 	speed.x = 0;
-	state = PlayerState::PUNCHING;
+	ChangeState(PlayerState::PUNCHING);
 	SetSprite((Sprite*) associated->GetComponentByTag("ProtagPunch"));
 	sprite->SetFrame(0);
 
@@ -569,7 +580,7 @@ void Protagonist::TakeDamage(int dmg){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.IsKeyDown(SDLK_e)){
+	if(input.IsKeyDown(SDLK_e) || state == PlayerState::DASHING){
 		return;
 	}
 
@@ -579,7 +590,7 @@ void Protagonist::TakeDamage(int dmg){
 	}
 	SetSprite((Sprite*) associated->GetComponentByTag("ProtagHurt"));
 	sprite->SetFrame(0);
-	state = PlayerState::HURTING;
+	ChangeState(PlayerState::HURTING);
 }
 
 void Protagonist::Die(){
@@ -601,4 +612,9 @@ void Protagonist::Die(){
 	Sound* sound = new Sound(go, PROTAGONIST_DEATH_SOUND);
 	sound->Play(1);
 	go->AddComponent(sound);
+}
+
+void Protagonist::ChangeState(PlayerState next){
+	LastState = state;
+	state = next;
 }

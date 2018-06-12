@@ -19,9 +19,8 @@ void FlyingEnemy::Update(float dt){
 
 	if (state == EnemyState::ATTACKING){
 		if (sprite->IsAnimationOver()){
+			SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 			state = EnemyState::SEARCHING;
-			if(Soco.lock() != nullptr)
-				Soco.lock()->RequestDelete();
 		}
 	}
 
@@ -69,19 +68,18 @@ void FlyingEnemy::Update(float dt){
 		}
 
 		if(move == 1){
-			SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 			speed.x = -300*dt;
 			flip = true;
 			sprite->SetFlip(flip);
 		}
 		if(move == 2){
-			SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 			speed.x = 300*dt;
 			flip = false;
 			sprite->SetFlip(flip);
 		}
 		if(move == 3){
 			Attack(centroPlayer);
+			state = EnemyState::ATTACKING;
 		}
 	}
 
@@ -142,10 +140,6 @@ void FlyingEnemy::Land(){}
 
 void FlyingEnemy::Kill(){
 	associated->RequestDelete();
-
-	if (Soco.lock() != nullptr){
-		Soco.lock()->RequestDelete();
-	}
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();

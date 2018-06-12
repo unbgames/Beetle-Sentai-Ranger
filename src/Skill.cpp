@@ -23,29 +23,43 @@ Skill::Skill(GameObject* associated, float Cooldown, string Activefile, string C
 
 	timer.Restart();
 	this->CooldownTime = Cooldown;
+	state = SkillState::ACTIVE;
 
 }
 Skill::~Skill(){}
 void Skill::Update(float dt){
 
-	if(!Active){
+	if (state == SkillState::RUNNING){
+
 		timer.Update(dt);
-	}
-	else{
-		return;
-	}
+		float value = duration - timer.Get();
 
-	float value = CooldownTime - timer.Get();
-
-	if (value <= 0){
-		timer.Restart();
-		Active = true;
-		Cooldownsprite->SetEnabled(false);
-		Activesprite->SetEnabled(true);
-		display->SetText(" ");
+		if (value <= 0){
+			timer.Restart();
+			state = SkillState::COOLDOWN;
+			Activesprite->SetEnabled(false);
+			Cooldownsprite->SetEnabled(true);
+			display->SetText(" ");
+		}
+		else{
+			display->SetText(to_string((int)ceil(value)));
+		}
 	}
-	else{
-		display->SetText(to_string((int)ceil(value)));
+	if (state == SkillState::COOLDOWN){
+
+		timer.Update(dt);
+		float value = CooldownTime - timer.Get();
+
+		if (value <= 0){
+			timer.Restart();
+			state = SkillState::ACTIVE;
+			Cooldownsprite->SetEnabled(false);
+			Activesprite->SetEnabled(true);
+			display->SetText(" ");
+		}
+		else{
+			display->SetText(to_string((int)ceil(value)));
+		}
 	}
 }
 void Skill::Render(){}
@@ -56,10 +70,27 @@ void Skill::Start(){
 	display->SetOffset(Vec2(25, 5));
 }
 bool Skill::IsActive(){
-	return(Active);
+	return(state == SkillState::ACTIVE);
+}
+bool Skill::IsOnCooldown(){
+	return(state == SkillState::COOLDOWN);
 }
 bool Skill::Use(){
-	Active = false;
-	Activesprite->SetEnabled(false);
-	Cooldownsprite->SetEnabled(true);
+	if(duration < 0){
+		state = SkillState::COOLDOWN;
+		Activesprite->SetEnabled(false);
+		Cooldownsprite->SetEnabled(true);
+	}
+	else{
+		state = SkillState::RUNNING;
+	}
+}
+
+void Skill::SetDuration(float val){
+	duration = val;
+}
+
+void Skill::SetColor(int R, int G, int B, int alpha){
+	SDL_Color color = {R,G,B,alpha};
+	display->SetColor(color);
 }

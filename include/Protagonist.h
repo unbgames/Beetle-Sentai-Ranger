@@ -26,22 +26,19 @@ class Protagonist : public Component{
 		bool Is(string type);
 		void Start();
 		void NotifyCollision(GameObject* other);
-		void SetSprite(Sprite* newSprite);
-		void ShootShit(float angle);
-		void ShootAcid(double angle);
-		void Attack();
-		void Land();
+		
 		void TakeDamage(int dmg);
 		void Die();
 
 	private:
 		typedef enum PlayerState {FLYING, DASHING, NORMAL, HURTING, PUNCHING};
 		PlayerState state;
+		PlayerState LastState;
 		int hp;
 		Vec2 speed;
-		Sprite* sprite =nullptr;
+		Sprite* sprite = nullptr;
 		int jumpCount = 0;
-		bool flip;
+		bool flip = false;
 		bool OnGround = false;
 		Timer counter;
 		Rect limit;
@@ -52,6 +49,13 @@ class Protagonist : public Component{
 		Skill* dash = nullptr;
 		Skill* fly = nullptr;
 		Skill* acid = nullptr;
+
+		void ChangeState(PlayerState next);
+		void SetSprite(Sprite* newSprite);
+		void ShootShit(float angle);
+		void ShootAcid(double angle);
+		void Attack();
+		void Land();
 };
 
 #endif
