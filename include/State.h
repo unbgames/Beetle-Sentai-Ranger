@@ -10,7 +10,7 @@
 #include "GameObject.h"
 #include "GameData.h"
 #include "Game.h"
-
+#include "Timer.h"
 
 using namespace std;
 
@@ -45,6 +45,7 @@ class State{
 		bool started;
 		vector<shared_ptr<GameObject>> ObjectArray;
 		Rect limit;
+		Timer counter;
 
 };
 

@@ -321,10 +321,16 @@ void Stage1::Update(float dt){
 		popRequested = true;
 	}
 
-	/*if (GameData::Player == nullptr){
-		SDL_Log("game over");
-		popRequested = true;
-	}*/
+	if (GameData::Player == nullptr){
+		counter.Update(dt);
+		if (counter.Get() >= 1.4){
+			Game* game = Game::GetInstance();
+			game->Push(new LoseState());
+			popRequested = true;
+		}
+		else
+			return;
+	}
 
 	if (GameData::Player != nullptr && GameData::Player->GetAssociated()->Box.x >= 6600){
 		Game* game = Game::GetInstance();
@@ -371,6 +377,7 @@ void Stage1::Render(){
 void Stage1::Start(){
 	LoadAssets();
 	StartArray();
+	GroundEnemy::nEnemy = 0;
 }
 void Stage1::Pause(){}
 void Stage1::Resume(){}

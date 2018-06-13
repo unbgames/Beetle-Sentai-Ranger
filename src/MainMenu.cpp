@@ -119,7 +119,7 @@ void MainMenu::Update(float dt)
 		Game* game = Game::GetInstance();
 		backgroundLoop.Stop();
 		game->Push(new Stage1(4));
-		popRequested = true;
+		//popRequested = true;
 	}
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 1)

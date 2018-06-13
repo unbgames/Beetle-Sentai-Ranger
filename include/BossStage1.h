@@ -12,6 +12,7 @@
 #include "GroundEnemy.h"
 #include "Collision.h"
 #include "Frog.h"
+#include "LoseState.h"
 
 class BossStage1 : public State{
 	public:

@@ -16,22 +16,22 @@ class MainMenu : public State{
 		~MainMenu();
 
 		void LoadAssets();
-    void Update(float dt);
-    void Render();
+	    void Update(float dt);
+	    void Render();
 
-    void Start();
-    void Pause();
-    void Resume();
+	    void Start();
+	    void Pause();
+	    void Resume();
 
     private:
         Music backgroundIntro;
         Music backgroundLoop;
-				int cursorIndex = 0;
+		int cursorIndex = 0;
 
-				GameObject* cursor;
-				GameObject* buttonPressed;
-				Sprite* spriteCursor;
-				Sprite* spriteButton;
+		GameObject* cursor;
+		GameObject* buttonPressed;
+		Sprite* spriteCursor;
+		Sprite* spriteButton;
 };
 
 #endif

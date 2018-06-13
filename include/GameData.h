@@ -1,6 +1,9 @@
 #ifndef GAMEDATA
 #define GAMEDATA
 
+#define FONT "assets/font/orange kid.ttf"
+#define LOSE_BACKGROUND "assets/img/Background/lose.jpg"
+
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"
 #define MAINMENU_PLAY_BUTTON_NOTPRESSED "assets/img/Menu/play_button_notpressed.png"
 #define MAINMENU_PLAY_BUTTON_PRESSED "assets/img/Menu/play_button_pressed.png"
@@ -39,7 +42,7 @@
 #define PROTAGONIST_ACID_ANIMATION "assets/img/Beetle/Acid.png"
 #define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 #define PROTAGONIST_DEATH_ANIMATION "assets/img/Beetle/Death.png"
-#define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/Flying.png"
+#define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/BeetleFly.png"
 #define PROTAGONIST_GETHURT_ANIMATION "assets/img/Beetle/Dano.png"
 #define PROTAGONIST_DEATH_SOUND "assets/audio/Sounds/Morrendo 2.wav"
 #define PROTAGONIST_ACID_SOUND "assets/audio/Sounds/Acido.wav"
@@ -48,6 +51,8 @@
 
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
 #define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
+#define STAGE1_TILESET_WIDTH 32
+#define STAGE1_TILESET_HEIGHT 32
 #define STAGE1_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
 #define STAGE1_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
 

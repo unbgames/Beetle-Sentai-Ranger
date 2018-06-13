@@ -18,7 +18,7 @@ Skill::Skill(GameObject* associated, float Cooldown, string Activefile, string C
 	associated->Box.h = Activesprite->GetHeight();
 
 	SDL_Color color = {255,255,255,0};
-	display = new Text(associated, "assets/font/orange kid.ttf", 36, Text::TextStyle::SOLID," ", color);
+	display = new Text(associated, FONT, 36, Text::TextStyle::SOLID," ", color);
 	associated->AddComponent(display);
 
 	timer.Restart();
