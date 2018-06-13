@@ -12,6 +12,7 @@ BossStage1::BossStage1(float x, float y){
 	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
+	SDL_Log("chegou aquiN");
 	backgroundLoop.Stop();
 	ObjectArray.clear();
 }
@@ -36,7 +37,7 @@ void BossStage1::LoadAssets(){
 	aux2->Box.y = PlayerPos.y;
 	
 	Protagonist* ranger = new Protagonist(aux2);
-	aux2->AddComponent(ranger);
+	//aux2->AddComponent(ranger);
 	GameData::Player = ranger;
 
 	ObjectArray.emplace_back(aux2);
@@ -55,7 +56,6 @@ void BossStage1::LoadAssets(){
 void BossStage1::Update(float dt){
 
 	if (!backgroundIntro.IsPlaying()){
-		SDL_Log("chegou aqui");
 		backgroundIntro.Stop(0);
 		backgroundLoop.Play(-1);
 	}
@@ -75,7 +75,11 @@ void BossStage1::Update(float dt){
 
 	Camera::Update(dt);
 
+	//SDL_Log("chegou aqui");
+
 	UpdateArray(dt);
+
+	//SDL_Log("chegou aqui2");
 
 	for(int i = 0; i < ObjectArray.size(); i++){
 		Collider* colisorI = (Collider*) ObjectArray[i]->GetComponent("Collider");

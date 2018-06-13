@@ -15,6 +15,7 @@
 #include "FlyingEnemy.h"
 #include "Collision.h"
 #include "BossStage1.h"
+#include "LoseState.h"
 
 class Stage1 : public State{
 	public:

@@ -1,6 +1,24 @@
 #ifndef GAMEDATA
 #define GAMEDATA
 
+#define FONT "assets/font/orange kid.ttf"
+#define LOSE_BACKGROUND "assets/img/Background/lose.jpg"
+
+#define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"
+#define MAINMENU_PLAY_BUTTON_NOTPRESSED "assets/img/Menu/play_button_notpressed.png"
+#define MAINMENU_PLAY_BUTTON_PRESSED "assets/img/Menu/play_button_pressed.png"
+#define MAINMENU_EXIT_BUTTON_NOTPRESSED "assets/img/Menu/exit_button_notpressed.png"
+#define MAINMENU_EXIT_BUTTON_PRESSED "assets/img/Menu/exit_button_pressed.png"
+#define MAINMENU_OPTIONS_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
+#define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
+#define MAINMENU_CURSOR "assets/img/Menu/pointer.png"
+
+#define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
+#define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
+
+#define OPTIONS_BACKGROUND "assets/img/Menu/options_menu.png"
+#define OPTIONS_BACK_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"
+#define OPTIONS_BACK_BUTTON_PRESSED "assets/img/Menu/back_button_pressed.png"
 
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"
 #define COLUMN_TYPE1 "assets/map/Column.txt"
@@ -24,7 +42,7 @@
 #define PROTAGONIST_ACID_ANIMATION "assets/img/Beetle/Acid.png"
 #define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 #define PROTAGONIST_DEATH_ANIMATION "assets/img/Beetle/Death.png"
-#define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/Flying.png"
+#define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/BeetleFly.png"
 #define PROTAGONIST_GETHURT_ANIMATION "assets/img/Beetle/Dano.png"
 #define PROTAGONIST_DEATH_SOUND "assets/audio/Sounds/Morrendo 2.wav"
 #define PROTAGONIST_ACID_SOUND "assets/audio/Sounds/Acido.wav"
