@@ -8,6 +8,7 @@
 #include "ShitBall.h"
 #include "Collider.h"
 #include "GameData.h"
+#include "Timer.h"
 
 class Enemy : public Component{
 	public:
@@ -25,7 +26,7 @@ class Enemy : public Component{
 		virtual void TakeDamage(int dmg);
 
 	protected:
-		typedef enum EnemyState {SEARCHING, ATTACKING};
+		typedef enum EnemyState {SEARCHING, ATTACKING, HURTING};
 		EnemyState state;
 		int hp;
 		Vec2 speed;

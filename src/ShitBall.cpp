@@ -1,6 +1,6 @@
 #include "ShitBall.h"
 
-ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage, string sprite, int frameCount) : Component(associated){
+ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage, bool targetPlayer, string sprite, string sound,  int frameCount) : Component(associated){
 	
 	Sprite* novo = new Sprite(associated, sprite,frameCount,0.3, 0);
 	associated->Box.w = novo->GetWidth();
@@ -9,17 +9,18 @@ ShitBall::ShitBall(GameObject* associated, double angle, float speed, int damage
 	associated->AddComponent(novo);
 
 	this->damage = damage;
-	this->speed.x = speed*cos(angle)/2;
-	this->speed.y = 0;
+	this->speed.y = speed*sin(angle);
+	this->speed.x = speed*cos(angle);
+	this->targetPlayer = targetPlayer;
 
 	Collider* colisor = new Collider(associated);
 	colisor->SetScale(Vec2(0.4,0.37));
 	colisor->SetOffset(Vec2(13,0));
 	associated->AddComponent(colisor);
 
-	Sound* sound = new Sound(associated, PROTAGONIST_SHIT_SOUND);
-	sound->Play(1);
-	associated->AddComponent(sound);
+	Sound* noise = new Sound(associated, sound);
+	noise->Play(1);
+	associated->AddComponent(noise);
 }
 ShitBall::~ShitBall(){}
 void ShitBall::Update(float dt){
@@ -43,8 +44,29 @@ int ShitBall::GetDamage(){
 }
 void ShitBall::NotifyCollision(GameObject* other){
 	Enemy* base = (Enemy*) other->GetComponent("Enemy");
-	if (base != nullptr){
+	if (base != nullptr && !targetPlayer){
 		base->TakeDamage(damage);
+		associated->RequestDelete();
+	}
+
+	Protagonist* player = (Protagonist*) other->GetComponent("Protagonist");
+	if (player != nullptr && targetPlayer){
+		player->TakeDamage(damage);
+		associated->RequestDelete();
+	}
+
+	Platform* plat = (Platform*) other->GetComponent("Platform");
+	if (plat != nullptr){
+		associated->RequestDelete();
+	}
+
+	Column* coluna = (Column*) other->GetComponent("Column");
+	if(coluna != nullptr){
+		associated->RequestDelete();
+	}
+	
+	Terrain* terrain = (Terrain*) other->GetComponent("Terrain");
+	if(terrain != nullptr){
 		associated->RequestDelete();
 	}
 }

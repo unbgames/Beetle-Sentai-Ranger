@@ -4,8 +4,8 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	associated->AddComponent(this);
 	speed.x = 0;
 	speed.y = 0;
-	flip = false;
 	state = PlayerState::NORMAL;
+	LastState = PlayerState::NORMAL;
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
@@ -13,7 +13,7 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	GameObject* go = new GameObject();
 	state->AddObject(go);
 
-	HealthBar* barra = new HealthBar(go, 5, PROTAGONIST_HEALTHBAR);
+	HealthBar* barra = new HealthBar(go, 5, HUD_HEALTHBAR);
 	go->AddComponent(barra);
 	HPBar = barra;
 
@@ -43,12 +43,25 @@ void Protagonist::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(SDLK_x)){
-		state = PlayerState::DASHING;
+	if(input.KeyPress(SDLK_x) && dash->IsActive()){
+		dash->Use();
+		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 	}
 	if(input.KeyPress(SDLK_w)){
 		TakeDamage(1);
+	}
+
+	if (state == PlayerState::HURTING){
+		if (sprite->IsAnimationOver()){
+			if (LastState == PlayerState::FLYING)
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
+			else
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+
+			ChangeState(LastState);
+		}
+		speed.y += 20*dt;
 	}
 
 
@@ -57,12 +70,11 @@ void Protagonist::Update(float dt){
 			if (sprite->GetTag() != "ProtagJump"){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
 			}
-			state = PlayerState::NORMAL;
+			ChangeState(PlayerState::NORMAL);
 			if(Soco.lock() != nullptr)
 				Soco.lock()->RequestDelete();
 		}
-		if (!OnGround)
-			speed.y += 20*dt;
+		speed.y += 20*dt;
 	}
 
 	if (state == PlayerState::NORMAL){
@@ -93,7 +105,6 @@ void Protagonist::Update(float dt){
 		if(input.KeyPress(SDLK_UP) && jumpCount < 1){
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 			jumpCount++;
-			OnGround = false;
 			speed.y = -450*dt;
 		}
 		if(input.IsKeyDown(SDLK_LEFT)){
@@ -118,9 +129,7 @@ void Protagonist::Update(float dt){
 		if(input.KeyPress(SDLK_a)){
 			Attack();
 		}
-
-		if (!OnGround)
-			speed.y += 20*dt;
+		speed.y += 20*dt;
 	}
 
 	if (state == PlayerState::DASHING){
@@ -135,21 +144,24 @@ void Protagonist::Update(float dt){
 		counter.Update(dt);
 
 		if (counter.Get() >= 0.5){
-			state = PlayerState::NORMAL;
 			counter.Restart();
-			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 
+			if (LastState == PlayerState::FLYING)
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
+			else
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+
+			ChangeState(LastState);
 		}
 	}
 
 	if (state == PlayerState::FLYING){
-		OnGround = false;
 		speed.x = 0;
 		speed.y = 0;
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 
-		if(input.KeyPress(SDLK_c)){
-			state = PlayerState::NORMAL;
+		if(fly->IsOnCooldown()){
+			ChangeState(PlayerState::NORMAL);
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 		}
 		if(input.KeyPress(SDLK_s)){
@@ -186,9 +198,9 @@ void Protagonist::Update(float dt){
 			sprite->SetFlip(flip);
 		}
 	}
-	else if(input.KeyPress(SDLK_c)){
-		OnGround = false;
-		state = PlayerState::FLYING;
+	else if(input.KeyPress(SDLK_c) && fly->IsActive()){
+		ChangeState(PlayerState::FLYING);
+		fly->Use();
 	}
 
 	associated->Box.x += speed.x;
@@ -240,10 +252,57 @@ void Protagonist::Start(){
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
 
-	Sprite* fly = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.005, 0);
-	fly->SetTag("ProtagFly");
-	fly->SetEnabled(false);
-	associated->AddComponent(fly);
+	Sprite* flying = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.005, 0);
+	flying->SetTag("ProtagFly");
+	flying->SetEnabled(false);
+	associated->AddComponent(flying);
+
+	Sprite* hurt = new Sprite(associated, PROTAGONIST_GETHURT_ANIMATION, 6, 0.05, 0);
+	hurt->SetTag("ProtagHurt");
+	hurt->SetEnabled(false);
+	associated->AddComponent(hurt);
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+
+	go->Box.x = 949;
+	go->Box.y = 0;
+
+	shit = new Skill(go, 1.0, HUD_SHIT_ICON, HUD_SHIT_COOLDOWN_ICON);
+	state->AddObject(go);
+	go->AddComponent(shit);
+
+	GameObject* go2 = new GameObject();
+
+	go2->Box.x = 874;
+	go2->Box.y = 0;
+
+	acid = new Skill(go2, 2.0, HUD_ACID_ICON, HUD_ACID_COOLDOWN_ICON);
+	state->AddObject(go2);
+	go2->AddComponent(acid);
+
+	GameObject* go3 = new GameObject();
+
+	go3->Box.x = 799;
+	go3->Box.y = 0;
+
+	dash = new Skill(go3, 2.0, HUD_DASH_ICON, HUD_DASH_COOLDOWN_ICON);
+	state->AddObject(go3);
+	go3->AddComponent(dash);
+
+	GameObject* go4 = new GameObject();
+
+	go4->Box.x = 724;
+	go4->Box.y = 0;
+
+	fly = new Skill(go4, 5.0, HUD_FLY_ICON, HUD_FLY_COOLDOWN_ICON);
+	fly->SetDuration(5.0);
+	fly->SetColor(0,0,0,0);
+	state->AddObject(go4);
+	go4->AddComponent(fly);
+
 }
 void Protagonist::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
@@ -436,20 +495,32 @@ void Protagonist::NotifyCollision(GameObject* other){
 //espera angulo em radianos
 void Protagonist::ShootShit(float angle){
 
+	if (!shit->IsActive()){
+		return;
+	}
+	shit->Use();
+
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
 
 	GameObject* go = new GameObject();
 	go->Box.Centralize(associated->Box.GetCenter().x , associated->Box.GetCenter().y);
+	go->Box.y -= 35;
 	go->tag = "shitball";
 
-	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1,PROTAGONIST_SHITBALL_ANIMATION, 4);
+	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1, false, PROTAGONIST_SHITBALL_ANIMATION, PROTAGONIST_SHIT_SOUND, 3);
 
 	go->AddComponent(shitball);
 	state->AddObject(go);
 }
 
 void Protagonist::ShootAcid(double angle){
+
+	if (!acid->IsActive()){
+		return;
+	}
+	acid->Use();
+
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
 
@@ -457,7 +528,7 @@ void Protagonist::ShootAcid(double angle){
 	go->tag = "acid";
 
 	AcidSplash* acid = new AcidSplash(go, angle, 200.0, 1,PROTAGONIST_ACID_ANIMATION, 5);
-
+	
 	go->Box.Centralize(associated->Box.x + associated->Box.w/2 , associated->Box.y + associated->Box.h/4);
 
 	go->AddComponent(acid);
@@ -467,7 +538,6 @@ void Protagonist::ShootAcid(double angle){
 void Protagonist::Land(){
 	speed.y = 0;
 	jumpCount = 0;
-	//OnGround = true;
 	if (sprite->GetTag() == "ProtagJump"){
 		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
@@ -476,7 +546,7 @@ void Protagonist::Land(){
 
 void Protagonist::Attack(){
 	speed.x = 0;
-	state = PlayerState::PUNCHING;
+	ChangeState(PlayerState::PUNCHING);
 	SetSprite((Sprite*) associated->GetComponentByTag("ProtagPunch"));
 	sprite->SetFrame(0);
 
@@ -507,10 +577,20 @@ void Protagonist::Attack(){
 }
 
 void Protagonist::TakeDamage(int dmg){
+
+	InputManager& input = InputManager::GetInstance();
+
+	if(input.IsKeyDown(SDLK_e) || state == PlayerState::DASHING){
+		return;
+	}
+
 	HPBar->AddHP(-dmg);
 	if (HPBar->GetHP() <= 0){
 		Die();
 	}
+	SetSprite((Sprite*) associated->GetComponentByTag("ProtagHurt"));
+	sprite->SetFrame(0);
+	ChangeState(PlayerState::HURTING);
 }
 
 void Protagonist::Die(){
@@ -532,4 +612,9 @@ void Protagonist::Die(){
 	Sound* sound = new Sound(go, PROTAGONIST_DEATH_SOUND);
 	sound->Play(1);
 	go->AddComponent(sound);
+}
+
+void Protagonist::ChangeState(PlayerState next){
+	LastState = state;
+	state = next;
 }

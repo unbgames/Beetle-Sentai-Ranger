@@ -4,47 +4,82 @@ FlyingEnemy::FlyingEnemy(GameObject* associated, int HP) : Enemy(associated, HP)
 	scaleAnimations.x = 1;
 	scaleAnimations.y = 1;
 
-	colisor->SetScale(Vec2(0.7*scaleAnimations.x,0.4*scaleAnimations.y));
-	colisor->SetOffset(Vec2(10,15));
+	ShootTimer.Restart();
+
+	colisor->SetScale(Vec2(0.4*scaleAnimations.x,0.6*scaleAnimations.y));
+	colisor->SetOffset(Vec2(0,10));
 }
 FlyingEnemy::~FlyingEnemy(){}
 void FlyingEnemy::Update(float dt){
+	ShootTimer.Update(dt);
 	speed.x = 0;
 	speed.y = 0;
 
 	InputManager& input = InputManager::GetInstance();
 
-	if (state == EnemyState::ATTACKING){}
+	if (state == EnemyState::ATTACKING){
+		if (sprite->IsAnimationOver()){
+			SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
+			state = EnemyState::SEARCHING;
+		}
+	}
 
 	if (state == EnemyState::SEARCHING){
 
-		int move = rand()%5;
+		int move = 0;
 
-		if(input.IsKeyDown(SDLK_q)){
-			move = 6;
+		InputManager& input = InputManager::GetInstance();
+
+		Vec2 centro = associated->Box.GetCenter();
+
+		if(GameData::Player == nullptr)
+			return;
+
+		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
+
+		if (centroPlayer.x > centro.x && abs(centroPlayer.x - centro.x) > 55){
+			//andar para a direita
+			move = 2;
+		}
+		else if(abs(centroPlayer.x - centro.x) > 55){
+			//andar para a esquerda
+			move = 1;
 		}
 
-		if(move == 0){
-			speed.x = -300*dt;
-			flip = false;
-			sprite->SetFlip(flip);
-			colisor->SetOffset(Vec2(10,15));
+		if (abs(centroPlayer.x - associated->Box.x) < 600 && ShootTimer.Get() > 4.5){
+			//atacar
+			ShootTimer.Restart();
+			move = 3;
+
+		}
+
+		if (PathBlocked){
+			//pular
+			move = 0;
+		}
+
+		if(input.IsKeyDown(SDLK_q)){
+			move = 4;
+		}
+
+		if(move == 0 && jumpCount < 1){
+			speed.y = -450*dt;
+			PathBlocked = false;
 		}
 
 		if(move == 1){
-			speed.x = 300*dt;
+			speed.x = -300*dt;
 			flip = true;
 			sprite->SetFlip(flip);
-			colisor->SetOffset(Vec2(-10,15));
 		}
 		if(move == 2){
-			speed.y = -300*dt;
+			speed.x = 300*dt;
+			flip = false;
+			sprite->SetFlip(flip);
 		}
 		if(move == 3){
-			speed.y = 300*dt;
-		}
-		if(move == 4){
-			Attack();
+			Attack(centroPlayer);
+			state = EnemyState::ATTACKING;
 		}
 	}
 
@@ -70,19 +105,51 @@ void FlyingEnemy::Update(float dt){
 }
 void FlyingEnemy::Start(){
 
-	Sprite* idle = new Sprite(associated, STAGE1_FLYING_ENEMY_IDLE_ANIMATION, 6, 0.01, 0);
+	Sprite* idle = new Sprite(associated, STAGE1_FLYING_ENEMY_IDLE_ANIMATION, 8, 0.01, 0);
 	idle->SetScaleX(scaleAnimations.x,scaleAnimations.y);
 	idle->SetTag("EnemyIdle");
 	idle->SetEnabled(true);
 	SetSprite(idle);
 	associated->AddComponent(idle);
 
-	/*Sprite* punch = new Sprite(associated, STAGE1_FLYING_ENEMY_PUNCH_ANIMATION, 4, 0.1, 0);
+	Sprite* punch = new Sprite(associated, STAGE1_FLYING_ENEMY_ATTACK_ANIMATION, 8, 0.01, 0);
 	punch->SetTag("EnemyPunch");
 	punch->SetEnabled(false);
-	associated->AddComponent(punch);*/
+	associated->AddComponent(punch);
 
 }
 void FlyingEnemy::NotifyCollision(GameObject* other){}
-void FlyingEnemy::Attack(){}
+void FlyingEnemy::Attack(Vec2 target){
+
+	SetSprite((Sprite*) associated->GetComponentByTag("EnemyPunch"));
+	sprite->SetFrame(0);
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	go->Box.Centralize(associated->Box.GetCenter().x , associated->Box.GetCenter().y);
+	double angle = associated->Box.GetCenter().GetAngle(target);
+	go->tag = "bullet";
+
+	ShitBall* bullet = new ShitBall(go, angle, 700, 1, true, STAGE1_FLYING_ENEMY_BULLET_ANIMATION, PROTAGONIST_SHIT_SOUND, 4);
+	go->AddComponent(bullet);
+	state->AddObject(go);
+}
 void FlyingEnemy::Land(){}
+
+void FlyingEnemy::Kill(){
+	associated->RequestDelete();
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+	go->Box.x = associated->Box.x;
+	go->Box.y = associated->Box.y;
+	state->AddObject(go);
+
+	Sprite* sprite = new Sprite(go, STAGE1_FLYING_ENEMY_DEATH_ANIMATION,5,0.2,1.0);
+	go->AddComponent(sprite);
+
+}

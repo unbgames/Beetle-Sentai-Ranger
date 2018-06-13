@@ -65,6 +65,10 @@ void Stage1::LoadAssets(){
 	Camera::Follow(aux2);
 	ObjectArray.emplace_back(aux2);
 
+	/*
+	*
+	*/
+	
 	GameObject* aux4 = new GameObject();
 	aux4->Box.x = 400;
 	aux4->Box.y = 505;
