@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Stage1.h"
+#include "MainMenu.h"
 
 int main (int argc, char** argv) {
 
@@ -8,7 +9,8 @@ int main (int argc, char** argv) {
     srand(time(NULL));
 
     game = Game::GetInstance();
-    game->Push(new Stage1(0));
+    //game->Push(new Stage1(4));
+    game->Push(new MainMenu());
     game->Run();
     delete game;
 

@@ -1,10 +1,11 @@
 #include "Protagonist.h"
 
 Protagonist::Protagonist(GameObject* associated) : Component(associated){
+	associated->AddComponent(this);
 	speed.x = 0;
 	speed.y = 0;
-	flip = false;
 	state = PlayerState::NORMAL;
+	LastState = PlayerState::NORMAL;
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
@@ -12,7 +13,7 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	GameObject* go = new GameObject();
 	state->AddObject(go);
 
-	HealthBar* barra = new HealthBar(go, 5, PROTAGONIST_HEALTHBAR);
+	HealthBar* barra = new HealthBar(go, 5, HUD_HEALTHBAR);
 	go->AddComponent(barra);
 	HPBar = barra;
 
@@ -42,12 +43,25 @@ void Protagonist::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(SDLK_x)){
-		state = PlayerState::DASHING;
+	if(input.KeyPress(SDLK_x) && dash->IsActive()){
+		dash->Use();
+		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 	}
 	if(input.KeyPress(SDLK_w)){
 		TakeDamage(1);
+	}
+
+	if (state == PlayerState::HURTING){
+		if (sprite->IsAnimationOver()){
+			if (LastState == PlayerState::FLYING)
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
+			else
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+
+			ChangeState(LastState);
+		}
+		speed.y += 20*dt;
 	}
 
 
@@ -56,7 +70,7 @@ void Protagonist::Update(float dt){
 			if (sprite->GetTag() != "ProtagJump"){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
 			}
-			state = PlayerState::NORMAL;
+			ChangeState(PlayerState::NORMAL);
 			if(Soco.lock() != nullptr)
 				Soco.lock()->RequestDelete();
 		}
@@ -115,7 +129,6 @@ void Protagonist::Update(float dt){
 		if(input.KeyPress(SDLK_a)){
 			Attack();
 		}
-
 		speed.y += 20*dt;
 	}
 
@@ -131,10 +144,14 @@ void Protagonist::Update(float dt){
 		counter.Update(dt);
 
 		if (counter.Get() >= 0.5){
-			state = PlayerState::NORMAL;
 			counter.Restart();
-			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 
+			if (LastState == PlayerState::FLYING)
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
+			else
+				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+
+			ChangeState(LastState);
 		}
 	}
 
@@ -143,8 +160,8 @@ void Protagonist::Update(float dt){
 		speed.y = 0;
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
 
-		if(input.KeyPress(SDLK_c)){
-			state = PlayerState::NORMAL;
+		if(fly->IsOnCooldown()){
+			ChangeState(PlayerState::NORMAL);
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 		}
 		if(input.KeyPress(SDLK_s)){
@@ -181,8 +198,9 @@ void Protagonist::Update(float dt){
 			sprite->SetFlip(flip);
 		}
 	}
-	else if(input.KeyPress(SDLK_c)){
-		state = PlayerState::FLYING;
+	else if(input.KeyPress(SDLK_c) && fly->IsActive()){
+		ChangeState(PlayerState::FLYING);
+		fly->Use();
 	}
 
 	associated->Box.x += speed.x;
@@ -234,110 +252,275 @@ void Protagonist::Start(){
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
 
-	Sprite* fly = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.005, 0);
-	fly->SetTag("ProtagFly");
-	fly->SetEnabled(false);
-	associated->AddComponent(fly);
+	Sprite* flying = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.005, 0);
+	flying->SetTag("ProtagFly");
+	flying->SetEnabled(false);
+	associated->AddComponent(flying);
+
+	Sprite* hurt = new Sprite(associated, PROTAGONIST_GETHURT_ANIMATION, 6, 0.05, 0);
+	hurt->SetTag("ProtagHurt");
+	hurt->SetEnabled(false);
+	associated->AddComponent(hurt);
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+
+	go->Box.x = 949;
+	go->Box.y = 0;
+
+	shit = new Skill(go, 1.0, HUD_SHIT_ICON, HUD_SHIT_COOLDOWN_ICON);
+	state->AddObject(go);
+	go->AddComponent(shit);
+
+	GameObject* go2 = new GameObject();
+
+	go2->Box.x = 874;
+	go2->Box.y = 0;
+
+	acid = new Skill(go2, 2.0, HUD_ACID_ICON, HUD_ACID_COOLDOWN_ICON);
+	state->AddObject(go2);
+	go2->AddComponent(acid);
+
+	GameObject* go3 = new GameObject();
+
+	go3->Box.x = 799;
+	go3->Box.y = 0;
+
+	dash = new Skill(go3, 2.0, HUD_DASH_ICON, HUD_DASH_COOLDOWN_ICON);
+	state->AddObject(go3);
+	go3->AddComponent(dash);
+
+	GameObject* go4 = new GameObject();
+
+	go4->Box.x = 724;
+	go4->Box.y = 0;
+
+	fly = new Skill(go4, 5.0, HUD_FLY_ICON, HUD_FLY_COOLDOWN_ICON);
+	fly->SetDuration(5.0);
+	fly->SetColor(0,0,0,0);
+	state->AddObject(go4);
+	go4->AddComponent(fly);
+
 }
 void Protagonist::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
 	if (base != nullptr){
 
-		Vec2 aux = base->GetAssociated()->Box.GetCenter();
-		Vec2 aux2 = colisor->Box.GetCenter();
+		Rect box1 = colisor->Box;
+		Rect box2 = base->GetAssociated()->Box;
 
-		/*if ((colisor->Box.y + colisor->Box.h) >= base->GetAssociated()->Box.y && (colisor->Box.y + colisor->Box.h) <= (base->GetAssociated()->Box.y + (base->GetAssociated()->Box.h/2))){
-			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;*/
+		float dx = box1.x - box2.x;
+	    float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
 
-		//Caso a plataforma esteja abaixo
-		if (aux.y > aux2.y && colisor->Box.x + colisor->Box.w > base->GetAssociated()->Box.x && colisor->Box.x < base->GetAssociated()->Box.x + base->GetAssociated()->Box.w){
-			//SDL_Log("chegou aqui");
-			SDL_Log("%f",associated->Box.y);
+	    float offx = 0;
+	    float offy = 0;
 
-			colisor->Box.y = base->GetAssociated()->Box.y - colisor->Box.h;
-			associated->Box.y -= 2*speed.y;
-			Land();
-		}
-		//Caso a plataforma esteja acima
-		else if (aux.y < aux2.y && colisor->Box.x + colisor->Box.w > base->GetAssociated()->Box.x && colisor->Box.x < base->GetAssociated()->Box.x + base->GetAssociated()->Box.w){
-			SDL_Log("chegou aqui2");
-			associated->Box.y -= 2*speed.y;
-			colisor->Box.y = base->GetAssociated()->Box.y + base->GetAssociated()->Box.h;
-			speed.y = 0;
-		}
+	    float dy = box1.y - box2.y;
+	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
 
-		//Caso a plataforma esteja a direita
-		else if (aux.x > aux2.x && colisor->Box.x + colisor->Box.w >= base->GetAssociated()->Box.x) {
-			SDL_Log("chegou aqui3");
-			//colisor->Box.x = base->GetAssociated()->Box.x - colisor->Box.w;
-			associated->Box.x -= 2*speed.x;
-			speed.x = 0;
-		}
-		//Caso a plataforma esteja a esquerda
-		else if (aux.x < aux2.x){
-			SDL_Log("chegou aqui4");
-			associated->Box.x -= 2*speed.x;
-			//colisor->Box.x = base->GetAssociated()->Box.x + base->GetAssociated()->Box.w;
-			speed.x = 0;
-		}
+	            // Collision detected
 
+	            if(px < py){
+	            	speed.x = 0;
+	                //project in x
+	                if(dx < 0){
+	                    //project to the left
+	                    px *= -1;
+	                    py *= 0;
+	                    offx = box2.w;
+	                }
+	                else{
+	                    //proj to right
+	                    py = 0;
+	                    offx = -box1.w;
+	                }
+	            }
+	            else{
+	            	speed.y = 0;
+	                //project in y
+	                if(dy < 0){
+	                    //project up
+	                    px = 0;
+	                    py *= -1;
+	                    offy = box2.h;
+	                    Land();
+	                }
+	                else{
+	                    //project down
+	                    px = 0;
+	                    offy = -box1.h;
 
+	                }
+	            }
+	            // we get px and py , penetration vector
+	            box1.x += px + offx;
+	            box1.y += py + offy;
 
+	            associated->Box.x += px + offx;
+	            associated->Box.y += py + offy;
 
+	            colisor->Box = box1;
+				base->GetAssociated()->Box = box2;
 
-		//associated->Box.Centralize(colisor->Box.GetCenter());
+				//associated->Box.Centralize(colisor->Box.GetCenter());
 	}
 
 	Column* coluna = (Column*) other->GetComponent("Column");
 	if(coluna != nullptr)
 	{
-		//std::cout << "flip = " << flip << std::endl;
-		if((other->Box.x) < (associated->Box.x + associated->Box.w)
-		&& !flip
-		&& !((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))))
-		{
-			associated->Box.x = other->Box.x + other->Box.w - associated->Box.w;
-			speed.x = 0;
-			speed.y = 0;
-			SDL_Log("Colisão pela esquerda!");
-		}
+		Rect box1 = colisor->Box;
+		Rect box2 = coluna->GetAssociated()->Box;
 
-		if((other->Box.x + other->Box.w) > associated->Box.x
-		&& flip
-		&& !((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))))
-		{
-			associated->Box.x = other->Box.x;
-			speed.x = 0;
-			speed.y = 0;
-			SDL_Log("Colisão pela direita!");
-		}
+		float dx = box1.x - box2.x;
+	  float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
 
-		if ((associated->Box.y + associated->Box.h) >= other->Box.y && (associated->Box.y + associated->Box.h) <= (other->Box.y + (other->Box.h/2))){
-			associated->Box.y = other->Box.y - associated->Box.h;
-			speed.y = 0;
-			Land();
+	  float offx = 0;
+	  float offy = 0;
+
+	  float dy = box1.y - box2.y;
+	  float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
+
+	  // Collision detected
+
+	  if(px < py){
+	  	speed.x = 0;
+	    //project in x
+	    if(dx < 0){
+	    	//project to the left
+	      px *= -1;
+	    	py *= 0;
+	      offx = box2.w;
+	    }
+	    else
+			{
+	    	//proj to right
+	      py = 0;
+	      offx = -box1.w;
+	    }
+	  }
+	  else{
+	  	speed.y = 0;
+	    //project in y
+	    if(dy < 0){
+	    	//project up
+	      px = 0;
+	      py *= -1;
+	      offy = box2.h;
+	      Land();
 		}
+	  else{
+	  	//project down
+	    px = 0;
+	    offy = -box1.h;
+    }
+  }
+		// we get px and py , penetration vector
+		box1.x += px + offx;
+		box1.y += py + offy;
+
+		associated->Box.x += px + offx;
+		associated->Box.y += py + offy;
+
+		colisor->Box = box1;
+		coluna->GetAssociated()->Box = box2;
+
+		//associated->Box.Centralize(colisor->Box.GetCenter());
 	}
 
+	Terrain* terrain = (Terrain*) other->GetComponent("Terrain");
+	if(terrain != nullptr)
+	{
+		Rect box1 = colisor->Box;
+		Rect box2 = terrain->GetAssociated()->Box;
+
+		float dx = box1.x - box2.x;
+	  float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
+
+	  float offx = 0;
+	  float offy = 0;
+
+	  float dy = box1.y - box2.y;
+	  float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
+
+	  // Collision detected
+
+	  if(px < py){
+	  	speed.x = 0;
+	    //project in x
+	    if(dx < 0){
+	    	//project to the left
+	      px *= -1;
+	    	py *= 0;
+	      offx = box2.w;
+	    }
+	    else
+			{
+	    	//proj to right
+	      py = 0;
+	      offx = -box1.w;
+	    }
+	  }
+	  else{
+	  	speed.y = 0;
+	    //project in y
+	    if(dy < 0){
+	    	//project up
+	      px = 0;
+	      py *= -1;
+	      offy = box2.h;
+	      Land();
+		}
+	  else{
+	  	//project down
+	    px = 0;
+	    offy = -box1.h;
+    }
+  }
+		// we get px and py , penetration vector
+		box1.x += px + offx;
+		box1.y += py + offy;
+
+		associated->Box.x += px + offx;
+		associated->Box.y += py + offy;
+
+		colisor->Box = box1;
+		terrain->GetAssociated()->Box = box2;
+
+		//associated->Box.Centralize(colisor->Box.GetCenter());
+	}
 }
 
 //espera angulo em radianos
 void Protagonist::ShootShit(float angle){
+
+	if (!shit->IsActive()){
+		return;
+	}
+	shit->Use();
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
 
 	GameObject* go = new GameObject();
 	go->Box.Centralize(associated->Box.GetCenter().x , associated->Box.GetCenter().y);
+	go->Box.y -= 35;
 	go->tag = "shitball";
 
-	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1,PROTAGONIST_SHITBALL_ANIMATION, 4);
+	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1, false, PROTAGONIST_SHITBALL_ANIMATION, PROTAGONIST_SHIT_SOUND, 3);
 
 	go->AddComponent(shitball);
 	state->AddObject(go);
 }
 
 void Protagonist::ShootAcid(double angle){
+
+	if (!acid->IsActive()){
+		return;
+	}
+	acid->Use();
+
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
 
@@ -345,7 +528,7 @@ void Protagonist::ShootAcid(double angle){
 	go->tag = "acid";
 
 	AcidSplash* acid = new AcidSplash(go, angle, 200.0, 1,PROTAGONIST_ACID_ANIMATION, 5);
-
+	
 	go->Box.Centralize(associated->Box.x + associated->Box.w/2 , associated->Box.y + associated->Box.h/4);
 
 	go->AddComponent(acid);
@@ -363,7 +546,7 @@ void Protagonist::Land(){
 
 void Protagonist::Attack(){
 	speed.x = 0;
-	state = PlayerState::PUNCHING;
+	ChangeState(PlayerState::PUNCHING);
 	SetSprite((Sprite*) associated->GetComponentByTag("ProtagPunch"));
 	sprite->SetFrame(0);
 
@@ -394,10 +577,20 @@ void Protagonist::Attack(){
 }
 
 void Protagonist::TakeDamage(int dmg){
+
+	InputManager& input = InputManager::GetInstance();
+
+	if(input.IsKeyDown(SDLK_e) || state == PlayerState::DASHING){
+		return;
+	}
+
 	HPBar->AddHP(-dmg);
 	if (HPBar->GetHP() <= 0){
 		Die();
 	}
+	SetSprite((Sprite*) associated->GetComponentByTag("ProtagHurt"));
+	sprite->SetFrame(0);
+	ChangeState(PlayerState::HURTING);
 }
 
 void Protagonist::Die(){
@@ -419,4 +612,9 @@ void Protagonist::Die(){
 	Sound* sound = new Sound(go, PROTAGONIST_DEATH_SOUND);
 	sound->Play(1);
 	go->AddComponent(sound);
+}
+
+void Protagonist::ChangeState(PlayerState next){
+	LastState = state;
+	state = next;
 }

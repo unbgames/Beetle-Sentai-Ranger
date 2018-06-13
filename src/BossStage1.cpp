@@ -12,7 +12,7 @@ BossStage1::BossStage1(float x, float y){
 	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
-	backgroundIntro.Stop();
+	backgroundLoop.Stop();
 	ObjectArray.clear();
 }
 
@@ -55,6 +55,7 @@ void BossStage1::LoadAssets(){
 void BossStage1::Update(float dt){
 
 	if (!backgroundIntro.IsPlaying()){
+		SDL_Log("chegou aqui");
 		backgroundIntro.Stop(0);
 		backgroundLoop.Play(-1);
 	}

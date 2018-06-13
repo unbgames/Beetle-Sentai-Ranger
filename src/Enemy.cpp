@@ -6,6 +6,8 @@ Enemy::Enemy(GameObject* associated, int HP) : Component(associated){
 	hp = HP;
 	flip = false;
 	state = EnemyState::SEARCHING;
+	scaleAnimations.x = 1;
+	scaleAnimations.y = 1;
 
 	colisor = new Collider(associated);
 	associated->AddComponent(colisor);
@@ -36,6 +38,6 @@ void Enemy::Kill(){
 void Enemy::TakeDamage(int dmg){
 	hp-=dmg;
 	if(hp <= 0){
-	Kill();
+		Kill();
 	}
 }

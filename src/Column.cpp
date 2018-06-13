@@ -4,7 +4,7 @@
 Column::Column(GameObject* associated, string file, TileSet* tileSet) : Component(associated){
 	this->tileSet = tileSet;
 	Load(file);
-	associated->Box.w = tileSet->GetTileWidth();
+	associated->Box.w = tileSet->GetTileWidth()*3;
 	associated->Box.h = tileSet->GetTileHeight()*tileNumber;
 
 	Collider* colisor = new Collider(associated);
@@ -42,10 +42,17 @@ void Column::RenderColumn(int cameraX, int cameraY){
 	float x = associated->Box.x;
 	float y = associated->Box.y;
 
-	for (int i = 0; i < tileNumber; ++i)
-  {
-		tileSet->RenderTile(tileList[i], x-cameraX, y-cameraY);
-		y+= tileSet->GetTileHeight();
+	float aux_y = y;
+
+	for(int j = 0; j < 3; ++j)
+	{
+		for (int i = 0; i < tileNumber; ++i)
+	  {
+			tileSet->RenderTile(tileList[i], x-cameraX, y-cameraY);
+			y+= tileSet->GetTileHeight();
+		}
+		x+= tileSet->GetTileWidth();
+		y = aux_y;
 	}
 }
 void Column::Render()
