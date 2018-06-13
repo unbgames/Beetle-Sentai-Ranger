@@ -51,6 +51,8 @@
 
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
 #define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
+#define STAGE1_TILESET_WIDTH 32
+#define STAGE1_TILESET_HEIGHT 32
 #define STAGE1_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
 #define STAGE1_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
 

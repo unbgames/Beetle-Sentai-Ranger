@@ -1,10 +1,18 @@
+#ifndef TERRAIN
+#define TERRAIN
+
+#include "Component.h"
+#include "TileMap.h"
+#include "Collider.h"
+
 class Terrain : public Component{
 	public:
-		Terrain();
+		Terrain(GameObject* associated, string TileFile, string MapFile);
 		~Terrain();
-		Start();
-		Update(float dt);
-		Render();
+		void Start();
+		void Update(float dt);
+		void Render();
+		bool Is(string type);
 		void NotifyCollision();
 
 	private:
@@ -12,3 +20,5 @@ class Terrain : public Component{
 		Collider* colisor;
 	
 };
+
+#endif
