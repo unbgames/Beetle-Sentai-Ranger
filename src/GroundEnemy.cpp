@@ -45,22 +45,22 @@ void GroundEnemy::Update(float dt){
 
 		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
 
-		if (centroPlayer.x > centro.x && abs(centroPlayer.x - centro.x) > 55){
+		if (centroPlayer.x > centro.x && abs(centroPlayer.x - centro.x) >= 55){
 			//andar para a direita
 			move = 2;
 		}
-		else if(abs(centroPlayer.x - centro.x) > 55){
+		else if(abs(centroPlayer.x - centro.x) >= 55){
 			//andar para a esquerda
 			move = 1;
 		}
 
-		if (abs(centroPlayer.x - associated->Box.x) < 55 && AttackTimer.Get() > 1.5){
+		if (abs(centroPlayer.x - centro.x) < 60 && AttackTimer.Get() > 1.5){
 			//atacar
 			AttackTimer.Restart();
 			move = 3;
 
 		}
-
+		
 		if(input.IsKeyDown(SDLK_q)){
 			move = 0;
 		}

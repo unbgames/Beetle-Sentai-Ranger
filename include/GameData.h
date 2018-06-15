@@ -1,6 +1,10 @@
 #ifndef GAMEDATA
 #define GAMEDATA
 
+#define FONT "assets/font/orange kid.ttf"
+#define LOSE_BACKGROUND "assets/img/End/GameOver_00.png"
+#define CREDIT_TEXT "assets/map/Credits.txt"
+
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"
 #define MAINMENU_PLAY_BUTTON_NOTPRESSED "assets/img/Menu/play_button_notpressed.png"
 #define MAINMENU_PLAY_BUTTON_PRESSED "assets/img/Menu/play_button_pressed.png"
@@ -8,7 +12,7 @@
 #define MAINMENU_EXIT_BUTTON_PRESSED "assets/img/Menu/exit_button_pressed.png"
 #define MAINMENU_OPTIONS_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
 #define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
-#define MAINMENU_CURSOR "assets/img/Menu/pointer.png"
+#define MAINMENU_CURSOR "assets/img/Menu/mouse1.png"
 
 #define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
@@ -39,7 +43,7 @@
 #define PROTAGONIST_ACID_ANIMATION "assets/img/Beetle/Acid.png"
 #define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 #define PROTAGONIST_DEATH_ANIMATION "assets/img/Beetle/Death.png"
-#define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/Flying.png"
+#define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/BeetleFly.png"
 #define PROTAGONIST_GETHURT_ANIMATION "assets/img/Beetle/Dano.png"
 #define PROTAGONIST_DEATH_SOUND "assets/audio/Sounds/Morrendo 2.wav"
 #define PROTAGONIST_ACID_SOUND "assets/audio/Sounds/Acido.wav"
@@ -48,6 +52,8 @@
 
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
 #define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
+#define STAGE1_TILESET_WIDTH 32
+#define STAGE1_TILESET_HEIGHT 32
 #define STAGE1_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
 #define STAGE1_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
 
@@ -64,7 +70,12 @@
 #define STAGE1_FLYING_ENEMY_DEATH_ANIMATION "assets/img/FlyingEnemy1/RedGodDeath.png"
 #define STAGE1_FLYING_ENEMY_BULLET_ANIMATION "assets/img/FlyingEnemy1/FireRed.png"
 
-#define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Grande Sapo.png"
+#define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Frog/Pose Boss.png"
+#define STAGE1_BOSS_RUN_ANIMATION "assets/img/Frog/WalkFrog.png"
+#define STAGE1_BOSS_ATTACK1_ANIMATION "assets/img/Frog/SMASH.png"
+#define STAGE1_BOSS_ATTACK2_ANIMATION "assets/img/Frog/Linguada_Linguada.png"
+#define STAGE1_BOSS_ATTACK3_ANIMATION "assets/img/Frog/Linguadaparacima.png"
+#define STAGE1_BOSS_DEATH_ANIMATION "assets/img/Frog/DeathFrog.png"
 #define STAGE1_BOSS_BACKGROUND "assets/img/Background/Boss1.png"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaBossIntro.ogg"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaBossLoop.ogg"

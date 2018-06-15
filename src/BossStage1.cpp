@@ -36,7 +36,7 @@ void BossStage1::LoadAssets(){
 	aux2->Box.y = PlayerPos.y;
 	
 	Protagonist* ranger = new Protagonist(aux2);
-	aux2->AddComponent(ranger);
+	//aux2->AddComponent(ranger);
 	GameData::Player = ranger;
 
 	ObjectArray.emplace_back(aux2);
@@ -48,14 +48,11 @@ void BossStage1::LoadAssets(){
 	
 	Frog* enemy = new Frog(aux4, 50);
 
-	aux4->AddComponent(enemy);
-
 	ObjectArray.emplace_back(aux4);
 }
 void BossStage1::Update(float dt){
 
 	if (!backgroundIntro.IsPlaying()){
-		SDL_Log("chegou aqui");
 		backgroundIntro.Stop(0);
 		backgroundLoop.Play(-1);
 	}
@@ -67,11 +64,6 @@ void BossStage1::Update(float dt){
 
 	if (input.KeyPress(SDLK_ESCAPE))
 		popRequested = true;
-
-	/*if (GameData::Player == nullptr){
-		SDL_Log("game over");
-		popRequested = true;
-	}*/
 
 	Camera::Update(dt);
 
@@ -92,6 +84,28 @@ void BossStage1::Update(float dt){
 				}
 			}
 		}
+	}
+
+	if (GameData::Player == nullptr){
+		counter.Update(dt);
+		if (counter.Get() >= 1.4){
+			Game* game = Game::GetInstance();
+			game->Push(new LoseState());
+			popRequested = true;
+		}
+		else
+			return;
+	}
+
+	if (GameData::playerVictory){
+		counter.Update(dt);
+		if (counter.Get() >= 1.4){
+			Game* game = Game::GetInstance();
+			game->Push(new CreditState(CREDIT_TEXT));
+			popRequested = true;
+		}
+		else
+			return;
 	}
 
 	//SDL_Log("%d", ObjectArray.size());

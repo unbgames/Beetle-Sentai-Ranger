@@ -4,6 +4,7 @@ State::State(){
 	bool popRequested = false;
 	bool quitRequested = false;
 	bool started = false;
+	counter.Restart();
 }
 State::~State(){
 	ObjectArray.clear();
@@ -59,10 +60,12 @@ void State::StartArray(){
 void State::UpdateArray(float dt){
 	for (int i = 0; i < ObjectArray.size(); ++i){
 		ObjectArray[i]->Update(dt);
+		//SDL_Log("%d", i);
 	}
 	for (int i = 0; i < ObjectArray.size(); ++i){
 		if(ObjectArray[i]->IsDead()){
 			ObjectArray.erase(ObjectArray.begin()+i);
+			//SDL_Log("E%d", i);
 		}
 	}
 }

@@ -51,7 +51,7 @@ void MainMenu::LoadAssets()
 	cursor = new GameObject();
 	spriteCursor = new Sprite(cursor, MAINMENU_CURSOR);
 	cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-	cursor->Box.y = 270;
+	cursor->Box.y = 250;
 	cursor->AddComponent(spriteCursor);
 	ObjectArray.emplace_back(cursor);
 }
@@ -66,6 +66,11 @@ void MainMenu::Update(float dt)
 	}
 
 	InputManager& input = InputManager::GetInstance();
+
+	if (input.KeyPress(SDLK_q)){
+		Game* game = Game::GetInstance();
+		game->Push(new CreditState(CREDIT_TEXT));
+	}
 
 	if(input.QuitRequested())
 		quitRequested = true;
@@ -89,17 +94,17 @@ void MainMenu::Update(float dt)
 	{
 		case 0:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 270;
+			cursor->Box.y = 250;
 			break;
 
 		case 1:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 370;
+			cursor->Box.y = 350;
 			break;
 
 		case 2:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 470;
+			cursor->Box.y = 450;
 			break;
 
 		default:
@@ -124,7 +129,7 @@ void MainMenu::Update(float dt)
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 1)
 	{
-		SDL_Log("Options");
+		//SDL_Log("Options");
 
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_OPTIONS_BUTTON_PRESSED);

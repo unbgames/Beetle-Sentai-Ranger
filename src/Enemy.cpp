@@ -1,6 +1,7 @@
 #include "Enemy.h"
 
 Enemy::Enemy(GameObject* associated, int HP) : Component(associated){
+	associated->AddComponent(this);
 	speed.x = 0;
 	speed.y = 0;
 	hp = HP;
