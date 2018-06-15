@@ -13,6 +13,7 @@
 #include "Collision.h"
 #include "Frog.h"
 #include "LoseState.h"
+#include "CreditState.h"
 
 class BossStage1 : public State{
 	public:

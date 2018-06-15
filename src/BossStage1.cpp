@@ -68,18 +68,31 @@ void BossStage1::Update(float dt){
 	if (input.KeyPress(SDLK_ESCAPE))
 		popRequested = true;
 
-	/*if (GameData::Player == nullptr){
-		SDL_Log("game over");
-		popRequested = true;
-	}*/
+	if (GameData::Player == nullptr){
+		counter.Update(dt);
+		if (counter.Get() >= 1.4){
+			Game* game = Game::GetInstance();
+			game->Push(new LoseState());
+			popRequested = true;
+		}
+		else
+			return;
+	}
+
+	if (GameData::playerVictory){
+		counter.Update(dt);
+		if (counter.Get() >= 1.4){
+			Game* game = Game::GetInstance();
+			game->Push(new CreditState(CREDIT_TEXT));
+			popRequested = true;
+		}
+		else
+			return;
+	}
 
 	Camera::Update(dt);
 
-	//SDL_Log("chegou aqui");
-
 	UpdateArray(dt);
-
-	//SDL_Log("chegou aqui2");
 
 	for(int i = 0; i < ObjectArray.size(); i++){
 		Collider* colisorI = (Collider*) ObjectArray[i]->GetComponent("Collider");

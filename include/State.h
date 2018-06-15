@@ -40,9 +40,9 @@ class State{
 		virtual void UpdateArray(float dt);
 		virtual void RenderArray();
 	
-		bool popRequested;
-		bool quitRequested;
-		bool started;
+		bool popRequested = false;
+		bool quitRequested = false;
+		bool started = false;
 		vector<shared_ptr<GameObject>> ObjectArray;
 		Rect limit;
 		Timer counter;
