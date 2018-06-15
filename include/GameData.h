@@ -3,6 +3,7 @@
 
 #define FONT "assets/font/orange kid.ttf"
 #define LOSE_BACKGROUND "assets/img/Background/lose.jpg"
+#define CREDIT_TEXT "assets/map/Credits.txt"
 
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"
 #define MAINMENU_PLAY_BUTTON_NOTPRESSED "assets/img/Menu/play_button_notpressed.png"
@@ -69,7 +70,12 @@
 #define STAGE1_FLYING_ENEMY_DEATH_ANIMATION "assets/img/FlyingEnemy1/RedGodDeath.png"
 #define STAGE1_FLYING_ENEMY_BULLET_ANIMATION "assets/img/FlyingEnemy1/FireRed.png"
 
-#define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Grande Sapo.png"
+#define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Frog/Pose Boss.png"
+#define STAGE1_BOSS_RUN_ANIMATION "assets/img/Frog/WalkFrog.png"
+#define STAGE1_BOSS_ATTACK1_ANIMATION "assets/img/Frog/SMASH.png"
+#define STAGE1_BOSS_ATTACK2_ANIMATION "assets/img/Frog/Linguada_Linguada.png"
+#define STAGE1_BOSS_ATTACK3_ANIMATION "assets/img/Frog/Linguadaparacima.png"
+#define STAGE1_BOSS_DEATH_ANIMATION "assets/img/Frog/DeathFrog.png"
 #define STAGE1_BOSS_BACKGROUND "assets/img/Background/Boss1.png"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaBossIntro.ogg"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaBossLoop.ogg"

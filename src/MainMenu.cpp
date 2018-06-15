@@ -67,6 +67,11 @@ void MainMenu::Update(float dt)
 
 	InputManager& input = InputManager::GetInstance();
 
+	if (input.KeyPress(SDLK_q)){
+		Game* game = Game::GetInstance();
+		game->Push(new CreditState(CREDIT_TEXT));
+	}
+
 	if(input.QuitRequested())
 		quitRequested = true;
 

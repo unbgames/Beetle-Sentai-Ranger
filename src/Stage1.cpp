@@ -378,6 +378,7 @@ void Stage1::Start(){
 	LoadAssets();
 	StartArray();
 	GroundEnemy::nEnemy = 0;
+	GameData::playerVictory = false;
 }
 void Stage1::Pause(){}
 void Stage1::Resume(){}

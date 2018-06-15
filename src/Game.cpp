@@ -3,6 +3,8 @@
 Game* Game::instance = nullptr;
 
 Protagonist* GameData::Player = nullptr;
+bool GameData::playerVictory = false;
+
 
 Game* Game::GetInstance(){
 	if (instance == nullptr){
