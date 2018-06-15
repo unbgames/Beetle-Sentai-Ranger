@@ -132,7 +132,7 @@ void FlyingEnemy::Attack(Vec2 target){
 	double angle = associated->Box.GetCenter().GetAngle(target);
 	go->tag = "bullet";
 
-	ShitBall* bullet = new ShitBall(go, angle, 700, 1, true, STAGE1_FLYING_ENEMY_BULLET_ANIMATION, PROTAGONIST_SHIT_SOUND, 4);
+	ShitBall* bullet = new ShitBall(go, angle, 700, 1, true, STAGE1_FLYING_ENEMY_BULLET_ANIMATION, STAGE1_FLYING_ENEMY_BULLET_SOUND, 4);
 	go->AddComponent(bullet);
 	state->AddObject(go);
 }

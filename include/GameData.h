@@ -14,8 +14,8 @@
 #define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
 #define MAINMENU_CURSOR "assets/img/Menu/mouse1.png"
 
-#define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
-#define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
+#define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaMenuIntro.ogg"
+#define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"
 
 #define OPTIONS_BACKGROUND "assets/img/Menu/options_menu.png"
 #define OPTIONS_BACK_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"
@@ -69,6 +69,7 @@
 #define STAGE1_FLYING_ENEMY_ATTACK_ANIMATION "assets/img/FlyingEnemy1/AttackRed.png"
 #define STAGE1_FLYING_ENEMY_DEATH_ANIMATION "assets/img/FlyingEnemy1/RedGodDeath.png"
 #define STAGE1_FLYING_ENEMY_BULLET_ANIMATION "assets/img/FlyingEnemy1/FireRed.png"
+#define STAGE1_FLYING_ENEMY_BULLET_SOUND "assets/audio/Sounds/3. Inimigo Aéreo/Atirando Fogo.wav"
 
 #define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Frog/Pose Boss.png"
 #define STAGE1_BOSS_RUN_ANIMATION "assets/img/Frog/WalkFrog.png"
