@@ -2,7 +2,7 @@
 #define GAMEDATA
 
 #define FONT "assets/font/orange kid.ttf"
-#define LOSE_BACKGROUND "assets/img/Background/lose.jpg"
+#define LOSE_BACKGROUND "assets/img/End/GameOver_00.png"
 #define CREDIT_TEXT "assets/map/Credits.txt"
 
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"

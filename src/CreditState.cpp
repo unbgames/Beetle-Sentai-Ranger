@@ -6,7 +6,7 @@ CreditState::CreditState(string File) : State(){
 		SDL_Log("falha ao abrir o arquivo de texto");
 	}
 	wait.Restart();
-	wait.Update(1.0);
+	wait.Update(2.0);
 }
 CreditState::~CreditState(){
 	file.close();
@@ -25,10 +25,10 @@ void CreditState::Update(float dt){
 		popRequested = true;
 	}
 
-	string linha;
+	string linha = " ";
 	wait.Update(dt);
 
-	if (wait.Get() >= 1.0){
+	if (wait.Get() >= 2.0){
 		if(getline(file,linha)){/*Problema com linhas vazias*/
 		wait.Restart();
 

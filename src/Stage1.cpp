@@ -321,26 +321,6 @@ void Stage1::Update(float dt){
 		popRequested = true;
 	}
 
-	if (GameData::Player == nullptr){
-		counter.Update(dt);
-		if (counter.Get() >= 1.4){
-			Game* game = Game::GetInstance();
-			game->Push(new LoseState());
-			popRequested = true;
-		}
-		else
-			return;
-	}
-
-	if (GameData::Player != nullptr && GameData::Player->GetAssociated()->Box.x >= 6600){
-		Game* game = Game::GetInstance();
-		backgroundLoop.Stop();
-		game->Push(new BossStage1(GameData::Player->GetAssociated()->Box.x - Camera::pos.x,GameData::Player->GetAssociated()->Box.y  - Camera::pos.y));
-		popRequested = true;
-
-
-	}
-
 	if (GroundEnemy::nEnemy < TotalEnemy){
 		SpawnEnemy();
 	}
@@ -366,6 +346,25 @@ void Stage1::Update(float dt){
 		}
 	}
 
+	if (GameData::Player == nullptr){
+		counter.Update(dt);
+		if (counter.Get() >= 1.4){
+			Game* game = Game::GetInstance();
+			game->Push(new LoseState());
+			popRequested = true;
+		}
+		else
+			return;
+	}
+
+	if (GameData::Player != nullptr && GameData::Player->GetAssociated()->Box.x >= 6600){
+		Game* game = Game::GetInstance();
+		backgroundLoop.Stop();
+		game->Push(new BossStage1(GameData::Player->GetAssociated()->Box.x - Camera::pos.x,GameData::Player->GetAssociated()->Box.y  - Camera::pos.y));
+		popRequested = true;
+
+
+	}
 
 	//SDL_Log("obj: %d", ObjectArray.size());
 	//SDL_Log("enemy: %d", GroundEnemy::nEnemy);
@@ -397,8 +396,6 @@ void Stage1::SpawnEnemy(){
 
 	GroundEnemy* enemy = new GroundEnemy(obj, 5);
 
-	obj->AddComponent(enemy);
-
 	AddObject(obj);
 
 	GroundEnemy::nEnemy++;
@@ -412,8 +409,6 @@ void Stage1::SpawnEnemy(int positionX, int positionY)
 	obj->Box.y = positionY;
 
 	GroundEnemy* enemy = new GroundEnemy(obj, 5);
-
-	obj->AddComponent(enemy);
 
 	AddObject(obj);
 
@@ -435,8 +430,6 @@ void Stage1::SpawnFlyingEnemy(){
 
 	FlyingEnemy* enemy = new FlyingEnemy(obj, 5);
 
-	obj->AddComponent(enemy);
-
 	AddObject(obj);
 }
 
@@ -451,8 +444,6 @@ void Stage1::SpawnFlyingEnemy(int positionX, int positionY)
 	obj->Box.y = offsetY;
 
 	FlyingEnemy* enemy = new FlyingEnemy(obj, 5);
-
-	obj->AddComponent(enemy);
 
 	AddObject(obj);
 }
