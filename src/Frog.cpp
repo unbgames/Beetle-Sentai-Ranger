@@ -3,7 +3,7 @@
 Frog::Frog(GameObject* associated, int HP) : Enemy(associated, HP){
 	SearchTimer.Restart();
 
-	colisor->SetScale(Vec2(0.35,0.71));
+	colisor->SetScale(Vec2(0.4,0.71));
 	colisor->SetOffset(Vec2(320,80));
 }
 Frog::~Frog(){}
@@ -39,31 +39,32 @@ void Frog::Update(float dt){
 
 	if ((colisor->Box.x) < limit.x){
 		state = EnemyState::SEARCHING;
-		colisor->Box.x = limit.x;
+		associated->Box.x = limit.x - abs(colisor->Box.x - associated->Box.x);
 	}
 
-	if ((colisor->Box.x+colisor->Box.w) > limit.x+limit.w){
+	if ((colisor->Box.x + colisor->Box.w) > limit.x + limit.w){
 		state = EnemyState::SEARCHING;
-		colisor->Box.x = limit.x+limit.w - colisor->Box.w;
+		associated->Box.x = limit.x+limit.w - colisor->Box.w  - abs(colisor->Box.x - associated->Box.x);
 	}
 
-	if ((colisor->Box.y+colisor->Box.h) > limit.y+limit.h){
+	if ((associated->Box.y + associated->Box.h) > limit.y+limit.h){
 		Land();
-		colisor->Box.y = limit.y+limit.h - colisor->Box.h;
+		associated->Box.y = limit.y+limit.h - associated->Box.h;
 	}
 
-	if (state == EnemyState::SEARCHING){
+	if(state == EnemyState::SEARCHING){
+		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 		//SDL_Log("searching");
 		SearchTimer.Update(dt);
 		if (SearchTimer.Get() < 3){
 			return;
 		}
 		SearchTimer.Restart();
+		SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
 		
 		if (GameData::Player == nullptr){
 			return;
 		}
-
 		destination = GameData::Player->GetAssociated()->Box.GetCenter();
 		
 		Vec2 centro = colisor->Box.GetCenter();
@@ -80,17 +81,17 @@ void Frog::Update(float dt){
 			flip = false;
 			colisor->SetOffset(Vec2(310,80));
 		}
-
-		SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
 		
 		state = EnemyState::ATTACKING;
 	}
 
-	if (state == EnemyState::ATTACKING){
+	if(state == EnemyState::ATTACKING){
 		//SDL_Log("attacking");
-		Vec2 centro = associated->Box.GetCenter();
+		Vec2 centro = colisor->Box.GetCenter();
 		
-		if (centro.Distance(destination) <= hipo){
+		float dis = centro.Distance(destination);
+		SDL_Log("%f", dis);
+		if(dis <= hipo){
 			associated->Box.Centralize(destination.x, destination.y);
 		}
 		else{

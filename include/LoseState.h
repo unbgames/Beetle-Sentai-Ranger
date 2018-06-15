@@ -7,6 +7,7 @@
 #include "Music.h"
 #include "GameData.h"
 #include "Sprite.h"
+#include "MainMenu.h"
 
 class LoseState : public State{
     public:

@@ -36,7 +36,7 @@ void Options::LoadAssets()
 	cursorOptions = new GameObject();
 	spriteCursorOptions = new Sprite(cursorOptions, MAINMENU_CURSOR);
 	cursorOptions->Box.x = 512 + (spriteCursorOptions->GetWidth()*1.8);
-	cursorOptions->Box.y = 470;
+	cursorOptions->Box.y = 450;
 	cursorOptions->AddComponent(spriteCursorOptions);
 	ObjectArray.emplace_back(cursorOptions);
 }
@@ -74,7 +74,7 @@ void Options::Update(float dt)
 	{
 		case 0:
 			cursorOptions->Box.x = 512 + (spriteCursorOptions->GetWidth()*1.8);
-			cursorOptions->Box.y = 470;
+			cursorOptions->Box.y = 450;
 			break;
 
 		default:

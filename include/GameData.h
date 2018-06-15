@@ -2,7 +2,7 @@
 #define GAMEDATA
 
 #define FONT "assets/font/orange kid.ttf"
-#define LOSE_BACKGROUND "assets/img/Background/lose.jpg"
+#define LOSE_BACKGROUND "assets/img/End/GameOver_00.png"
 #define CREDIT_TEXT "assets/map/Credits.txt"
 
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"
@@ -12,7 +12,7 @@
 #define MAINMENU_EXIT_BUTTON_PRESSED "assets/img/Menu/exit_button_pressed.png"
 #define MAINMENU_OPTIONS_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
 #define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
-#define MAINMENU_CURSOR "assets/img/Menu/pointer.png"
+#define MAINMENU_CURSOR "assets/img/Menu/mouse1.png"
 
 #define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"

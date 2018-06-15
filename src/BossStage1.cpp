@@ -12,7 +12,6 @@ BossStage1::BossStage1(float x, float y){
 	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
-	SDL_Log("chegou aquiN");
 	backgroundLoop.Stop();
 	ObjectArray.clear();
 }
@@ -49,8 +48,6 @@ void BossStage1::LoadAssets(){
 	
 	Frog* enemy = new Frog(aux4, 50);
 
-	aux4->AddComponent(enemy);
-
 	ObjectArray.emplace_back(aux4);
 }
 void BossStage1::Update(float dt){
@@ -67,6 +64,27 @@ void BossStage1::Update(float dt){
 
 	if (input.KeyPress(SDLK_ESCAPE))
 		popRequested = true;
+
+	Camera::Update(dt);
+
+	UpdateArray(dt);
+
+	for(int i = 0; i < ObjectArray.size(); i++){
+		Collider* colisorI = (Collider*) ObjectArray[i]->GetComponent("Collider");
+
+		for (int j=i+1; j < ObjectArray.size(); j++){
+			Collider* colisorJ = (Collider*) ObjectArray[j]->GetComponent("Collider");
+
+			if ((i != j) && (colisorI != nullptr) && (colisorJ != nullptr)){
+				if(Collision::IsColliding(colisorI->Box, colisorJ->Box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
+
+
+					ObjectArray[i]->NotifyCollision(ObjectArray[j].get());
+					ObjectArray[j]->NotifyCollision(ObjectArray[i].get());
+				}
+			}
+		}
+	}
 
 	if (GameData::Player == nullptr){
 		counter.Update(dt);
@@ -88,27 +106,6 @@ void BossStage1::Update(float dt){
 		}
 		else
 			return;
-	}
-
-	Camera::Update(dt);
-
-	UpdateArray(dt);
-
-	for(int i = 0; i < ObjectArray.size(); i++){
-		Collider* colisorI = (Collider*) ObjectArray[i]->GetComponent("Collider");
-
-		for (int j=i+1; j < ObjectArray.size(); j++){
-			Collider* colisorJ = (Collider*) ObjectArray[j]->GetComponent("Collider");
-
-			if ((i != j) && (colisorI != nullptr) && (colisorJ != nullptr)){
-				if(Collision::IsColliding(colisorI->Box, colisorJ->Box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
-
-
-					ObjectArray[i]->NotifyCollision(ObjectArray[j].get());
-					ObjectArray[j]->NotifyCollision(ObjectArray[i].get());
-				}
-			}
-		}
 	}
 
 	//SDL_Log("%d", ObjectArray.size());
