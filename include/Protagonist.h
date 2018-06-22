@@ -26,7 +26,7 @@ class Protagonist : public Component{
 		bool Is(string type);
 		void Start();
 		void NotifyCollision(GameObject* other);
-		
+
 		void TakeDamage(int dmg);
 		void Die();
 
@@ -56,6 +56,19 @@ class Protagonist : public Component{
 		void ShootAcid(double angle);
 		void Attack();
 		void Land();
+
+		int protagButtons[9];
+		/*
+		0 -> Up
+		1 -> Down
+		2 -> Left
+		3 -> Right
+		4 -> Punch
+		5 -> Shitball
+		6 -> Dash
+		7 -> Fly
+		8 -> Acid
+		*/
 };
 
 #endif

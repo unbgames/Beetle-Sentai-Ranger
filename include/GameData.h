@@ -5,7 +5,7 @@
 #define LOSE_BACKGROUND "assets/img/End/GameOver_00.png"
 #define CREDIT_TEXT "assets/map/Credits.txt"
 
-#define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"
+#define MAINMENU_BACKGROUND "assets/img/Menu/main_menu_v2.png"
 #define MAINMENU_PLAY_BUTTON_NOTPRESSED "assets/img/Menu/play_button_notpressed.png"
 #define MAINMENU_PLAY_BUTTON_PRESSED "assets/img/Menu/play_button_pressed.png"
 #define MAINMENU_EXIT_BUTTON_NOTPRESSED "assets/img/Menu/exit_button_notpressed.png"
@@ -17,9 +17,17 @@
 #define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaMenuIntro.ogg"
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"
 
-#define OPTIONS_BACKGROUND "assets/img/Menu/options_menu.png"
+#define OPTIONS_BACKGROUND "assets/img/Menu/options_menu_v2.png"
+#define OPTIONS_PANEL "assets/img/Menu/options_panel.png"
 #define OPTIONS_BACK_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"
 #define OPTIONS_BACK_BUTTON_PRESSED "assets/img/Menu/back_button_pressed.png"
+#define OPTIONS_CHANGE_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
+#define OPTIONS_CHANGE_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
+#define OPTIONS_UP_ICON "assets/img/FristPlane/Up.png"
+#define OPTIONS_DOWN_ICON "assets/img/FristPlane/Down.png"
+#define OPTIONS_LEFT_ICON "assets/img/FristPlane/Left.png"
+#define OPTIONS_RIGHT_ICON "assets/img/FristPlane/Right.png"
+#define OPTIONS_PUNCH_ICON "assets/img/FristPlane/Punch.png"
 
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"
 #define COLUMN_TYPE1 "assets/map/Column.txt"
@@ -90,6 +98,5 @@ class GameData{
 		~GameData();
 		static bool playerVictory;
 		static Protagonist* Player;
-
 };
 #endif
