@@ -12,7 +12,7 @@ LoseState::LoseState() : State(){
 	ObjectArray.emplace_back(aux);
 
 	GameObject* aux2 = new GameObject();
-	
+
 	SDL_Color color = {255,255,255,0};
 	Text* inst = new Text(aux2, FONT, 36, Text::TextStyle::SOLID,"Aperte SPACE ou ESC para voltar ao menu", color);
 
@@ -32,11 +32,13 @@ void LoseState::LoadAssets(){}
 void LoseState::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
-	
+
 	if(input.QuitRequested())
 		quitRequested = true;
 
 	if (input.KeyPress(SDLK_SPACE)  || input.KeyPress(SDLK_ESCAPE)){
+		Game* game = Game::GetInstance();
+		game->Push(new MainMenu());
 		popRequested = true;
 	}
 

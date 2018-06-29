@@ -16,11 +16,11 @@ void CreditState::LoadAssets(){}
 void CreditState::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
-	
+
 	if(input.QuitRequested()){
 		quitRequested = true;
 	}
-	
+
 	if (input.KeyPress(SDLK_SPACE) || input.KeyPress(SDLK_ESCAPE)){
 		popRequested = true;
 	}
@@ -33,7 +33,7 @@ void CreditState::Update(float dt){
 		wait.Restart();
 
 		GameObject* go = new GameObject();
-		
+
 		SDL_Color color = {255,255,255,0};
 		Text* inst = new Text(go, FONT, 42, Text::TextStyle::SOLID,linha, color);
 		go->AddComponent(inst);
@@ -44,8 +44,8 @@ void CreditState::Update(float dt){
 		ObjectArray.emplace_back(go);
 		}
 	}
-	
-	
+
+
 
 	for (int i = 0; i < ObjectArray.size(); ++i){
 		ObjectArray[i]->Box.y -= 50*dt;
@@ -59,9 +59,10 @@ void CreditState::Update(float dt){
 	}
 
 	UpdateArray(dt);
-	SDL_Log("obj: %d", ObjectArray.size());
+	//SDL_Log("obj: %d", ObjectArray.size());
 }
 void CreditState::Render(){
+	SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(Game::GetInstance()->GetRenderer());
 	RenderArray();
 }

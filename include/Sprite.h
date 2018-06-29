@@ -36,6 +36,7 @@ class Sprite : public Component{
         void SetFrameCount(int frameCount);
         void SetFrameTime(float frameTime);
         void SetFlip(bool Flip);
+        int GetFrame();
         bool IsAnimationOver();
 
     private:

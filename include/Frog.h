@@ -18,10 +18,15 @@ class Frog : public Enemy{
 		void Land();
 		void Kill();
 		void SetSprite(Sprite* newSprite);
+		void TongueAttack(bool updown);
+		void Smash();
+		void TakeDamage(int dmg);
 
 	private:
+		typedef enum AttackType {SMASH, TONGUEUP, TONGUEDOWN};
+		AttackType type;
 		Timer SearchTimer;
-		Vec2 destination;
+		Vec2 distance;
 };
 
 #endif

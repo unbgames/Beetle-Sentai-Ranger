@@ -144,6 +144,10 @@ void Sprite::SetFlip(bool Flip){
 	flip = Flip;
 }
 
+int Sprite::GetFrame(){
+	return(currentFrame);
+}
+
 bool Sprite::IsAnimationOver(){
 	if (currentFrame == frameCount-1){
 		return(true);

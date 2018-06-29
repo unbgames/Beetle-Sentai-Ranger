@@ -1,7 +1,8 @@
 #include "Punch.h"
 
-Punch::Punch(GameObject* associated, int damage, bool target) : Component(associated){
+Punch::Punch(GameObject* associated, int damage, bool target, float secondsToSelfDestruct) : Component(associated){
 	this->damage = damage;
+	this->secondsToSelfDestruct = secondsToSelfDestruct;
 	Collider* colisor = new Collider(associated);
 	associated->AddComponent(colisor);
 
@@ -11,7 +12,15 @@ Punch::Punch(GameObject* associated, int damage, bool target) : Component(associ
 	}
 }
 Punch::~Punch(){}
-void Punch::Update(float dt){}
+void Punch::Update(float dt){
+	if (secondsToSelfDestruct == 0){
+		return;
+	}
+	time += dt;
+	if (time >= secondsToSelfDestruct){
+		associated->RequestDelete();
+	}
+}
 void Punch::Render(){}
 bool Punch::Is(string type){
 	return(type == "Punch");

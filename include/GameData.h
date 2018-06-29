@@ -5,21 +5,29 @@
 #define LOSE_BACKGROUND "assets/img/End/GameOver_00.png"
 #define CREDIT_TEXT "assets/map/Credits.txt"
 
-#define MAINMENU_BACKGROUND "assets/img/Menu/main_menu.png"
+#define MAINMENU_BACKGROUND "assets/img/Menu/main_menu_v2.png"
 #define MAINMENU_PLAY_BUTTON_NOTPRESSED "assets/img/Menu/play_button_notpressed.png"
 #define MAINMENU_PLAY_BUTTON_PRESSED "assets/img/Menu/play_button_pressed.png"
 #define MAINMENU_EXIT_BUTTON_NOTPRESSED "assets/img/Menu/exit_button_notpressed.png"
 #define MAINMENU_EXIT_BUTTON_PRESSED "assets/img/Menu/exit_button_pressed.png"
 #define MAINMENU_OPTIONS_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
 #define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
-#define MAINMENU_CURSOR "assets/img/Menu/pointer.png"
+#define MAINMENU_CURSOR "assets/img/Menu/mouse1.png"
 
-#define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
-#define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemadaFlorestaLoop.ogg"
+#define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaMenuIntro.ogg"
+#define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"
 
-#define OPTIONS_BACKGROUND "assets/img/Menu/options_menu.png"
+#define OPTIONS_BACKGROUND "assets/img/Menu/options_menu_v2.png"
+#define OPTIONS_PANEL "assets/img/Menu/options_panel.png"
 #define OPTIONS_BACK_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"
 #define OPTIONS_BACK_BUTTON_PRESSED "assets/img/Menu/back_button_pressed.png"
+#define OPTIONS_CHANGE_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
+#define OPTIONS_CHANGE_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
+#define OPTIONS_UP_ICON "assets/img/FristPlane/Up.png"
+#define OPTIONS_DOWN_ICON "assets/img/FristPlane/Down.png"
+#define OPTIONS_LEFT_ICON "assets/img/FristPlane/Left.png"
+#define OPTIONS_RIGHT_ICON "assets/img/FristPlane/Right.png"
+#define OPTIONS_PUNCH_ICON "assets/img/FristPlane/Punch.png"
 
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"
 #define COLUMN_TYPE1 "assets/map/Column.txt"
@@ -69,17 +77,19 @@
 #define STAGE1_FLYING_ENEMY_ATTACK_ANIMATION "assets/img/FlyingEnemy1/AttackRed.png"
 #define STAGE1_FLYING_ENEMY_DEATH_ANIMATION "assets/img/FlyingEnemy1/RedGodDeath.png"
 #define STAGE1_FLYING_ENEMY_BULLET_ANIMATION "assets/img/FlyingEnemy1/FireRed.png"
+#define STAGE1_FLYING_ENEMY_BULLET_SOUND "assets/audio/Sounds/3. Inimigo Aéreo/Atirando Fogo.wav"
 
 #define STAGE1_BOSS_IDLE_ANIMATION "assets/img/Frog/Pose Boss.png"
 #define STAGE1_BOSS_RUN_ANIMATION "assets/img/Frog/WalkFrog.png"
-#define STAGE1_BOSS_ATTACK1_ANIMATION "assets/img/Frog/SMASH.png"
-#define STAGE1_BOSS_ATTACK2_ANIMATION "assets/img/Frog/Linguada_Linguada.png"
-#define STAGE1_BOSS_ATTACK3_ANIMATION "assets/img/Frog/Linguadaparacima.png"
-#define STAGE1_BOSS_DEATH_ANIMATION "assets/img/Frog/DeathFrog.png"
+#define STAGE1_BOSS_SMASH_ATTACK_ANIMATION "assets/img/Frog/SMASH.png"
+#define STAGE1_BOSS_DOWN_ATTACK_ANIMATION "assets/img/Frog/LínguaParaBaixo.png"
+#define STAGE1_BOSS_UP_ATTACK_ANIMATION "assets/img/Frog/LínguaParaCima.png"
+#define STAGE1_BOSS_DEATH_ANIMATION "assets/img/Frog/DeathFrog_DeathFrog01.png"
+#define STAGE1_BOSS_SMASH_ATTACK_SOUND "assets/audio/Sounds/4. Grande Sapo/Pulo.wav"
+#define STAGE1_BOSS_TONGUE_ATTACK_SOUND "assets/audio/Sounds/4. Grande Sapo/Linguada.wav"
 #define STAGE1_BOSS_BACKGROUND "assets/img/Background/Boss1.png"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaBossIntro.ogg"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaBossLoop.ogg"
-
 
 class Protagonist;
 
@@ -89,6 +99,5 @@ class GameData{
 		~GameData();
 		static bool playerVictory;
 		static Protagonist* Player;
-
 };
 #endif

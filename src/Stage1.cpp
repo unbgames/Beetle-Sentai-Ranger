@@ -68,7 +68,7 @@ void Stage1::LoadAssets(){
 	/*
 	*
 	*/
-	
+
 	GameObject* aux4 = new GameObject();
 	aux4->Box.x = 400;
 	aux4->Box.y = 505;
@@ -310,8 +310,10 @@ void Stage1::Update(float dt){
 		quitRequested = true;
 
 	if (input.KeyPress(SDLK_ESCAPE)){
-		popRequested = true;
+		Game* game = Game::GetInstance();
 		backgroundLoop.Stop();
+		game->Push(new MainMenu());
+		popRequested = true;
 	}
 
 	if (input.KeyPress(SDLK_p)){

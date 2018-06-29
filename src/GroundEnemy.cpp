@@ -7,6 +7,8 @@ GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP)
 	colisor->SetOffset(Vec2(0,15));
 
 	AttackTimer.Restart();
+
+	state = EnemyState::SEARCHING;
 }
 GroundEnemy::~GroundEnemy(){}
 
