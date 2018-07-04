@@ -1,4 +1,4 @@
-bin/BossStage1.o: src/BossStage1.cpp include/BossStage1.h include/State.h \
+bin/Options.o: src/Options.cpp include/MainMenu.h include/State.h \
  include/SDL_include.h include/GameObject.h include/Rect.h include/Vec2.h \
  include/Component.h include/GameData.h include/Game.h \
  include/InputManager.h include/Resources.h include/Timer.h \
@@ -6,11 +6,10 @@ bin/BossStage1.o: src/BossStage1.cpp include/BossStage1.h include/State.h \
  include/ShitBall.h include/Collider.h include/Enemy.h include/Platform.h \
  include/TileSet.h include/Column.h include/Terrain.h include/HealthBar.h \
  include/Punch.h include/AcidSplash.h include/Skill.h include/Text.h \
- include/CameraFollower.h include/Music.h include/GroundEnemy.h \
- include/Collision.h include/Frog.h include/BossStage1.h \
- include/LoseState.h include/MainMenu.h include/CreditState.h
+ include/CameraFollower.h include/Music.h include/CreditState.h \
+ include/Options.h
 
-include/BossStage1.h:
+include/MainMenu.h:
 
 include/State.h:
 
@@ -70,16 +69,6 @@ include/CameraFollower.h:
 
 include/Music.h:
 
-include/GroundEnemy.h:
-
-include/Collision.h:
-
-include/Frog.h:
-
-include/BossStage1.h:
-
-include/LoseState.h:
-
-include/MainMenu.h:
-
 include/CreditState.h:
+
+include/Options.h:
