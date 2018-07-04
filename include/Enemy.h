@@ -26,7 +26,7 @@ class Enemy : public Component{
 		virtual void TakeDamage(int dmg);
 
 	protected:
-		typedef enum EnemyState {SEARCHING, ATTACKING, HURTING};
+		typedef enum EnemyState {SEARCHING, ATTACKING, HURTING, IDLE};
 		EnemyState state;
 		int hp;
 		Vec2 speed;

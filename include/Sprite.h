@@ -36,7 +36,9 @@ class Sprite : public Component{
         void SetFrameCount(int frameCount);
         void SetFrameTime(float frameTime);
         void SetFlip(bool Flip);
+        int GetFrame();
         bool IsAnimationOver();
+        void StopOnFrame(int stopFrame);
 
     private:
         SDL_Texture* texture;
@@ -52,6 +54,7 @@ class Sprite : public Component{
         float secondsToSelfDestruct;
         Timer selfDestructCount;
         bool flip;
+        int stopFrame = -1;
 };
 
 #endif

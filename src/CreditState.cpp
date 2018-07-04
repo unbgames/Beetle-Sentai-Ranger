@@ -7,8 +7,13 @@ CreditState::CreditState(string File) : State(){
 	}
 	wait.Restart();
 	wait.Update(2.0);
+
+	backgroundMusic.Open(CREDIT_MUSIC);
+	backgroundMusic.Play(-1);
 }
 CreditState::~CreditState(){
+	backgroundMusic.Stop();
+	ObjectArray.clear();
 	file.close();
 }
 
@@ -59,7 +64,7 @@ void CreditState::Update(float dt){
 	}
 
 	UpdateArray(dt);
-	SDL_Log("obj: %d", ObjectArray.size());
+	//SDL_Log("obj: %d", ObjectArray.size());
 }
 void CreditState::Render(){
 	SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(), 0, 0, 0, SDL_ALPHA_OPAQUE);

@@ -8,6 +8,8 @@ FlyingEnemy::FlyingEnemy(GameObject* associated, int HP) : Enemy(associated, HP)
 
 	colisor->SetScale(Vec2(0.4*scaleAnimations.x,0.6*scaleAnimations.y));
 	colisor->SetOffset(Vec2(0,10));
+
+	state = EnemyState::SEARCHING;
 }
 FlyingEnemy::~FlyingEnemy(){}
 void FlyingEnemy::Update(float dt){
@@ -132,7 +134,7 @@ void FlyingEnemy::Attack(Vec2 target){
 	double angle = associated->Box.GetCenter().GetAngle(target);
 	go->tag = "bullet";
 
-	ShitBall* bullet = new ShitBall(go, angle, 700, 1, true, STAGE1_FLYING_ENEMY_BULLET_ANIMATION, STAGE1_FLYING_ENEMY_BULLET_SOUND, 4);
+	ShitBall* bullet = new ShitBall(go, angle, 700, 1, true, STAGE1_FLYING_ENEMY_BULLET_ANIMATION,STAGE1_FLYING_ENEMY_BULLET_SOUND, 4);
 	go->AddComponent(bullet);
 	state->AddObject(go);
 }
@@ -151,5 +153,9 @@ void FlyingEnemy::Kill(){
 
 	Sprite* sprite = new Sprite(go, STAGE1_FLYING_ENEMY_DEATH_ANIMATION,5,0.2,1.0);
 	go->AddComponent(sprite);
+
+	Sound* sound = new Sound(go, STAGE1_FLYING_ENEMY_DEATH_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
 
 }
