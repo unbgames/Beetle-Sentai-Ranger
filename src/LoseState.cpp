@@ -2,6 +2,9 @@
 
 LoseState::LoseState() : State(){
 
+	backgroundMusic.Open(LOSE_MUSIC);
+	backgroundMusic.Play(1);
+
 	GameObject* aux = new GameObject();
 
 	Sprite* bg;
@@ -26,7 +29,10 @@ LoseState::LoseState() : State(){
 	popRequested = false;
 
 }
-LoseState::~LoseState(){}
+LoseState::~LoseState(){
+	backgroundMusic.Stop();
+	ObjectArray.clear();
+}
 
 void LoseState::LoadAssets(){}
 void LoseState::Update(float dt){

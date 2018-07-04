@@ -288,4 +288,12 @@ void Frog::Kill(){
 	Sprite* death = new Sprite(go, STAGE1_BOSS_DEATH_ANIMATION, 9, 0.1, 0.8);
 	death->SetFlip(flip);
 	go->AddComponent(death);
+
+	GameObject* go2 = new GameObject();
+
+	Sound* sound = new Sound(go2, WIN_MUSIC);
+	sound->Play(1);
+	go2->AddComponent(sound);
+
+	state->AddObject(go2);
 }

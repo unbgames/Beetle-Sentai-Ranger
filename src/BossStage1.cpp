@@ -98,8 +98,9 @@ void BossStage1::Update(float dt){
 	}
 
 	if (GameData::playerVictory){
+		backgroundLoop.Stop(0);
 		counter.Update(dt);
-		if (counter.Get() >= 4.0){
+		if (counter.Get() >= 8.0){
 			Game* game = Game::GetInstance();
 			game->Push(new CreditState(CREDIT_TEXT));
 			popRequested = true;
