@@ -9,13 +9,14 @@
 #define CREDIT_MUSIC "assets/audio/Musics/TemaCreditos.ogg"
 
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu_v2.png"
+#define MAINMENU_LOGO "assets/img/Menu/logo.png"
 #define MAINMENU_PLAY_BUTTON_NOTPRESSED "assets/img/Menu/play_button_notpressed.png"
 #define MAINMENU_PLAY_BUTTON_PRESSED "assets/img/Menu/play_button_pressed.png"
 #define MAINMENU_EXIT_BUTTON_NOTPRESSED "assets/img/Menu/exit_button_notpressed.png"
 #define MAINMENU_EXIT_BUTTON_PRESSED "assets/img/Menu/exit_button_pressed.png"
 #define MAINMENU_OPTIONS_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
 #define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
-#define MAINMENU_CURSOR "assets/img/Menu/mouse1.png"
+#define MAINMENU_CURSOR "assets/img/Menu/mouse2.png"
 
 #define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaMenuIntro.ogg"
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"

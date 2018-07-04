@@ -339,6 +339,9 @@ void Protagonist::Start(){
 	state->AddObject(go4);
 	go4->AddComponent(fly);
 
+	flySound = new Sound(associated, PROTAGONIST_FLY_SOUND);
+	associated->AddComponent(flySound);
+
 }
 void Protagonist::NotifyCollision(GameObject* other){
 	Platform* base = (Platform*) other->GetComponent("Platform");
@@ -653,6 +656,12 @@ void Protagonist::Die(){
 void Protagonist::ChangeState(PlayerState next){
 	if (next == state){
 		return;
+	}
+	if (state == PlayerState::FLYING){
+		flySound->Stop();
+	}
+	if (next == PlayerState::FLYING){
+		flySound->Play(-1);
 	}
 	LastState = state;
 	state = next;

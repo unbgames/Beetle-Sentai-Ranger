@@ -49,6 +49,7 @@ class Protagonist : public Component{
 		Skill* dash = nullptr;
 		Skill* fly = nullptr;
 		Skill* acid = nullptr;
+		Sound* flySound = nullptr;
 
 		void ChangeState(PlayerState next);
 		void SetSprite(Sprite* newSprite);
