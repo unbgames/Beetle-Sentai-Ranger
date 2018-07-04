@@ -78,17 +78,24 @@ void Sprite::Render(int x, int y){
 }
 
 void Sprite::Update(float dt){
-	selfDestructCount.Update(dt);
-	timeElapsed +=dt;
-	currentFrame = ((int)floor(timeElapsed/frameTime))%frameCount;
-	//SDL_Log("TE:%f FT:%f FC:%f", timeElapsed, frameTime, frameCount);
-	SetClip((currentFrame*GetWidth()) , 0, width, height);
 
 	if (secondsToSelfDestruct > 0){
 		if (secondsToSelfDestruct < selfDestructCount.Get()){
 			associated->RequestDelete();
 		}
 	}
+
+	if (currentFrame == stopFrame){
+		return;
+	}
+
+	selfDestructCount.Update(dt);
+	timeElapsed +=dt;
+	currentFrame = ((int)floor(timeElapsed/frameTime))%frameCount;
+	//SDL_Log("TE:%f FT:%f FC:%f", timeElapsed, frameTime, frameCount);
+	SetClip((currentFrame*GetWidth()) , 0, width, height);
+
+	
 }
 
 
@@ -153,4 +160,8 @@ bool Sprite::IsAnimationOver(){
 		return(true);
 	}
 	return(false);
+}
+
+void Sprite::StopOnFrame(int stopFrame){
+	this->stopFrame = stopFrame;
 }

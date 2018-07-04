@@ -58,7 +58,7 @@ void Protagonist::Update(float dt){
 	if(input.KeyPress(protagButtons[6]) && dash->IsActive()){
 		dash->Use();
 		ChangeState(PlayerState::DASHING);
-		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
+		SetSprite((Sprite*) associated->GetComponentByTag("ProtagDash"));
 	}
 
 	if(input.KeyPress(SDLK_o)){
@@ -68,10 +68,12 @@ void Protagonist::Update(float dt){
 	if (state == PlayerState::HURTING){
 		SDL_Log("HURTING");
 		if (sprite->IsAnimationOver()){
-			if (LastState == PlayerState::FLYING)
+			if (LastState == PlayerState::FLYING){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
-			else
+			}
+			else{
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
+			}
 
 			ChangeState(LastState);
 		}
@@ -262,12 +264,18 @@ void Protagonist::Start(){
 	Sprite* jump = new Sprite(associated, PROTAGONIST_JUMP_ANIMATION, 8, 0.1, 0);
 	jump->SetTag("ProtagJump");
 	jump->SetEnabled(false);
+	jump->StopOnFrame(7);
 	associated->AddComponent(jump);
 
 	Sprite* punch = new Sprite(associated, PROTAGONIST_PUNCH_ANIMATION, 6, 0.03, 0);
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
 	associated->AddComponent(punch);
+
+	Sprite* Dash = new Sprite(associated, PROTAGONIST_DASH_ANIMATION, 8, 0.0625, 0);
+	Dash->SetTag("ProtagDash");
+	Dash->SetEnabled(false);
+	associated->AddComponent(Dash);
 
 	Sprite* flying = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.005, 0);
 	flying->SetTag("ProtagFly");
@@ -632,6 +640,9 @@ void Protagonist::Die(){
 }
 
 void Protagonist::ChangeState(PlayerState next){
+	if (next == state){
+		return;
+	}
 	LastState = state;
 	state = next;
 }

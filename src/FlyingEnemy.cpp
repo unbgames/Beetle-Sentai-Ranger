@@ -154,4 +154,8 @@ void FlyingEnemy::Kill(){
 	Sprite* sprite = new Sprite(go, STAGE1_FLYING_ENEMY_DEATH_ANIMATION,5,0.2,1.0);
 	go->AddComponent(sprite);
 
+	Sound* sound = new Sound(go, STAGE1_FLYING_ENEMY_DEATH_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
+
 }

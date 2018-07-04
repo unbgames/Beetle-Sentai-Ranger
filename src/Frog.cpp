@@ -285,6 +285,7 @@ void Frog::Kill(){
 	go->Box.y = associated->Box.y;
 	state->AddObject(go);
 
-	Sprite* death = new Sprite(go, STAGE1_BOSS_DEATH_ANIMATION, 9, 0.1, 0.9);
+	Sprite* death = new Sprite(go, STAGE1_BOSS_DEATH_ANIMATION, 9, 0.1, 0.8);
+	death->SetFlip(flip);
 	go->AddComponent(death);
 }

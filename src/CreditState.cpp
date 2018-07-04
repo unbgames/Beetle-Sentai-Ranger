@@ -7,8 +7,13 @@ CreditState::CreditState(string File) : State(){
 	}
 	wait.Restart();
 	wait.Update(2.0);
+
+	backgroundMusic.Open(CREDIT_MUSIC);
+	backgroundMusic.Play(-1);
 }
 CreditState::~CreditState(){
+	backgroundMusic.Stop();
+	ObjectArray.clear();
 	file.close();
 }
 

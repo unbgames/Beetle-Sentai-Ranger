@@ -362,6 +362,7 @@ void GroundEnemy::Attack(){
 	}
 	
 	Punch* punch = new Punch(go,2, true);
+	punch->SetHitSound(STAGE1_GROUND_ENEMY_ATTACK_HIT_SOUND);
 
 	go->AddComponent(punch);
 
@@ -407,6 +408,10 @@ void GroundEnemy::Kill(){
 
 	Sprite* sprite = new Sprite(go, STAGE1_GROUND_ENEMY_DEATH_ANIMATION,12,0.1,1.2);
 	go->AddComponent(sprite);
+
+	Sound* sound = new Sound(go, STAGE1_GROUND_ENEMY_DEATH_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
 
 	if (GroundEnemy::nEnemy > 0)
 		GroundEnemy::nEnemy--;
