@@ -59,6 +59,17 @@ void Protagonist::Update(float dt){
 		dash->Use();
 		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagDash"));
+
+		Game* game = Game::GetInstance();
+		State* state = game->GetCurrentState();
+
+		GameObject* go = new GameObject();
+
+		Sound* sound = new Sound(go, PROTAGONIST_DASH_SOUND);
+		sound->Play(1);
+		go->AddComponent(sound);
+
+		state->AddObject(go);
 	}
 
 	if(input.KeyPress(SDLK_o)){

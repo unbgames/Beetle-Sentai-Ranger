@@ -12,7 +12,9 @@ BossStage1::BossStage1(float x, float y){
 	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
-	backgroundLoop.Stop();
+	if (!GameData::playerVictory){
+		backgroundLoop.Stop(0);
+	}
 	ObjectArray.clear();
 }
 

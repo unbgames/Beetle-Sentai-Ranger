@@ -59,6 +59,7 @@
 #define PROTAGONIST_GETHURT_ANIMATION "assets/img/Beetle/Dano.png"
 #define PROTAGONIST_DEATH_SOUND "assets/audio/Sounds/1. Besouro/Morrendo1.wav"
 #define PROTAGONIST_ACID_SOUND "assets/audio/Sounds/1. Besouro/AtirandoAcido.wav"
+#define PROTAGONIST_ACID_HIT_SOUND "assets/audio/Sounds/1. Besouro/AcertandoAcido.wav"
 #define PROTAGONIST_PUNCH_SOUND "assets/audio/Sounds/1. Besouro/Soco1.wav"
 #define PROTAGONIST_PUNCH_HIT_SOUND "assets/audio/Sounds/1. Besouro/AcertandoSoco.wav"
 #define PROTAGONIST_SHIT_SOUND "assets/audio/Sounds/1. Besouro/AtirandoBosta.wav"
