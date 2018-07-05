@@ -7,14 +7,41 @@ GroundEnemy::GroundEnemy(GameObject* associated, int HP) : Enemy(associated, HP)
 	colisor->SetOffset(Vec2(0,15));
 
 	AttackTimer.Restart();
-
-	state = EnemyState::SEARCHING;
 }
 GroundEnemy::~GroundEnemy(){}
 
 void GroundEnemy::Update(float dt){
 	AttackTimer.Update(dt);
 	speed.x = 0;
+
+	if (state == EnemyState::IDLE){
+		if(GameData::Player == nullptr)
+			return;
+
+		Vec2 centro = associated->Box.GetCenter();
+
+		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
+
+		Vec2 distance = centro - centroPlayer;
+
+		if (abs(distance.x) > 250){
+			int mod = rand()%2;
+			if (mod){
+				speed.x = 300*dt;
+				flip = false;
+				sprite->SetFlip(flip);
+			}
+			else{
+				speed.x = -300*dt;
+				flip = true;
+				sprite->SetFlip(flip);
+			}
+
+		}
+		else{
+			state = EnemyState::SEARCHING;
+		}
+	}
 
 	if (state == EnemyState::HURTING){
 		if (sprite->IsAnimationOver()){

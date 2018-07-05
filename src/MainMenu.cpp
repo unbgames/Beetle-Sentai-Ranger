@@ -148,9 +148,9 @@ void MainMenu::Update(float dt)
 		//ObjectArray.swap(ObjectArray[ObjectArray.size()-1], ObjectArray[ObjectArray.size()-2]);
 
 		Game* game = Game::GetInstance();
-		backgroundLoop.Stop();
+		//backgroundLoop.Stop();
 		game->Push(new Options());
-		popRequested = true;
+		//popRequested = true;
 	}
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 2)

@@ -6,14 +6,14 @@ Options::Options()
 	quitRequested = false;
 	popRequested = false;
 
-	backgroundIntroOptions.Open(MAINMENU_BACKGROUNDMUSIC_INTRO);
-	backgroundLoopOptions.Open(MAINMENU_BACKGROUNDMUSIC_LOOP);
-	backgroundIntroOptions.Play(1);
+	//backgroundIntroOptions.Open(MAINMENU_BACKGROUNDMUSIC_INTRO);
+	//backgroundLoopOptions.Open(MAINMENU_BACKGROUNDMUSIC_LOOP);
+	//backgroundIntroOptions.Play(1);
 }
 
 Options::~Options()
 {
-	backgroundLoopOptions.Stop();
+	//backgroundLoopOptions.Stop();
 	ObjectArray.clear();
 }
 
@@ -196,12 +196,12 @@ void Options::LoadAssets()
 
 void Options::Update(float dt)
 {
-	if (!backgroundIntroOptions.IsPlaying())
+	/*if (!backgroundIntroOptions.IsPlaying())
 	{
 		//SDL_Log("chegou aqui");
 		backgroundIntroOptions.Stop(0);
 		backgroundLoopOptions.Play(-1);
-	}
+	}*/
 
 	InputManager& input = InputManager::GetInstance();
 
@@ -247,8 +247,8 @@ void Options::Update(float dt)
 		ObjectArray.emplace_back(buttonPressedOptions);
 
 		Game* game = Game::GetInstance();
-		backgroundLoopOptions.Stop();
-		game->Push(new MainMenu());
+		//backgroundLoopOptions.Stop();
+		//game->Push(new MainMenu());
 		popRequested = true;
 	}
 
@@ -451,8 +451,8 @@ void Options::Update(float dt)
 
 			configStart = false;
 			Game* game = Game::GetInstance();
-			backgroundLoopOptions.Stop();
-			game->Push(new MainMenu());
+			//backgroundLoopOptions.Stop();
+			//game->Push(new MainMenu());
 			popRequested = true;
 		}
 	}

@@ -77,7 +77,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::HURTING){
-		SDL_Log("HURTING");
+		//SDL_Log("HURTING");
 		if (sprite->IsAnimationOver()){
 			if (LastState == PlayerState::FLYING){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
@@ -93,7 +93,7 @@ void Protagonist::Update(float dt){
 
 
 	if (state == PlayerState::PUNCHING){
-		SDL_Log("PUNCHING");
+		//SDL_Log("PUNCHING");
 		if (sprite->IsAnimationOver()){
 			if (sprite->GetTag() != "ProtagJump"){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
@@ -106,7 +106,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::NORMAL){
-		SDL_Log("NORMAL");
+		//SDL_Log("NORMAL");
 		speed.x = 0;
 
 		if(input.KeyPress(protagButtons[8])){
@@ -161,7 +161,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::DASHING){
-		SDL_Log("DASHING");
+		//SDL_Log("DASHING");
 		speed.y = 0;
 		if (flip){
 			speed.x = -1000*dt;
@@ -185,7 +185,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::FLYING){
-		SDL_Log("FLYING");
+		//SDL_Log("FLYING");
 		speed.x = 0;
 		speed.y = 0;
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));

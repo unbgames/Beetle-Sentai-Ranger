@@ -1,29 +1,22 @@
-bin/Protagonist.o: src/Protagonist.cpp include/Protagonist.h \
- include/Component.h include/SDL_include.h include/GameObject.h \
- include/Rect.h include/Vec2.h include/Sprite.h include/Sound.h \
- include/Resources.h include/Game.h include/State.h include/GameData.h \
- include/Timer.h include/InputManager.h include/Camera.h \
- include/ShitBall.h include/Collider.h include/Enemy.h \
- include/Protagonist.h include/Platform.h include/TileSet.h \
- include/Column.h include/Terrain.h include/HealthBar.h include/Punch.h \
- include/AcidSplash.h include/Skill.h include/Text.h \
- include/CameraFollower.h
+bin/Sprite.o: src/Sprite.cpp include/Sprite.h include/Component.h \
+ include/SDL_include.h include/Sound.h include/GameObject.h \
+ include/Rect.h include/Vec2.h include/Resources.h include/Game.h \
+ include/State.h include/GameData.h include/Timer.h \
+ include/InputManager.h include/Camera.h
 
-include/Protagonist.h:
+include/Sprite.h:
 
 include/Component.h:
 
 include/SDL_include.h:
+
+include/Sound.h:
 
 include/GameObject.h:
 
 include/Rect.h:
 
 include/Vec2.h:
-
-include/Sprite.h:
-
-include/Sound.h:
 
 include/Resources.h:
 
@@ -38,31 +31,3 @@ include/Timer.h:
 include/InputManager.h:
 
 include/Camera.h:
-
-include/ShitBall.h:
-
-include/Collider.h:
-
-include/Enemy.h:
-
-include/Protagonist.h:
-
-include/Platform.h:
-
-include/TileSet.h:
-
-include/Column.h:
-
-include/Terrain.h:
-
-include/HealthBar.h:
-
-include/Punch.h:
-
-include/AcidSplash.h:
-
-include/Skill.h:
-
-include/Text.h:
-
-include/CameraFollower.h:

@@ -26,6 +26,7 @@ void Frog::Update(float dt){
 	
 	float hipo = dt*700;
 	Rect limit = Game::GetInstance()->GetCurrentState()->GetLimit();
+	sprite->SetColorMod(255,255,255);	
 
 	if (hp <= 0){
 		Kill();
@@ -53,57 +54,76 @@ void Frog::Update(float dt){
 	if(state == EnemyState::SEARCHING){
 		//SDL_Log("SEARCHING\n");
 		speed.y += 20*dt;
-		if (SearchTimer.Get() < 3){
+		if (SearchTimer.Get() < 1.0){
 			speed.x = 0;
 			SearchTimer.Update(dt);
 		}
 		else{
-			SearchTimer.Restart();
 			
 			Vec2 playerCenter = GameData::Player->GetAssociated()->Box.GetCenter();
 
 			distance = playerCenter - associated->Box.GetCenter();
 
-			if (abs(distance.x) < 300){
+			if (abs(distance.x) < 300 && type != AttackType::TONGUE){
 				type = AttackType::SMASH;
 				SetSprite((Sprite*) associated->GetComponentByTag("EnemySmash"));
 				speed.y = -500*dt;
 				speed.x = 300*dt;
-			}
-			else if(distance.y < 0){
-				type = AttackType::TONGUEUP;
-				SetSprite((Sprite*) associated->GetComponentByTag("EnemyUp"));
-				if(abs(distance.x) > 300){
-					speed.x = (abs(distance.x) - 300)*dt;
-				}
+				state = EnemyState::ATTACKING;
+				SearchTimer.Restart();
 			}
 			else{
-				type = AttackType::TONGUEDOWN;
-				SetSprite((Sprite*) associated->GetComponentByTag("EnemyDown"));
+				type = AttackType::TONGUE;
+			}
+
+			if(type == AttackType::TONGUE){
+
+				Vec2 playerCenter = GameData::Player->GetAssociated()->Box.GetCenter();
+
+				distance = playerCenter - associated->Box.GetCenter();
+
 				if(abs(distance.x) > 300){
-					speed.x = (abs(distance.x) - 300)*dt;
-				}	
+					speed.x = 300*dt;
+					SetSprite((Sprite*) associated->GetComponentByTag("EnemyRun"));
+				}
+				else{
+					state = EnemyState::ATTACKING;
+					SearchTimer.Restart();
+					if(distance.y < 0){
+						type = AttackType::TONGUEUP;
+						SetSprite((Sprite*) associated->GetComponentByTag("EnemyUp"));
+					}
+					else{
+						type = AttackType::TONGUEDOWN;
+						SetSprite((Sprite*) associated->GetComponentByTag("EnemyDown"));
+					}
+				}
 			}
 
 			if(distance.x < 0){
+				if (flip)
+					associated->Box.x -= 228;
 				flip = false;
 				sprite->SetFlip(flip);
 				speed.x *= -1;
 				colisor->SetOffset(Vec2(120,55));
 			}
 			else{
+				if (!flip)
+					associated->Box.x += 228;
 				flip = true;
 				sprite->SetFlip(flip);
 				colisor->SetOffset(Vec2(-120,55));
 			}
 
 
-			state = EnemyState::ATTACKING;
+			
 		}
 	}
 
 	if(state == EnemyState::ATTACKING){
 		//SDL_Log("ATTACKING\n");
+
 		Attack();
 		speed.y += 20*dt;
 	}
@@ -122,7 +142,7 @@ void Frog::Update(float dt){
 		Land();
 		associated->Box.y = limit.y+limit.h - associated->Box.h;
 	}
-
+	//SDL_Log("chegou aqui2");
 	associated->Box.x += speed.x;
 	associated->Box.y += speed.y;
 }
@@ -133,7 +153,7 @@ void Frog::Start(){
 	SetSprite(idle);
 	associated->AddComponent(idle);
 
-	Sprite* run = new Sprite(associated, STAGE1_BOSS_RUN_ANIMATION, 8, 0.3, 0);
+	Sprite* run = new Sprite(associated, STAGE1_BOSS_RUN_ANIMATION, 8, 0.09, 0);
 	run->SetTag("EnemyRun");
 	run->SetEnabled(false);
 	associated->AddComponent(run);
@@ -154,8 +174,14 @@ void Frog::Start(){
 	associated->AddComponent(alto);
 
 }
-void Frog::NotifyCollision(GameObject* other){}
+void Frog::NotifyCollision(GameObject* other){
+	/*Protagonist* base2 = (Protagonist*) other->GetComponent("Protagonist");
+	if (base2 != nullptr && type == AttackType::SMASH){
+		base2->TakeDamage(1);
+	}*/
+}
 void Frog::Attack(){
+
 	if(type == AttackType::SMASH){
 		Smash();
 	}
@@ -170,15 +196,20 @@ void Frog::Attack(){
 }
 
 void Frog::TongueAttack(bool updown){
-	SDL_Log("TONGUE");
+
+	speed.x = 0;
+	//SDL_Log("TONGUE");
 	if (sprite->IsAnimationOver()){
 		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
+		repetition = false;
 		state = EnemyState::SEARCHING;
 		return;
 	}
 
-	if (sprite->GetFrame() == 5){
+	if (sprite->GetFrame() == 5 && !repetition){
+		repetition = true;
+
 		Game* game = Game::GetInstance();
 		State* state = game->GetCurrentState();
 
@@ -206,9 +237,9 @@ void Frog::TongueAttack(bool updown){
 
 		go->AddComponent(punch);
 
-		/*Sound* sound = new Sound(go, STAGE1_BOSS_SMASH_ATTACK_SOUND);
+		Sound* sound = new Sound(go, STAGE1_BOSS_TONGUE_ATTACK_SOUND);
 		sound->Play(1);
-		go->AddComponent(sound);*/
+		go->AddComponent(sound);
 
 		state->AddObject(go);
 
@@ -220,7 +251,9 @@ void Frog::TongueAttack(bool updown){
 void Frog::Smash(){
 	//SDL_Log("SMASH");
 
-	if (sprite->GetFrame() == 6){
+	if (sprite->GetFrame() == 6 && !repetition){
+		repetition = true;
+
 		speed.y = 400;
 
 		Game* game = Game::GetInstance();
@@ -238,13 +271,13 @@ void Frog::Smash(){
 
 		}
 		
-		Punch* punch = new Punch(go,2, true, 1.0);
+		Punch* punch = new Punch(go,2, true, 0.1);
 
 		go->AddComponent(punch);
 
-		/*Sound* sound = new Sound(go, STAGE1_BOSS_TONGUE_ATTACK_SOUND);
+		Sound* sound = new Sound(go, STAGE1_BOSS_SMASH_ATTACK_SOUND);
 		sound->Play(1);
-		go->AddComponent(sound);*/
+		go->AddComponent(sound);
 
 		state->AddObject(go);
 
@@ -254,6 +287,7 @@ void Frog::Smash(){
 		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
 		state = EnemyState::SEARCHING;
+		repetition = false;
 		return;
 	}
 }
@@ -262,7 +296,7 @@ void Frog::TakeDamage(int dmg){
 	if (state == EnemyState::IDLE){
 		return;
 	}
-
+	sprite->SetColorMod(254,0,0);
 	hp-=dmg;
 	if(hp <= 0){
 		Kill();

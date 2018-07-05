@@ -165,3 +165,7 @@ bool Sprite::IsAnimationOver(){
 void Sprite::StopOnFrame(int stopFrame){
 	this->stopFrame = stopFrame;
 }
+
+void Sprite::SetColorMod(int R, int G, int B){
+	SDL_SetTextureColorMod(texture, R, G, B);
+}

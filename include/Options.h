@@ -27,8 +27,8 @@ class Options : public State{
     void Resume();
 
     private:
-        Music backgroundIntroOptions;
-        Music backgroundLoopOptions;
+       // Music backgroundIntroOptions;
+        //Music backgroundLoopOptions;
 				int cursorIndexOptions = 0;
 
 				GameObject* cursorOptions;
