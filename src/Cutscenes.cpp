@@ -160,7 +160,7 @@ void Cutscenes::Update(float dt)
 	if(input.QuitRequested())
 		quitRequested = true;
 
-	if(cutsceneIndex >= 4)
+	if(cutsceneIndex >= 4 || input.KeyPress(SDLK_SPACE))
 	{
 		cutsceneIndex = 0;
 		Game* game = Game::GetInstance();
