@@ -59,6 +59,17 @@ void Protagonist::Update(float dt){
 		dash->Use();
 		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagDash"));
+
+		Game* game = Game::GetInstance();
+		State* state = game->GetCurrentState();
+
+		GameObject* go = new GameObject();
+
+		Sound* sound = new Sound(go, PROTAGONIST_DASH_SOUND);
+		sound->Play(1);
+		go->AddComponent(sound);
+
+		state->AddObject(go);
 	}
 
 	if(input.KeyPress(SDLK_o)){
@@ -66,7 +77,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::HURTING){
-		SDL_Log("HURTING");
+		//SDL_Log("HURTING");
 		if (sprite->IsAnimationOver()){
 			if (LastState == PlayerState::FLYING){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
@@ -82,7 +93,7 @@ void Protagonist::Update(float dt){
 
 
 	if (state == PlayerState::PUNCHING){
-		SDL_Log("PUNCHING");
+		//SDL_Log("PUNCHING");
 		if (sprite->IsAnimationOver()){
 			if (sprite->GetTag() != "ProtagJump"){
 				SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
@@ -95,7 +106,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::NORMAL){
-		SDL_Log("NORMAL");
+		//SDL_Log("NORMAL");
 		speed.x = 0;
 
 		if(input.KeyPress(protagButtons[8])){
@@ -150,7 +161,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::DASHING){
-		SDL_Log("DASHING");
+		//SDL_Log("DASHING");
 		speed.y = 0;
 		if (flip){
 			speed.x = -1000*dt;
@@ -174,7 +185,7 @@ void Protagonist::Update(float dt){
 	}
 
 	if (state == PlayerState::FLYING){
-		SDL_Log("FLYING");
+		//SDL_Log("FLYING");
 		speed.x = 0;
 		speed.y = 0;
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagFly"));
@@ -327,6 +338,9 @@ void Protagonist::Start(){
 	fly->SetColor(0,0,0,0);
 	state->AddObject(go4);
 	go4->AddComponent(fly);
+
+	flySound = new Sound(associated, PROTAGONIST_FLY_SOUND);
+	associated->AddComponent(flySound);
 
 }
 void Protagonist::NotifyCollision(GameObject* other){
@@ -642,6 +656,12 @@ void Protagonist::Die(){
 void Protagonist::ChangeState(PlayerState next){
 	if (next == state){
 		return;
+	}
+	if (state == PlayerState::FLYING){
+		flySound->Stop();
+	}
+	if (next == PlayerState::FLYING){
+		flySound->Play(-1);
 	}
 	LastState = state;
 	state = next;

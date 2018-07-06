@@ -39,6 +39,7 @@ class Sprite : public Component{
         int GetFrame();
         bool IsAnimationOver();
         void StopOnFrame(int stopFrame);
+        void SetColorMod(int R, int G, int B);
 
     private:
         SDL_Texture* texture;

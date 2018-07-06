@@ -30,7 +30,7 @@ LoseState::LoseState() : State(){
 
 }
 LoseState::~LoseState(){
-	backgroundMusic.Stop();
+	//backgroundMusic.Stop();
 	ObjectArray.clear();
 }
 
@@ -44,6 +44,9 @@ void LoseState::Update(float dt){
 
 	if (input.KeyPress(SDLK_SPACE)  || input.KeyPress(SDLK_ESCAPE)){
 		Game* game = Game::GetInstance();
+		if (backgroundMusic.IsPlaying()){
+			backgroundMusic.Stop();
+		}
 		game->Push(new MainMenu());
 		popRequested = true;
 	}

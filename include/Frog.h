@@ -23,10 +23,11 @@ class Frog : public Enemy{
 		void TakeDamage(int dmg);
 
 	private:
-		typedef enum AttackType {SMASH, TONGUEUP, TONGUEDOWN};
+		typedef enum AttackType {SMASH, TONGUEUP, TONGUEDOWN, TONGUE};
 		AttackType type;
 		Timer SearchTimer;
 		Vec2 distance;
+		bool repetition = false;
 };
 
 #endif

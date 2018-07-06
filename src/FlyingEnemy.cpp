@@ -8,8 +8,6 @@ FlyingEnemy::FlyingEnemy(GameObject* associated, int HP) : Enemy(associated, HP)
 
 	colisor->SetScale(Vec2(0.4*scaleAnimations.x,0.6*scaleAnimations.y));
 	colisor->SetOffset(Vec2(0,10));
-
-	state = EnemyState::SEARCHING;
 }
 FlyingEnemy::~FlyingEnemy(){}
 void FlyingEnemy::Update(float dt){
@@ -18,6 +16,35 @@ void FlyingEnemy::Update(float dt){
 	speed.y = 0;
 
 	InputManager& input = InputManager::GetInstance();
+
+	if (state == EnemyState::IDLE){
+		if(GameData::Player == nullptr)
+			return;
+
+		Vec2 centro = associated->Box.GetCenter();
+
+		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
+
+		Vec2 distance = centro - centroPlayer;
+
+		if (abs(distance.x) > 250){
+			int mod = rand()%2;
+			if (mod){
+				speed.x = 300*dt;
+				flip = false;
+				sprite->SetFlip(flip);
+			}
+			else{
+				speed.x = -300*dt;
+				flip = true;
+				sprite->SetFlip(flip);
+			}
+
+		}
+		else{
+			state = EnemyState::SEARCHING;
+		}
+	}
 
 	if (state == EnemyState::ATTACKING){
 		if (sprite->IsAnimationOver()){

@@ -17,6 +17,10 @@ AcidSplash::AcidSplash(GameObject* associated, double angle, float speed, int da
 	associated->AddComponent(colisor);
 
 	state = AcidSplash::FLYING;
+
+	Sound* sound = new Sound(associated, PROTAGONIST_ACID_SOUND);
+	sound->Play(1);
+	associated->AddComponent(sound);
 }
 AcidSplash::~AcidSplash(){}
 void AcidSplash::Update(float dt){
@@ -49,7 +53,7 @@ void AcidSplash::NotifyCollision(GameObject* other){
 			speed.y = 0;
 			state = AcidSplash::STICKING;
 
-			Sound* sound = new Sound(associated, PROTAGONIST_ACID_SOUND);
+			Sound* sound = new Sound(associated, PROTAGONIST_ACID_HIT_SOUND);
 			sound->Play(1);
 			associated->AddComponent(sound);
 		}

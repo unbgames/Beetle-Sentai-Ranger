@@ -12,7 +12,9 @@ BossStage1::BossStage1(float x, float y){
 	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
-	backgroundLoop.Stop();
+	/*if (!GameData::playerVictory){
+		backgroundLoop.Stop(0);
+	}*/
 	ObjectArray.clear();
 }
 
@@ -59,11 +61,15 @@ void BossStage1::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 	
-	if(input.QuitRequested())
+	if(input.QuitRequested()){
+		backgroundLoop.Stop(0);
 		quitRequested = true;
+	}
 
-	if (input.KeyPress(SDLK_ESCAPE))
+	if (input.KeyPress(SDLK_ESCAPE)){
+		backgroundLoop.Stop(0);
 		popRequested = true;
+	}
 
 	Camera::Update(dt);
 
@@ -87,6 +93,7 @@ void BossStage1::Update(float dt){
 	}
 
 	if (GameData::Player == nullptr){
+		backgroundLoop.Stop(0);
 		counter.Update(dt);
 		if (counter.Get() >= 1.4){
 			Game* game = Game::GetInstance();

@@ -28,6 +28,7 @@ public:
 private:
 	Mix_Chunk* chunk;
 	int channel;
+	int DieOnFinish = false;
 };
 
 #endif
