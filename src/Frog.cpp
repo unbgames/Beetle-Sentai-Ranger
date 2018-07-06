@@ -36,10 +36,6 @@ void Frog::Update(float dt){
 		return;
 	}
 
-	if(state == EnemyState::HURTING){
-		speed.y += 20*dt;
-	}
-
 	if(state == EnemyState::IDLE){
 		speed.y += 20*dt;
 		if (SearchTimer.Get() < 6){
@@ -115,9 +111,6 @@ void Frog::Update(float dt){
 				sprite->SetFlip(flip);
 				colisor->SetOffset(Vec2(-120,55));
 			}
-
-
-			
 		}
 	}
 
