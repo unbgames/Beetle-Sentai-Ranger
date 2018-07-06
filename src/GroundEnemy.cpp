@@ -14,6 +14,35 @@ void GroundEnemy::Update(float dt){
 	AttackTimer.Update(dt);
 	speed.x = 0;
 
+	if (state == EnemyState::IDLE){
+		if(GameData::Player == nullptr)
+			return;
+
+		Vec2 centro = associated->Box.GetCenter();
+
+		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
+
+		Vec2 distance = centro - centroPlayer;
+
+		if (abs(distance.x) > 250){
+			int mod = rand()%2;
+			if (mod){
+				speed.x = 300*dt;
+				flip = false;
+				sprite->SetFlip(flip);
+			}
+			else{
+				speed.x = -300*dt;
+				flip = true;
+				sprite->SetFlip(flip);
+			}
+
+		}
+		else{
+			state = EnemyState::SEARCHING;
+		}
+	}
+
 	if (state == EnemyState::HURTING){
 		if (sprite->IsAnimationOver()){
 			SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
@@ -360,6 +389,7 @@ void GroundEnemy::Attack(){
 	}
 	
 	Punch* punch = new Punch(go,2, true);
+	punch->SetHitSound(STAGE1_GROUND_ENEMY_ATTACK_HIT_SOUND);
 
 	go->AddComponent(punch);
 
@@ -405,6 +435,10 @@ void GroundEnemy::Kill(){
 
 	Sprite* sprite = new Sprite(go, STAGE1_GROUND_ENEMY_DEATH_ANIMATION,12,0.1,1.2);
 	go->AddComponent(sprite);
+
+	Sound* sound = new Sound(go, STAGE1_GROUND_ENEMY_DEATH_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
 
 	if (GroundEnemy::nEnemy > 0)
 		GroundEnemy::nEnemy--;

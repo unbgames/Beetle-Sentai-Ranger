@@ -6,7 +6,7 @@ Enemy::Enemy(GameObject* associated, int HP) : Component(associated){
 	speed.y = 0;
 	hp = HP;
 	flip = false;
-	state = EnemyState::SEARCHING;
+	state = EnemyState::IDLE;
 	scaleAnimations.x = 1;
 	scaleAnimations.y = 1;
 

@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "Stage1.h"
+#include "Cutscenes.h"
 #include "Options.h"
 
 MainMenu::MainMenu()
@@ -27,31 +28,39 @@ void MainMenu::LoadAssets()
 	aux->AddComponent(bg);
 	ObjectArray.emplace_back(aux);
 
+	GameObject* logo = new GameObject();
+	Sprite* spriteLogo = new Sprite(logo, MAINMENU_LOGO);
+	spriteLogo->SetScaleX(1.5, 1.5);
+	logo->Box.x = 512 - (spriteLogo->GetWidth()/2.0);
+	logo->Box.y = 100 - (spriteLogo->GetHeight()/2.0);
+	logo->AddComponent(spriteLogo);
+	ObjectArray.emplace_back(logo);
+
 	GameObject* buttonPlay = new GameObject();
 	spriteButton = new Sprite(buttonPlay, MAINMENU_PLAY_BUTTON_NOTPRESSED);
 	buttonPlay->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-	buttonPlay->Box.y = 250 - (spriteButton->GetHeight()/2.0);
+	buttonPlay->Box.y = 300 - (spriteButton->GetHeight()/2.0);
 	buttonPlay->AddComponent(spriteButton);
 	ObjectArray.emplace_back(buttonPlay);
 
 	GameObject* buttonOptions = new GameObject();
 	spriteButton = new Sprite(buttonOptions, MAINMENU_OPTIONS_BUTTON_NOTPRESSED);
 	buttonOptions->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-	buttonOptions->Box.y = 350 - (spriteButton->GetHeight()/2.0);
+	buttonOptions->Box.y = 400 - (spriteButton->GetHeight()/2.0);
 	buttonOptions->AddComponent(spriteButton);
 	ObjectArray.emplace_back(buttonOptions);
 
 	GameObject* buttonExit = new GameObject();
 	spriteButton = new Sprite(buttonExit, MAINMENU_EXIT_BUTTON_NOTPRESSED);
 	buttonExit->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-	buttonExit->Box.y = 450 - (spriteButton->GetHeight()/2.0);
+	buttonExit->Box.y = 500 - (spriteButton->GetHeight()/2.0);
 	buttonExit->AddComponent(spriteButton);
 	ObjectArray.emplace_back(buttonExit);
 
 	cursor = new GameObject();
-	spriteCursor = new Sprite(cursor, MAINMENU_CURSOR);
+	spriteCursor = new Sprite(cursor, MAINMENU_CURSOR, 6, 0.2, 0);
 	cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-	cursor->Box.y = 250;
+	cursor->Box.y = 275;
 	cursor->AddComponent(spriteCursor);
 	ObjectArray.emplace_back(cursor);
 }
@@ -94,17 +103,17 @@ void MainMenu::Update(float dt)
 	{
 		case 0:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 250;
+			cursor->Box.y = 275;
 			break;
 
 		case 1:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 350;
+			cursor->Box.y = 375;
 			break;
 
 		case 2:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 450;
+			cursor->Box.y = 475;
 			break;
 
 		default:
@@ -117,13 +126,13 @@ void MainMenu::Update(float dt)
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_PLAY_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-		buttonPressed->Box.y = 250 - (spriteButton->GetHeight()/2.0);
+		buttonPressed->Box.y = 300 - (spriteButton->GetHeight()/2.0);
 		buttonPressed->AddComponent(spriteButton);
 		ObjectArray.emplace_back(buttonPressed);
 
 		Game* game = Game::GetInstance();
 		backgroundLoop.Stop();
-		game->Push(new Stage1(4));
+		game->Push(new Cutscenes());
 		popRequested = true;
 	}
 
@@ -134,15 +143,15 @@ void MainMenu::Update(float dt)
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_OPTIONS_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-		buttonPressed->Box.y = 350 - (spriteButton->GetHeight()/2.0);
+		buttonPressed->Box.y = 400 - (spriteButton->GetHeight()/2.0);
 		buttonPressed->AddComponent(spriteButton);
 		ObjectArray.emplace_back(buttonPressed);
 		//ObjectArray.swap(ObjectArray[ObjectArray.size()-1], ObjectArray[ObjectArray.size()-2]);
 
 		Game* game = Game::GetInstance();
-		backgroundLoop.Stop();
+		//backgroundLoop.Stop();
 		game->Push(new Options());
-		popRequested = true;
+		//popRequested = true;
 	}
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 2)
@@ -150,7 +159,7 @@ void MainMenu::Update(float dt)
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_EXIT_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-		buttonPressed->Box.y = 450 - (spriteButton->GetHeight()/2.0);
+		buttonPressed->Box.y = 500 - (spriteButton->GetHeight()/2.0);
 		buttonPressed->AddComponent(spriteButton);
 		ObjectArray.emplace_back(buttonPressed);
 

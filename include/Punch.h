@@ -10,17 +10,21 @@
 
 class Punch : public Component{
 	public:
-		Punch(GameObject* associated, int damage, bool target = false);
+		Punch(GameObject* associated, int damage, bool target = false, float secondsToSelfDestruct = 0);
 		~Punch();
 		void Update(float dt);
 		void Render();
 		bool Is(string type);
 		int GetDamage();
 		void NotifyCollision(GameObject* other);
+		void SetHitSound(string sound);
 
 	private:
+		float secondsToSelfDestruct;
 		int damage;
+		float time = 0;
 		bool targetsPlayer = false;
+		string hitSound;
 };
 
 #endif

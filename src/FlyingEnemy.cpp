@@ -17,6 +17,35 @@ void FlyingEnemy::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
+	if (state == EnemyState::IDLE){
+		if(GameData::Player == nullptr)
+			return;
+
+		Vec2 centro = associated->Box.GetCenter();
+
+		Vec2 centroPlayer = GameData::Player->GetAssociated()->Box.GetCenter();
+
+		Vec2 distance = centro - centroPlayer;
+
+		if (abs(distance.x) > 250){
+			int mod = rand()%2;
+			if (mod){
+				speed.x = 300*dt;
+				flip = false;
+				sprite->SetFlip(flip);
+			}
+			else{
+				speed.x = -300*dt;
+				flip = true;
+				sprite->SetFlip(flip);
+			}
+
+		}
+		else{
+			state = EnemyState::SEARCHING;
+		}
+	}
+
 	if (state == EnemyState::ATTACKING){
 		if (sprite->IsAnimationOver()){
 			SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
@@ -132,7 +161,7 @@ void FlyingEnemy::Attack(Vec2 target){
 	double angle = associated->Box.GetCenter().GetAngle(target);
 	go->tag = "bullet";
 
-	ShitBall* bullet = new ShitBall(go, angle, 700, 1, true, STAGE1_FLYING_ENEMY_BULLET_ANIMATION, PROTAGONIST_SHIT_SOUND, 4);
+	ShitBall* bullet = new ShitBall(go, angle, 700, 1, true, STAGE1_FLYING_ENEMY_BULLET_ANIMATION,STAGE1_FLYING_ENEMY_BULLET_SOUND, 4);
 	go->AddComponent(bullet);
 	state->AddObject(go);
 }
@@ -151,5 +180,9 @@ void FlyingEnemy::Kill(){
 
 	Sprite* sprite = new Sprite(go, STAGE1_FLYING_ENEMY_DEATH_ANIMATION,5,0.2,1.0);
 	go->AddComponent(sprite);
+
+	Sound* sound = new Sound(go, STAGE1_FLYING_ENEMY_DEATH_SOUND);
+	sound->Play(1);
+	go->AddComponent(sound);
 
 }

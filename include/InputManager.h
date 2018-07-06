@@ -17,12 +17,13 @@ using namespace std;
 
 class InputManager{
 	public:
-		
+
 		void Update();
 		bool KeyPress(int key);
 		bool KeyRelease(int key);
 		bool IsKeyDown(int key);
-		
+		int GetKeyPressed();
+
 		bool MousePress(int button);
 		bool MouseRelease(int button);
 		bool IsMouseDown(int button);
@@ -43,6 +44,7 @@ class InputManager{
 		int updateCounter = 0;
 		int mouseX;
 		int mouseY;
+		int keyPressed;
 };
 
 #endif

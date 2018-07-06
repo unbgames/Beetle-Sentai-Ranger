@@ -2,6 +2,9 @@
 
 LoseState::LoseState() : State(){
 
+	backgroundMusic.Open(LOSE_MUSIC);
+	backgroundMusic.Play(1);
+
 	GameObject* aux = new GameObject();
 
 	Sprite* bg;
@@ -26,7 +29,10 @@ LoseState::LoseState() : State(){
 	popRequested = false;
 
 }
-LoseState::~LoseState(){}
+LoseState::~LoseState(){
+	//backgroundMusic.Stop();
+	ObjectArray.clear();
+}
 
 void LoseState::LoadAssets(){}
 void LoseState::Update(float dt){
@@ -38,6 +44,9 @@ void LoseState::Update(float dt){
 
 	if (input.KeyPress(SDLK_SPACE)  || input.KeyPress(SDLK_ESCAPE)){
 		Game* game = Game::GetInstance();
+		if (backgroundMusic.IsPlaying()){
+			backgroundMusic.Stop();
+		}
 		game->Push(new MainMenu());
 		popRequested = true;
 	}

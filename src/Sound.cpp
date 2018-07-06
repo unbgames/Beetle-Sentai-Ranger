@@ -31,7 +31,9 @@ bool Sound::IsOpen(){
     else
         return(true);
 }
-void Sound::Update(float dt){}
+void Sound::Update(float dt){
+
+}
 void Sound::Render(){}
 bool Sound::Is(string type){
 	return(type == "sound");
