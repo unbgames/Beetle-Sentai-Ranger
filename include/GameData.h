@@ -21,6 +21,11 @@
 #define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaMenuIntro.ogg"
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"
 
+#define CUTSCENES_1 "assets/img/Cutscenes/scene1.png"
+#define CUTSCENES_2 "assets/img/Cutscenes/scene2.png"
+#define CUTSCENES_3 "assets/img/Cutscenes/scene3.png"
+#define CUTSCENES_FINAL "assets/img/Cutscenes/scene_final.png"
+
 #define OPTIONS_BACKGROUND "assets/img/Menu/options_menu_v2.png"
 #define OPTIONS_PANEL "assets/img/Menu/options_panel.png"
 #define OPTIONS_BACK_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"

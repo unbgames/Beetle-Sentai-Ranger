@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "Stage1.h"
+#include "Cutscenes.h"
 #include "Options.h"
 
 MainMenu::MainMenu()
@@ -131,7 +132,7 @@ void MainMenu::Update(float dt)
 
 		Game* game = Game::GetInstance();
 		backgroundLoop.Stop();
-		game->Push(new Stage1(4));
+		game->Push(new Cutscenes());
 		popRequested = true;
 	}
 
