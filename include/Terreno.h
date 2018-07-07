@@ -16,8 +16,8 @@ class Terreno : public Component{
 		void NotifyCollision();
 
 	private:
-		TileMap* mapa;
-		Collider* colisor;
+		TileMap* mapa = nullptr;
+		Collider* colisor = nullptr;
 
 };
 

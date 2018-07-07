@@ -4,8 +4,9 @@
 Terreno::Terreno(GameObject* associated, string TileFile, string MapFile) : Component(associated){
 
 	set = new TileSet(associated, 32, 32, TileFile);
+	associated->AddComponent(set);
 	mapa = new TileMap(associated,MapFile, set);
-	this->mapa = mapa;
+	associated->AddComponent(mapa);
 
 	associated->Box.w = set->GetTileWidth()* mapa->GetWidth();
 	associated->Box.h = set->GetTileHeight()* mapa->GetHeight();
