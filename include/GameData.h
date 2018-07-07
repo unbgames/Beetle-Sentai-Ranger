@@ -73,6 +73,17 @@
 #define PROTAGONIST_FLY_SOUND "assets/audio/Sounds/1. Besouro/Voo.wav"
 #define PROTAGONIST_GETHURT_SOUND "assets/audio/Sounds/1. Besouro/TomandoDano4.wav"
 
+#define PLAYER2_IDLE_ANIMATION "assets/img/Beetle2/Fightpose.png"
+#define PLAYER2_RUN_ANIMATION "assets/img/Beetle2/Run_sprite_.png"
+#define PLAYER2_JUMP_ANIMATION "assets/img/Beetle2/Jump Beetle2.png"
+#define PLAYER2_SHITBALL_ANIMATION "assets/img/Beetle2/PooAttack.png"
+#define PLAYER2_ACID_ANIMATION "assets/img/Beetle2/Acid.png"
+#define PLAYER2_PUNCH_ANIMATION "assets/img/Beetle2/Punch_spritesheet.png"
+#define PLAYER2_DEATH_ANIMATION "assets/img/Beetle2/Death.png"
+#define PLAYER2_DASH_ANIMATION "assets/img/Beetle2/Dash.png" 
+#define PLAYER2_FLY_ANIMATION "assets/img/Beetle2/BeetleFly.png"
+#define PLAYER2_GETHURT_ANIMATION "assets/img/Beetle2/Dano.png"
+
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
 #define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
 #define STAGE1_TILESET_WIDTH 32
