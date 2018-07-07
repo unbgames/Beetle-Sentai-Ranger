@@ -41,6 +41,7 @@
 #define PLATFORM_TYPE1 "assets/map/Platform.txt"
 #define COLUMN_TYPE1 "assets/map/Column.txt"
 #define COLUMN_TYPE2 "assets/map/Column2.txt"
+#define PLATFORM_TEST "assets/map/terrain_platform1.txt"
 
 #define HUD_ACID_ICON "assets/img/FristPlane/Acid.png"
 #define HUD_ACID_COOLDOWN_ICON "assets/img/FristPlane/Acid_cooldown.png"
@@ -60,7 +61,7 @@
 #define PROTAGONIST_ACID_ANIMATION "assets/img/Beetle/Acid.png"
 #define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 #define PROTAGONIST_DEATH_ANIMATION "assets/img/Beetle/Death.png"
-#define PROTAGONIST_DASH_ANIMATION "assets/img/Beetle/Dash.png" 
+#define PROTAGONIST_DASH_ANIMATION "assets/img/Beetle/Dash.png"
 #define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/BeetleFly.png"
 #define PROTAGONIST_GETHURT_ANIMATION "assets/img/Beetle/Dano.png"
 #define PROTAGONIST_DEATH_SOUND "assets/audio/Sounds/1. Besouro/Morrendo1.wav"
@@ -74,7 +75,7 @@
 #define PROTAGONIST_GETHURT_SOUND "assets/audio/Sounds/1. Besouro/TomandoDano4.wav"
 
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
-#define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
+#define STAGE1_TILESET "assets/img/Tileset/Tileset2.png"
 #define STAGE1_TILESET_WIDTH 32
 #define STAGE1_TILESET_HEIGHT 32
 #define STAGE1_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"

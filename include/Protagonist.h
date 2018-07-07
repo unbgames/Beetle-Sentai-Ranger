@@ -16,6 +16,7 @@
 #include "Punch.h"
 #include "AcidSplash.h"
 #include "Skill.h"
+#include "Terreno.h"
 
 class Protagonist : public Component{
 	public:

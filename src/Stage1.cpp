@@ -65,9 +65,12 @@ void Stage1::LoadAssets(){
 	Camera::Follow(aux2);
 	ObjectArray.emplace_back(aux2);
 
-	/*
-	*
-	*/
+	GameObject* auxTest = new GameObject();
+	auxTest->Box.x = 400;
+	auxTest->Box.y = 400;
+	Terreno* terreno = new Terreno(auxTest, STAGE1_TILESET, PLATFORM_TEST);
+	auxTest->AddComponent(terreno);
+	ObjectArray.emplace_back(auxTest);
 
 	GameObject* aux4 = new GameObject();
 	aux4->Box.x = 400;

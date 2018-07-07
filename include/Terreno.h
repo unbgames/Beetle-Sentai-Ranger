@@ -1,14 +1,14 @@
-#ifndef TERRAIN
-#define TERRAIN
+#ifndef TERRENO
+#define TERRENO
 
 #include "Component.h"
 #include "TileMap.h"
 #include "Collider.h"
 
-class Terrain : public Component{
+class Terreno : public Component{
 	public:
-		Terrain(GameObject* associated, string TileFile, string MapFile);
-		~Terrain();
+		Terreno(GameObject* associated, string TileFile, string MapFile);
+		~Terreno();
 		void Start();
 		void Update(float dt);
 		void Render();
@@ -18,7 +18,7 @@ class Terrain : public Component{
 	private:
 		TileMap* mapa;
 		Collider* colisor;
-	
+
 };
 
 #endif
