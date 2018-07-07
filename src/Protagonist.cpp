@@ -534,7 +534,7 @@ void Protagonist::NotifyCollision(GameObject* other){
 	if(terreno != nullptr)
 	{
 		Rect box1 = colisor->Box;
-		Rect box2 = terrain->GetAssociated()->Box;
+		Rect box2 = terreno->GetAssociated()->Box;
 
 		float dx = box1.x - box2.x;
 	  float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
