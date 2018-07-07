@@ -6,6 +6,7 @@
 #define LOSE_MUSIC "assets/audio/Musics/TemaGameOver.ogg"
 #define WIN_MUSIC "assets/audio/Musics/TemaVitoria.ogg"
 #define CREDIT_TEXT "assets/map/Credits.txt"
+#define CREDIT_SCENE "assets/img/Creditos/scene_final.jpg"
 #define CREDIT_MUSIC "assets/audio/Musics/TemaCreditos.ogg"
 
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu_v2.png"
