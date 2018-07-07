@@ -38,7 +38,9 @@ void Player1::SetSprite(Sprite* newSprite){
 	sprite->SetFlip(flip);
 }
 
-Player1::~Player1(){}
+Player1::~Player1(){
+	flySound->Stop();
+}
 void Player1::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
