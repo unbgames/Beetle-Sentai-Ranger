@@ -2,25 +2,31 @@
 #include <iostream>
 
 Terreno::Terreno(GameObject* associated, string TileFile, string MapFile) : Component(associated){
-
+	SDL_Log("chegou aqui0");
 	set = new TileSet(associated, 32, 32, TileFile);
+	SDL_Log("chegou aqui0.1");
 	associated->AddComponent(set);
+	SDL_Log("chegou aqui0.2");
 	mapa = new TileMap(associated,MapFile, set);
+	SDL_Log("chegou aqui0.3");
 	associated->AddComponent(mapa);
-
+	SDL_Log("chegou aqui2");
 	associated->Box.w = set->GetTileWidth()* mapa->GetWidth();
 	associated->Box.h = set->GetTileHeight()* mapa->GetHeight();
-
+	SDL_Log("chegou aqui3");
 	colisor = new Collider(associated);
 	associated->AddComponent(colisor);
+	SDL_Log("chegou aqui4");
 }
 
-Terreno::~Terreno(){}
+Terreno::~Terreno(){
+	SDL_Log("morreu");
+}
 
 void Terreno::Start(){}
 void Terreno::Update(float dt){}
-void Terreno::Render()
-{
+void Terreno::Render(){
+
 	float x = associated->Box.x;
 	float y = associated->Box.y;
 
@@ -39,7 +45,7 @@ void Terreno::Render()
 		y = aux_y;
 	}
 
-	SDL_Log("Passou na renderização do Terreno");
+	//SDL_Log("Passou na renderização do Terreno");
 }
 void Terreno::NotifyCollision(){}
 bool Terreno::Is(string type){
