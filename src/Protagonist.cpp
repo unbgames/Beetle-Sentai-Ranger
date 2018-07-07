@@ -50,7 +50,9 @@ void Protagonist::SetSprite(Sprite* newSprite){
 	sprite->SetFlip(flip);
 }
 
-Protagonist::~Protagonist(){}
+Protagonist::~Protagonist(){
+	flySound->Stop();
+}
 void Protagonist::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
