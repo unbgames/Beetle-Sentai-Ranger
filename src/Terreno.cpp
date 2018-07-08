@@ -2,26 +2,21 @@
 #include <iostream>
 
 Terreno::Terreno(GameObject* associated, string TileFile, string MapFile) : Component(associated){
-	SDL_Log("chegou aqui0");
+
 	set = new TileSet(associated, 32, 32, TileFile);
-	SDL_Log("chegou aqui0.1");
 	associated->AddComponent(set);
-	SDL_Log("chegou aqui0.2");
+
 	mapa = new TileMap(associated,MapFile, set);
-	SDL_Log("chegou aqui0.3");
 	associated->AddComponent(mapa);
-	SDL_Log("chegou aqui2");
+
 	associated->Box.w = set->GetTileWidth()* mapa->GetWidth();
 	associated->Box.h = set->GetTileHeight()* mapa->GetHeight();
-	SDL_Log("chegou aqui3");
+
 	colisor = new Collider(associated);
 	associated->AddComponent(colisor);
-	SDL_Log("chegou aqui4");
 }
 
-Terreno::~Terreno(){
-	SDL_Log("morreu");
-}
+Terreno::~Terreno(){}
 
 void Terreno::Start(){}
 void Terreno::Update(float dt){}
@@ -32,20 +27,20 @@ void Terreno::Render(){
 
 	vector<int> aux_matriz = mapa->GetTileMatrix();
 
-	float aux_y = y;
+	float aux_x = x;
 
-	for(int j = 0; j < mapa->GetWidth(); ++j)
+	for(int j = 0; j < mapa->GetHeight(); ++j)
 	{
-		for (int i = 0; i < mapa->GetHeight(); ++i)
+		for (int i = 0; i < mapa->GetWidth(); ++i)
 		{
-			set->RenderTile(aux_matriz[i+j], x-Camera::pos.x, y-Camera::pos.y);
-			y+= set->GetTileHeight();
+			set->RenderTile(aux_matriz[i+j*mapa->GetWidth()], x-Camera::pos.x, y-Camera::pos.y);
+			x+= set->GetTileWidth();
+			//std::cout << aux_matriz[i+j*mapa->GetWidth()] << "\t";
 		}
-		x+= set->GetTileWidth();
-		y = aux_y;
+		y+= set->GetTileHeight();
+		x = aux_x;
+		//std::cout << "\n";
 	}
-
-	//SDL_Log("Passou na renderização do Terreno");
 }
 void Terreno::NotifyCollision(){}
 bool Terreno::Is(string type){
