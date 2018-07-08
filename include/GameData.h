@@ -55,6 +55,10 @@
 #define TERRAIN_TYPE1 "assets/map/terreno_terrain1.txt"
 #define TERRAIN_TYPE2 "assets/map/terreno_terrain2.txt"
 #define TERRAIN_TYPE3 "assets/map/terreno_terrain3.txt"
+#define TERRAIN_TYPE4 "assets/map/terreno_terrain4.txt"
+#define TERRAIN_TYPE5 "assets/map/terreno_terrain5.txt"
+#define TERRAIN_TYPE6 "assets/map/terreno_terrain6.txt"
+#define TERRAIN_TYPE7 "assets/map/terreno_terrain7.txt"
 #define TERRAIN_CHAO "assets/map/terreno_chao_fase.txt"
 #define TERRAIN_BOSS "assets/map/terreno_chao_boss.txt"
 
