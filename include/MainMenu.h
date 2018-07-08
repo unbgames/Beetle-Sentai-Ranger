@@ -10,6 +10,7 @@
 #include "CameraFollower.h"
 #include "Music.h"
 #include "CreditState.h"
+#include "PVPState.h"
 
 class MainMenu : public State{
 	public:

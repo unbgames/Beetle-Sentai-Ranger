@@ -21,6 +21,7 @@ class TileMap : public Component{
 		int GetWidth();
 		int GetHeight();
 		int GetDepth();
+		vector<int> GetTileMatrix();
 		bool Is(string type);
 
 	private:

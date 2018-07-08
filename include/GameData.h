@@ -6,6 +6,7 @@
 #define LOSE_MUSIC "assets/audio/Musics/TemaGameOver.ogg"
 #define WIN_MUSIC "assets/audio/Musics/TemaVitoria.ogg"
 #define CREDIT_TEXT "assets/map/Credits.txt"
+#define CREDIT_SCENE "assets/img/Creditos/scene_final.jpg"
 #define CREDIT_MUSIC "assets/audio/Musics/TemaCreditos.ogg"
 
 #define MAINMENU_BACKGROUND "assets/img/Menu/main_menu_v2.png"
@@ -38,9 +39,13 @@
 #define OPTIONS_RIGHT_ICON "assets/img/FristPlane/Right.png"
 #define OPTIONS_PUNCH_ICON "assets/img/FristPlane/Punch.png"
 
-#define PLATFORM_TYPE1 "assets/map/Platform.txt"
-#define COLUMN_TYPE1 "assets/map/Column.txt"
-#define COLUMN_TYPE2 "assets/map/Column2.txt"
+#define PLATFORM_TYPE1 "assets/map/terreno_platform.txt"
+#define COLUMN_TYPE1 "assets/map/terreno_column1.txt"
+#define COLUMN_TYPE2 "assets/map/terreno_column2.txt"
+#define COLUMN_TYPE3 "assets/map/terreno_column3.txt"
+#define TERRAIN_TYPE1 "assets/map/terreno_terrain1.txt"
+#define TERRAIN_TYPE2 "assets/map/terreno_terrain2.txt"
+#define TERRAIN_TYPE3 "assets/map/terreno_terrain3.txt"
 
 #define HUD_ACID_ICON "assets/img/FristPlane/Acid.png"
 #define HUD_ACID_COOLDOWN_ICON "assets/img/FristPlane/Acid_cooldown.png"
@@ -73,8 +78,19 @@
 #define PROTAGONIST_FLY_SOUND "assets/audio/Sounds/1. Besouro/Voo.wav"
 #define PROTAGONIST_GETHURT_SOUND "assets/audio/Sounds/1. Besouro/TomandoDano4.wav"
 
+#define PLAYER2_IDLE_ANIMATION "assets/img/Beetle2/Fightpose.png"
+#define PLAYER2_RUN_ANIMATION "assets/img/Beetle2/Run_sprite_.png"
+#define PLAYER2_JUMP_ANIMATION "assets/img/Beetle2/Jump Beetle2.png"
+#define PLAYER2_SHITBALL_ANIMATION "assets/img/Beetle2/PooAttack.png"
+#define PLAYER2_ACID_ANIMATION "assets/img/Beetle2/Acid.png"
+#define PLAYER2_PUNCH_ANIMATION "assets/img/Beetle2/Punch_spritesheet.png"
+#define PLAYER2_DEATH_ANIMATION "assets/img/Beetle2/Death.png"
+#define PLAYER2_DASH_ANIMATION "assets/img/Beetle2/Dash.png" 
+#define PLAYER2_FLY_ANIMATION "assets/img/Beetle2/BeetleFly.png"
+#define PLAYER2_GETHURT_ANIMATION "assets/img/Beetle2/Dano.png"
+
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
-#define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
+#define STAGE1_TILESET "assets/img/Tileset/Tileset3.png"
 #define STAGE1_TILESET_WIDTH 32
 #define STAGE1_TILESET_HEIGHT 32
 #define STAGE1_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"

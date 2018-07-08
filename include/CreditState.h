@@ -25,10 +25,14 @@ class CreditState : public State{
         void Pause();
         void Resume();
 
+        void AddText(string text);
+        void AddImage(string file);
+
     private:
         Music backgroundMusic;
         ifstream file;
         Timer wait;
+        Timer SceneTimer;
 
 };
 

@@ -10,7 +10,7 @@ void TileMap::Load(string file){
 
 	ifstream mapa(file);
 	string aux;
-	int ancora; 
+	int ancora;
 
 	if (!mapa.good()){
 		SDL_Log("problema ao carregar o mapa");
@@ -27,7 +27,7 @@ void TileMap::Load(string file){
 	while(getline(mapa,aux,',')){
 		ancora = atoi(aux.c_str());
 		ancora--;
-		tileMatrix.push_back(ancora);	
+		tileMatrix.push_back(ancora);
 	}
 	mapa.close();
 
@@ -56,7 +56,7 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY){
 		x=0;
 		y+= tileSet->GetTileHeight();
 	}
-	
+
 }
 void TileMap::Render(){
 
@@ -72,6 +72,9 @@ int TileMap::GetHeight(){
 }
 int TileMap::GetDepth(){
 	return(mapDepth);
+}
+vector<int> TileMap::GetTileMatrix(){
+	return(tileMatrix);
 }
 
 void TileMap::Update(float dt){}

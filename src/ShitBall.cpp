@@ -54,18 +54,8 @@ void ShitBall::NotifyCollision(GameObject* other){
 		player->TakeDamage(damage);
 		associated->RequestDelete();
 	}
-
-	Platform* plat = (Platform*) other->GetComponent("Platform");
-	if (plat != nullptr){
-		associated->RequestDelete();
-	}
-
-	Column* coluna = (Column*) other->GetComponent("Column");
-	if(coluna != nullptr){
-		associated->RequestDelete();
-	}
 	
-	Terrain* terrain = (Terrain*) other->GetComponent("Terrain");
+	Terreno* terrain = (Terreno*) other->GetComponent("Terreno");
 	if(terrain != nullptr){
 		associated->RequestDelete();
 	}

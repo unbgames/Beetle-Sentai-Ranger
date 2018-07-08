@@ -11,7 +11,7 @@
 
 class AcidSplash : public Component{
 	public:
-		AcidSplash(GameObject* associated, double angle, float speed, int damage, string sprite, int frameCount);
+		AcidSplash(GameObject* associated, double angle, float speed, int damage, string sprite, int frameCount, bool target = false);
 		~AcidSplash();
 		void Update(float dt);
 		void Render();
@@ -24,6 +24,7 @@ class AcidSplash : public Component{
 		Vec2 speed;
 		int damage;
 		Timer timer;
+		bool targetsPlayer = false;
 	
 };
 

@@ -80,6 +80,11 @@ void MainMenu::Update(float dt)
 		Game* game = Game::GetInstance();
 		game->Push(new CreditState(CREDIT_TEXT));
 	}
+	if (input.KeyPress(SDLK_w)){
+		Game* game = Game::GetInstance();
+		game->Push(new PVPState());
+		popRequested = true;
+	}
 
 	if(input.QuitRequested())
 		quitRequested = true;
