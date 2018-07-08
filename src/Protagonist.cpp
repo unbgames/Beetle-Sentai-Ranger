@@ -381,21 +381,21 @@ void Protagonist::NotifyCollision(GameObject* other){
         	speed.x = 0;
             //project in x
             if(dx < 0){
-            	SDL_Log("esquerda");
+            	//SDL_Log("esquerda");
                 //project to the left
                 px *= -1;
                 py *= 0;
                 //offx = box2.w;
             }
             else{
-            	SDL_Log("direita");
+            	//SDL_Log("direita");
                 //proj to right
                 py = 0;
                 //offx = -box1.w;
             }
         }
         else{
-        	SDL_Log("acima");
+        	//SDL_Log("acima");
         	speed.y = 0;
             //project in y
             if(dy < 0){
@@ -406,7 +406,7 @@ void Protagonist::NotifyCollision(GameObject* other){
                 Land();
             }
             else{
-            	SDL_Log("abaixo");
+            	//SDL_Log("abaixo");
                 //project down
                 px = 0;
                 //offy = -box1.h;

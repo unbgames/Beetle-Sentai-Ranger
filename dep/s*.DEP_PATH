@@ -1,17 +1,15 @@
-bin/GroundEnemy.o: src/GroundEnemy.cpp include/GroundEnemy.h \
- include/Enemy.h include/Component.h include/SDL_include.h \
- include/GameObject.h include/Rect.h include/Vec2.h include/Sprite.h \
- include/Sound.h include/Resources.h include/Game.h include/State.h \
- include/GameData.h include/Timer.h include/InputManager.h \
- include/Camera.h include/ShitBall.h include/Collider.h \
+bin/Protagonist.o: src/Protagonist.cpp include/Protagonist.h \
+ include/Component.h include/SDL_include.h include/GameObject.h \
+ include/Rect.h include/Vec2.h include/Sprite.h include/Sound.h \
+ include/Resources.h include/Game.h include/State.h include/GameData.h \
+ include/Timer.h include/InputManager.h include/Camera.h \
+ include/ShitBall.h include/Collider.h include/Enemy.h \
  include/Protagonist.h include/Terreno.h include/TileMap.h \
  include/TileSet.h include/HealthBar.h include/Punch.h \
  include/AcidSplash.h include/Skill.h include/Text.h \
  include/CameraFollower.h
 
-include/GroundEnemy.h:
-
-include/Enemy.h:
+include/Protagonist.h:
 
 include/Component.h:
 
@@ -44,6 +42,8 @@ include/Camera.h:
 include/ShitBall.h:
 
 include/Collider.h:
+
+include/Enemy.h:
 
 include/Protagonist.h:
 
