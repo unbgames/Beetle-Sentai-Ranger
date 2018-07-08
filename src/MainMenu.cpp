@@ -31,8 +31,6 @@ void MainMenu::LoadAssets()
 	GameObject* logo = new GameObject();
 	Sprite* spriteLogo = new Sprite(logo, MAINMENU_LOGO);
 	spriteLogo->SetScaleX(1.5, 1.5);
-	//Sprite* spriteLogo = new Sprite(logo, MAINMENU_LOGO, 8, 0.05, 0);
-	//spriteLogo->StopOnFrame(7);
 	logo->Box.x = 512 - (spriteLogo->GetWidth()/2.0);
 	logo->Box.y = 100 - (spriteLogo->GetHeight()/2.0);
 	logo->AddComponent(spriteLogo);
@@ -81,6 +79,11 @@ void MainMenu::Update(float dt)
 	if (input.KeyPress(SDLK_q)){
 		Game* game = Game::GetInstance();
 		game->Push(new CreditState(CREDIT_TEXT));
+	}
+	if (input.KeyPress(SDLK_w)){
+		Game* game = Game::GetInstance();
+		game->Push(new PVPState());
+		popRequested = true;
 	}
 
 	if(input.QuitRequested())

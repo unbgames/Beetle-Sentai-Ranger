@@ -1,5 +1,5 @@
-#ifndef PROTAGONIST
-#define PROTAGONIST
+#ifndef PLAYER2
+#define PLAYER2
 
 #include "Component.h"
 #include "GameObject.h"
@@ -8,20 +8,21 @@
 #include "ShitBall.h"
 #include "Collider.h"
 #include "Timer.h"
-#include "Terreno.h"
+#include "Platform.h"
+#include "Column.h"
+#include "Terrain.h"
 #include "State.h"
 #include "HealthBar.h"
 #include "Punch.h"
 #include "AcidSplash.h"
 #include "Skill.h"
 
-class Protagonist : public Component{
+class Player2 : public Enemy{
 	public:
-		Protagonist(GameObject* associated);
-		~Protagonist();
+		Player2(GameObject* associated);
+		~Player2();
 		void Update(float dt);
 		void Render();
-		bool Is(string type);
 		void Start();
 		void NotifyCollision(GameObject* other);
 
@@ -42,7 +43,6 @@ class Protagonist : public Component{
 		Rect limit;
 		HealthBar* HPBar;
 		weak_ptr<GameObject> Soco;
-		Collider* colisor = nullptr;
 		Skill* shit = nullptr;
 		Skill* dash = nullptr;
 		Skill* fly = nullptr;
@@ -55,19 +55,6 @@ class Protagonist : public Component{
 		void ShootAcid(double angle);
 		void Attack();
 		void Land();
-
-		int protagButtons[9];
-		/*
-		0 -> Up
-		1 -> Down
-		2 -> Left
-		3 -> Right
-		4 -> Punch
-		5 -> Shitball
-		6 -> Dash
-		7 -> Fly
-		8 -> Acid
-		*/
 };
 
 #endif

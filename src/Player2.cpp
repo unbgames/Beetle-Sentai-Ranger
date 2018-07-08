@@ -1,7 +1,6 @@
-#include "Protagonist.h"
+#include "Player2.h"
 
-Protagonist::Protagonist(GameObject* associated) : Component(associated){
-	associated->AddComponent(this);
+Player2::Player2(GameObject* associated) : Enemy(associated, 50){
 	speed.x = 0;
 	speed.y = 0;
 	state = PlayerState::NORMAL;
@@ -14,30 +13,17 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	state->AddObject(go);
 
 	HealthBar* barra = new HealthBar(go, 5, HUD_HEALTHBAR);
+	barra->SetPosition(Vec2(725,5));
 	go->AddComponent(barra);
 	HPBar = barra;
 
 	limit = state->GetLimit();
 
-	colisor = new Collider(associated);
 	colisor->SetScale(Vec2(0.4,0.7));
 	colisor->SetOffset(Vec2(0,15));
-	associated->AddComponent(colisor);
-
-	fstream myReadFile;
-	myReadFile.open ("controlsCustom.txt", std::ios::in);
-
-	if(myReadFile.is_open())
-	{
-		for(int i=0;i<9;++i)
-		{
-    	myReadFile >> protagButtons[i];
-		}
-	}
-	myReadFile.close();
 }
 
-void Protagonist::SetSprite(Sprite* newSprite){
+void Player2::SetSprite(Sprite* newSprite){
 
 	if (sprite != nullptr){
 		sprite->SetEnabled(false);
@@ -50,14 +36,14 @@ void Protagonist::SetSprite(Sprite* newSprite){
 	sprite->SetFlip(flip);
 }
 
-Protagonist::~Protagonist(){
+Player2::~Player2(){
 	flySound->Stop();
 }
-void Protagonist::Update(float dt){
+void Player2::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(protagButtons[6]) && dash->IsActive()){
+	if(input.KeyPress(SDLK_KP_4) && dash->IsActive()){
 		dash->Use();
 		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagDash"));
@@ -111,7 +97,7 @@ void Protagonist::Update(float dt){
 		//SDL_Log("NORMAL");
 		speed.x = 0;
 
-		if(input.KeyPress(protagButtons[8])){
+		if(input.KeyPress(SDLK_KP_3)){
 			if (flip){
 				ShootAcid((8*PI)/6);
 			}
@@ -119,7 +105,7 @@ void Protagonist::Update(float dt){
 				ShootAcid((10*PI)/6);
 			}
 		}
-		if(input.KeyPress(protagButtons[5])){
+		if(input.KeyPress(SDLK_KP_2)){
 			if (flip){
 				ShootShit(PI);
 			}
@@ -132,12 +118,12 @@ void Protagonist::Update(float dt){
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagIdle"));
 		}
 
-		if(input.KeyPress(protagButtons[0]) && jumpCount < 1){
+		if(input.KeyPress(SDLK_UP) && jumpCount < 1){
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 			jumpCount++;
 			speed.y = -450*dt;
 		}
-		if(input.IsKeyDown(protagButtons[2])){
+		if(input.IsKeyDown(SDLK_LEFT)){
 			speed.x = -400*dt;
 			flip = true;
 			if (sprite->GetTag() == "ProtagIdle"){
@@ -146,7 +132,7 @@ void Protagonist::Update(float dt){
 			else
 				sprite->SetFlip(flip);
 		}
-		else if(input.IsKeyDown(protagButtons[3])){
+		else if(input.IsKeyDown(SDLK_RIGHT)){
 			speed.x = 400*dt;
 			flip = false;
 			if (sprite->GetTag() == "ProtagIdle"){
@@ -156,7 +142,7 @@ void Protagonist::Update(float dt){
 				sprite->SetFlip(flip);
 		}
 
-		if(input.KeyPress(protagButtons[4])){
+		if(input.KeyPress(SDLK_KP_1)){
 			Attack();
 		}
 		speed.y += 20*dt;
@@ -196,7 +182,7 @@ void Protagonist::Update(float dt){
 			ChangeState(PlayerState::NORMAL);
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 		}
-		if(input.KeyPress(protagButtons[8])){
+		if(input.KeyPress(SDLK_KP_3)){
 			if (flip){
 				ShootAcid((8*PI)/6);
 			}
@@ -204,7 +190,7 @@ void Protagonist::Update(float dt){
 				ShootAcid((10*PI)/6);
 			}
 		}
-		if(input.KeyPress(protagButtons[5])){
+		if(input.KeyPress(SDLK_KP_2)){
 			if (flip){
 				ShootShit(PI);
 			}
@@ -213,24 +199,24 @@ void Protagonist::Update(float dt){
 			}
 		}
 
-		if(input.IsKeyDown(protagButtons[0])){
+		if(input.IsKeyDown(SDLK_UP)){
 			speed.y = -400*dt;
 		}
-		if(input.IsKeyDown(protagButtons[1])){
+		if(input.IsKeyDown(SDLK_DOWN)){
 			speed.y = 400*dt;
 		}
-		if(input.IsKeyDown(protagButtons[2])){
+		if(input.IsKeyDown(SDLK_LEFT)){
 			speed.x = -400*dt;
 			flip = true;
 			sprite->SetFlip(flip);
 		}
-		if(input.IsKeyDown(protagButtons[3])){
+		if(input.IsKeyDown(SDLK_RIGHT)){
 			speed.x = 400*dt;
 			flip = false;
 			sprite->SetFlip(flip);
 		}
 	}
-	else if(input.KeyPress(protagButtons[7]) && fly->IsActive()){
+	else if(input.KeyPress(SDLK_KP_5) && fly->IsActive()){
 		ChangeState(PlayerState::FLYING);
 		fly->Use();
 	}
@@ -258,46 +244,50 @@ void Protagonist::Update(float dt){
 
 	//Camera::pos.x = associated->Box.x+512;
 }
-void Protagonist::Render(){}
-bool Protagonist::Is(string type){
-	return(type == "Protagonist");
-}
-void Protagonist::Start(){
-	Sprite* idle = new Sprite(associated, PROTAGONIST_IDLE_ANIMATION, 5, 0.15, 0);
+void Player2::Render(){}
+void Player2::Start(){
+	Sprite* idle = new Sprite(associated, PLAYER2_IDLE_ANIMATION, 5, 0.15, 0);
 	idle->SetTag("ProtagIdle");
 	idle->SetEnabled(true);
+	idle->SetColorMod(254,0,167);
 	SetSprite(idle);
 	associated->AddComponent(idle);
 
-	Sprite* run = new Sprite(associated, PROTAGONIST_RUN_ANIMATION, 6, 0.1, 0);
+	Sprite* run = new Sprite(associated, PLAYER2_RUN_ANIMATION, 6, 0.1, 0);
 	run->SetTag("ProtagRun");
 	run->SetEnabled(false);
+	run->SetColorMod(254,0,167);
 	associated->AddComponent(run);
 
-	Sprite* jump = new Sprite(associated, PROTAGONIST_JUMP_ANIMATION, 8, 0.1, 0);
+	Sprite* jump = new Sprite(associated, PLAYER2_JUMP_ANIMATION, 8, 0.1, 0);
 	jump->SetTag("ProtagJump");
 	jump->SetEnabled(false);
 	jump->StopOnFrame(7);
+	jump->SetColorMod(254,0,167);
 	associated->AddComponent(jump);
 
-	Sprite* punch = new Sprite(associated, PROTAGONIST_PUNCH_ANIMATION, 6, 0.03, 0);
+	Sprite* punch = new Sprite(associated, PLAYER2_PUNCH_ANIMATION, 6, 0.03, 0);
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
+	punch->SetColorMod(254,0,167);
 	associated->AddComponent(punch);
 
-	Sprite* Dash = new Sprite(associated, PROTAGONIST_DASH_ANIMATION, 8, 0.0625, 0);
+	Sprite* Dash = new Sprite(associated, PLAYER2_DASH_ANIMATION, 8, 0.0625, 0);
 	Dash->SetTag("ProtagDash");
 	Dash->SetEnabled(false);
+	Dash->SetColorMod(254,0,167);
 	associated->AddComponent(Dash);
 
-	Sprite* flying = new Sprite(associated, PROTAGONIST_FLY_ANIMATION, 8, 0.005, 0);
+	Sprite* flying = new Sprite(associated, PLAYER2_FLY_ANIMATION, 8, 0.005, 0);
 	flying->SetTag("ProtagFly");
 	flying->SetEnabled(false);
+	flying->SetColorMod(254,0,167);
 	associated->AddComponent(flying);
 
-	Sprite* hurt = new Sprite(associated, PROTAGONIST_GETHURT_ANIMATION, 6, 0.05, 0);
+	Sprite* hurt = new Sprite(associated, PLAYER2_GETHURT_ANIMATION, 6, 0.05, 0);
 	hurt->SetTag("ProtagHurt");
 	hurt->SetEnabled(false);
+	hurt->SetColorMod(254,0,167);
 	associated->AddComponent(hurt);
 
 	Game* game = Game::GetInstance();
@@ -305,8 +295,8 @@ void Protagonist::Start(){
 
 	GameObject* go = new GameObject();
 
-	go->Box.x = 949;
-	go->Box.y = 0;
+	go->Box.x = 725;
+	go->Box.y = 70;
 
 	shit = new Skill(go, 1.0, HUD_SHIT_ICON, HUD_SHIT_COOLDOWN_ICON);
 	state->AddObject(go);
@@ -314,8 +304,8 @@ void Protagonist::Start(){
 
 	GameObject* go2 = new GameObject();
 
-	go2->Box.x = 874;
-	go2->Box.y = 0;
+	go2->Box.x = 790;
+	go2->Box.y = 70;
 
 	acid = new Skill(go2, 2.0, HUD_ACID_ICON, HUD_ACID_COOLDOWN_ICON);
 	state->AddObject(go2);
@@ -323,8 +313,8 @@ void Protagonist::Start(){
 
 	GameObject* go3 = new GameObject();
 
-	go3->Box.x = 799;
-	go3->Box.y = 0;
+	go3->Box.x = 855;
+	go3->Box.y = 70;
 
 	dash = new Skill(go3, 2.0, HUD_DASH_ICON, HUD_DASH_COOLDOWN_ICON);
 	state->AddObject(go3);
@@ -332,8 +322,8 @@ void Protagonist::Start(){
 
 	GameObject* go4 = new GameObject();
 
-	go4->Box.x = 724;
-	go4->Box.y = 0;
+	go4->Box.x = 920;
+	go4->Box.y = 70;
 
 	fly = new Skill(go4, 5.0, HUD_FLY_ICON, HUD_FLY_COOLDOWN_ICON);
 	fly->SetDuration(5.0);
@@ -345,73 +335,10 @@ void Protagonist::Start(){
 	associated->AddComponent(flySound);
 
 }
-void Protagonist::NotifyCollision(GameObject* other){
-	Terreno* base = (Terreno*) other->GetComponent("Terreno");
-	if (base != nullptr){
-
-		Rect box1 = colisor->Box;
-		Rect box2 = base->GetAssociated()->Box;
-
-		float dx = box1.x - box2.x;
-	    float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
-
-	    float offx = 0;
-	    float offy = 0;
-
-	    float dy = box1.y - box2.y;
-	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
-
-        // Collision detected
-
-        if(px < py){
-        	speed.x = 0;
-            //project in x
-            if(dx < 0){
-                //project to the left
-                px *= -1;
-                py *= 0;
-                offx = box2.w;
-            }
-            else{
-                //proj to right
-                py = 0;
-                offx = -box1.w;
-            }
-        }
-        else{
-        	speed.y = 0;
-            //project in y
-            if(dy < 0){
-                //project up
-                px = 0;
-                py *= -1;
-                offy = box2.h;
-                Land();
-            }
-            else{
-                //project down
-                px = 0;
-                offy = -box1.h;
-
-            }
-        }
-        // we get px and py , penetration vector
-        box1.x += px + offx;
-        box1.y += py + offy;
-
-        associated->Box.x += px + offx;
-        associated->Box.y += py + offy;
-
-        colisor->Box = box1;
-		base->GetAssociated()->Box = box2;
-
-		//associated->Box.Centralize(colisor->Box.GetCenter());
-	}
-
-}
+void Player2::NotifyCollision(GameObject* other){}
 
 //espera angulo em radianos
-void Protagonist::ShootShit(float angle){
+void Player2::ShootShit(float angle){
 
 	if (!shit->IsActive()){
 		return;
@@ -426,13 +353,13 @@ void Protagonist::ShootShit(float angle){
 	go->Box.y -= 35;
 	go->tag = "shitball";
 
-	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1, false, PROTAGONIST_SHITBALL_ANIMATION, PROTAGONIST_SHIT_SOUND, 3);
+	ShitBall* shitball = new ShitBall(go, angle, 700.0, 1, true, PROTAGONIST_SHITBALL_ANIMATION, PROTAGONIST_SHIT_SOUND, 3);
 
 	go->AddComponent(shitball);
 	state->AddObject(go);
 }
 
-void Protagonist::ShootAcid(double angle){
+void Player2::ShootAcid(double angle){
 
 	if (!acid->IsActive()){
 		return;
@@ -445,7 +372,7 @@ void Protagonist::ShootAcid(double angle){
 	GameObject* go = new GameObject();
 	go->tag = "acid";
 
-	AcidSplash* acid = new AcidSplash(go, angle, 200.0, 1,PROTAGONIST_ACID_ANIMATION, 5);
+	AcidSplash* acid = new AcidSplash(go, angle, 200.0, 1,PROTAGONIST_ACID_ANIMATION, 5, true);
 
 	go->Box.Centralize(associated->Box.x + associated->Box.w/2 , associated->Box.y + associated->Box.h/4);
 
@@ -453,7 +380,7 @@ void Protagonist::ShootAcid(double angle){
 	state->AddObject(go);
 }
 
-void Protagonist::Land(){
+void Player2::Land(){
 	speed.y = 0;
 	jumpCount = 0;
 	if (sprite->GetTag() == "ProtagJump"){
@@ -462,7 +389,7 @@ void Protagonist::Land(){
 	}
 }
 
-void Protagonist::Attack(){
+void Player2::Attack(){
 	speed.x = 0;
 	ChangeState(PlayerState::PUNCHING);
 	SetSprite((Sprite*) associated->GetComponentByTag("ProtagPunch"));
@@ -483,7 +410,7 @@ void Protagonist::Attack(){
 
 	}
 
-	Punch* punch = new Punch(go,2);
+	Punch* punch = new Punch(go,2, true);
 
 	go->AddComponent(punch);
 
@@ -494,7 +421,7 @@ void Protagonist::Attack(){
 	Soco = state->AddObject(go);
 }
 
-void Protagonist::TakeDamage(int dmg){
+void Player2::TakeDamage(int dmg){
 
 	InputManager& input = InputManager::GetInstance();
 
@@ -511,10 +438,8 @@ void Protagonist::TakeDamage(int dmg){
 	ChangeState(PlayerState::HURTING);
 }
 
-void Protagonist::Die(){
-	Camera::Unfollow();
+void Player2::Die(){
 	associated->RequestDelete();
-	GameData::Player = nullptr;
 
 	Game* game = Game::GetInstance();
 	State* state = game->GetCurrentState();
@@ -525,6 +450,7 @@ void Protagonist::Die(){
 	state->AddObject(go);
 
 	Sprite* sprite = new Sprite(go, PROTAGONIST_DEATH_ANIMATION,14,0.1,1.4);
+	sprite->SetColorMod(219,0,147);
 	go->AddComponent(sprite);
 
 	Sound* sound = new Sound(go, PROTAGONIST_DEATH_SOUND);
@@ -532,7 +458,7 @@ void Protagonist::Die(){
 	go->AddComponent(sound);
 }
 
-void Protagonist::ChangeState(PlayerState next){
+void Player2::ChangeState(PlayerState next){
 	if (next == state){
 		return;
 	}

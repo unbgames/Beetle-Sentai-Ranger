@@ -4,12 +4,9 @@ TileSet::TileSet(GameObject* associated, int tileWidth, int tileHeight, string f
 
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
-	SDL_Log("tileset nao aberto");
 	tileSet.Open(file);
-	SDL_Log("tileset aberto");
 	columns = (tileSet.GetWidth() / tileWidth);
 	rows = (tileSet.GetHeight() / tileHeight);
-	SDL_Log("tileset construido");
 }
 TileSet::~TileSet(){}
 
