@@ -18,8 +18,6 @@ class Terreno : public Component{
 	private:
 		TileMap* mapa = nullptr;
 		Collider* colisor = nullptr;
-
-		vector<int> tileList;
 		TileSet* set = nullptr;
 
 };
