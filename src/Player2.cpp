@@ -249,45 +249,45 @@ void Player2::Start(){
 	Sprite* idle = new Sprite(associated, PLAYER2_IDLE_ANIMATION, 5, 0.15, 0);
 	idle->SetTag("ProtagIdle");
 	idle->SetEnabled(true);
-	idle->SetColorMod(219,0,147);
+	idle->SetColorMod(254,0,167);
 	SetSprite(idle);
 	associated->AddComponent(idle);
 
 	Sprite* run = new Sprite(associated, PLAYER2_RUN_ANIMATION, 6, 0.1, 0);
 	run->SetTag("ProtagRun");
 	run->SetEnabled(false);
-	run->SetColorMod(219,0,147);
+	run->SetColorMod(254,0,167);
 	associated->AddComponent(run);
 
 	Sprite* jump = new Sprite(associated, PLAYER2_JUMP_ANIMATION, 8, 0.1, 0);
 	jump->SetTag("ProtagJump");
 	jump->SetEnabled(false);
 	jump->StopOnFrame(7);
-	jump->SetColorMod(219,0,147);
+	jump->SetColorMod(254,0,167);
 	associated->AddComponent(jump);
 
 	Sprite* punch = new Sprite(associated, PLAYER2_PUNCH_ANIMATION, 6, 0.03, 0);
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
-	punch->SetColorMod(219,0,147);
+	punch->SetColorMod(254,0,167);
 	associated->AddComponent(punch);
 
 	Sprite* Dash = new Sprite(associated, PLAYER2_DASH_ANIMATION, 8, 0.0625, 0);
 	Dash->SetTag("ProtagDash");
 	Dash->SetEnabled(false);
-	Dash->SetColorMod(219,0,147);
+	Dash->SetColorMod(254,0,167);
 	associated->AddComponent(Dash);
 
 	Sprite* flying = new Sprite(associated, PLAYER2_FLY_ANIMATION, 8, 0.005, 0);
 	flying->SetTag("ProtagFly");
 	flying->SetEnabled(false);
-	flying->SetColorMod(219,0,147);
+	flying->SetColorMod(254,0,167);
 	associated->AddComponent(flying);
 
 	Sprite* hurt = new Sprite(associated, PLAYER2_GETHURT_ANIMATION, 6, 0.05, 0);
 	hurt->SetTag("ProtagHurt");
 	hurt->SetEnabled(false);
-	hurt->SetColorMod(219,0,147);
+	hurt->SetColorMod(254,0,167);
 	associated->AddComponent(hurt);
 
 	Game* game = Game::GetInstance();
