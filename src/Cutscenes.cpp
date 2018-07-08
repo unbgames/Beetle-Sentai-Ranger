@@ -144,7 +144,7 @@ void Cutscenes::PrintScene()
 
 void Cutscenes::LoadAssets()
 {
-	cutsceneMusic.Open(CREDIT_MUSIC);
+	cutsceneMusic.Open(CUTSCENES_MUSIC);
 	cutsceneMusic.Play(1);
 
 	cutscene = new GameObject();

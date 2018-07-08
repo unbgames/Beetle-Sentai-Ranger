@@ -25,6 +25,7 @@
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"
 
 #define CUTSCENES_PANEL "assets/img/TextBox/Textbox2.png"
+#define CUTSCENES_MUSIC "assets/audio/Musics/TemaCutscene.ogg"
 #define CUTSCENES_1 "assets/img/Cutscenes/scene1.png"
 #define CUTSCENES_2 "assets/img/Cutscenes/scene2.png"
 #define CUTSCENES_3 "assets/img/Cutscenes/scene3.png"
@@ -81,6 +82,8 @@
 #define PROTAGONIST_FLY_SOUND "assets/audio/Sounds/1. Besouro/Voo.wav"
 #define PROTAGONIST_GETHURT_SOUND "assets/audio/Sounds/1. Besouro/TomandoDano4.wav"
 
+#define PVPSTATE_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaPvPIntro.ogg"
+#define PVPSTATE_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaPvPLoop.ogg"
 #define PLAYER2_IDLE_ANIMATION "assets/img/Beetle2/Fightpose.png"
 #define PLAYER2_RUN_ANIMATION "assets/img/Beetle2/Run_sprite_.png"
 #define PLAYER2_JUMP_ANIMATION "assets/img/Beetle2/Jump Beetle2.png"

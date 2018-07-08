@@ -4,8 +4,8 @@ PVPState::PVPState(){
     quitRequested = false;
     popRequested = false;
 
-    backgroundIntro.Open(STAGE1_BACKGROUNDMUSIC_INTRO);
-    backgroundLoop.Open(STAGE1_BACKGROUNDMUSIC_LOOP);
+    backgroundIntro.Open(PVPSTATE_BACKGROUNDMUSIC_INTRO);
+    backgroundLoop.Open(PVPSTATE_BACKGROUNDMUSIC_LOOP);
     backgroundIntro.Play(1);
 }
 PVPState::~PVPState(){
