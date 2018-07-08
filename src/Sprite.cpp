@@ -78,7 +78,7 @@ void Sprite::Render(int x, int y){
 }
 
 void Sprite::Update(float dt){
-
+	selfDestructCount.Update(dt);
 	if (secondsToSelfDestruct > 0){
 		if (secondsToSelfDestruct < selfDestructCount.Get()){
 			associated->RequestDelete();
@@ -89,7 +89,6 @@ void Sprite::Update(float dt){
 		return;
 	}
 
-	selfDestructCount.Update(dt);
 	timeElapsed +=dt;
 	currentFrame = ((int)floor(timeElapsed/frameTime))%frameCount;
 	//SDL_Log("TE:%f FT:%f FC:%f", timeElapsed, frameTime, frameCount);

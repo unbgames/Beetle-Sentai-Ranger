@@ -110,7 +110,7 @@ void BossStage1::Update(float dt){
 		else
 			return;
 	}
-
+	//SDL_Log("chegou aqui");
 	if (GameData::playerVictory){
 		backgroundLoop.Stop(0);
 		counter.Update(dt);

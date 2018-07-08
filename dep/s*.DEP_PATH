@@ -1,21 +1,16 @@
-bin/PVPState.o: src/PVPState.cpp include/PVPState.h include/State.h \
- include/SDL_include.h include/GameObject.h include/Rect.h include/Vec2.h \
- include/Component.h include/GameData.h include/Game.h \
- include/InputManager.h include/Resources.h include/Timer.h \
- include/Sprite.h include/Sound.h include/Camera.h include/Protagonist.h \
- include/ShitBall.h include/Collider.h include/Enemy.h include/Terreno.h \
- include/TileMap.h include/TileSet.h include/HealthBar.h include/Punch.h \
- include/AcidSplash.h include/Skill.h include/Text.h \
- include/CameraFollower.h include/Music.h include/Collision.h \
- include/MainMenu.h include/CreditState.h include/PVPState.h \
- include/Player1.h include/Platform.h include/Column.h include/Terrain.h \
- include/Player2.h
+bin/Sprite.o: src/Sprite.cpp include/Sprite.h include/Component.h \
+ include/SDL_include.h include/Sound.h include/GameObject.h \
+ include/Rect.h include/Vec2.h include/Resources.h include/Game.h \
+ include/State.h include/GameData.h include/Timer.h \
+ include/InputManager.h include/Camera.h
 
-include/PVPState.h:
+include/Sprite.h:
 
-include/State.h:
+include/Component.h:
 
 include/SDL_include.h:
+
+include/Sound.h:
 
 include/GameObject.h:
 
@@ -23,66 +18,16 @@ include/Rect.h:
 
 include/Vec2.h:
 
-include/Component.h:
-
-include/GameData.h:
+include/Resources.h:
 
 include/Game.h:
 
-include/InputManager.h:
+include/State.h:
 
-include/Resources.h:
+include/GameData.h:
 
 include/Timer.h:
 
-include/Sprite.h:
-
-include/Sound.h:
+include/InputManager.h:
 
 include/Camera.h:
-
-include/Protagonist.h:
-
-include/ShitBall.h:
-
-include/Collider.h:
-
-include/Enemy.h:
-
-include/Terreno.h:
-
-include/TileMap.h:
-
-include/TileSet.h:
-
-include/HealthBar.h:
-
-include/Punch.h:
-
-include/AcidSplash.h:
-
-include/Skill.h:
-
-include/Text.h:
-
-include/CameraFollower.h:
-
-include/Music.h:
-
-include/Collision.h:
-
-include/MainMenu.h:
-
-include/CreditState.h:
-
-include/PVPState.h:
-
-include/Player1.h:
-
-include/Platform.h:
-
-include/Column.h:
-
-include/Terrain.h:
-
-include/Player2.h:

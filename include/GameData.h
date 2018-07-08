@@ -130,6 +130,7 @@
 #define STAGE1_BOSS_DEATH_ANIMATION "assets/img/Frog/DeathFrog_DeathFrog01.png"
 #define STAGE1_BOSS_SMASH_ATTACK_SOUND "assets/audio/Sounds/4. Grande Sapo/Pulo.wav"
 #define STAGE1_BOSS_TONGUE_ATTACK_SOUND "assets/audio/Sounds/4. Grande Sapo/Linguada.wav"
+#define STAGE1_BOSS_LAND_SOUND "assets/audio/Sounds/4. Grande Sapo/Queda.wav"
 #define STAGE1_BOSS_BACKGROUND "assets/img/Background/Boss1.png"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaBossIntro.ogg"
 #define STAGE1_BOSS_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaBossLoop.ogg"

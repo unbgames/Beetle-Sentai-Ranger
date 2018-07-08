@@ -283,6 +283,7 @@ void Protagonist::Start(){
 	Sprite* punch = new Sprite(associated, PROTAGONIST_PUNCH_ANIMATION, 6, 0.03, 0);
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
+	punch->StopOnFrame(5);
 	associated->AddComponent(punch);
 
 	Sprite* Dash = new Sprite(associated, PROTAGONIST_DASH_ANIMATION, 8, 0.0625, 0);
@@ -317,7 +318,7 @@ void Protagonist::Start(){
 	go2->Box.x = 874;
 	go2->Box.y = 0;
 
-	acid = new Skill(go2, 2.0, HUD_ACID_ICON, HUD_ACID_COOLDOWN_ICON);
+	acid = new Skill(go2, 1.0, HUD_ACID_ICON, HUD_ACID_COOLDOWN_ICON);
 	state->AddObject(go2);
 	go2->AddComponent(acid);
 
@@ -326,7 +327,7 @@ void Protagonist::Start(){
 	go3->Box.x = 799;
 	go3->Box.y = 0;
 
-	dash = new Skill(go3, 2.0, HUD_DASH_ICON, HUD_DASH_COOLDOWN_ICON);
+	dash = new Skill(go3, 4.0, HUD_DASH_ICON, HUD_DASH_COOLDOWN_ICON);
 	state->AddObject(go3);
 	go3->AddComponent(dash);
 
@@ -381,21 +382,21 @@ void Protagonist::NotifyCollision(GameObject* other){
         	speed.x = 0;
             //project in x
             if(dx < 0){
-            	SDL_Log("esquerda");
+            	//SDL_Log("esquerda");
                 //project to the left
                 px *= -1;
                 py *= 0;
                 //offx = box2.w;
             }
             else{
-            	SDL_Log("direita");
+            	//SDL_Log("direita");
                 //proj to right
                 py = 0;
                 //offx = -box1.w;
             }
         }
         else{
-        	SDL_Log("acima");
+        	//SDL_Log("acima");
         	speed.y = 0;
             //project in y
             if(dy < 0){
@@ -406,7 +407,7 @@ void Protagonist::NotifyCollision(GameObject* other){
                 Land();
             }
             else{
-            	SDL_Log("abaixo");
+            	//SDL_Log("abaixo");
                 //project down
                 px = 0;
                 //offy = -box1.h;
