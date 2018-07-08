@@ -1,4 +1,4 @@
-bin/MainMenu.o: src/MainMenu.cpp include/MainMenu.h include/State.h \
+bin/PVPState.o: src/PVPState.cpp include/PVPState.h include/State.h \
  include/SDL_include.h include/GameObject.h include/Rect.h include/Vec2.h \
  include/Component.h include/GameData.h include/Game.h \
  include/InputManager.h include/Resources.h include/Timer.h \
@@ -6,15 +6,12 @@ bin/MainMenu.o: src/MainMenu.cpp include/MainMenu.h include/State.h \
  include/ShitBall.h include/Collider.h include/Enemy.h include/Terreno.h \
  include/TileMap.h include/TileSet.h include/HealthBar.h include/Punch.h \
  include/AcidSplash.h include/Skill.h include/Text.h \
- include/CameraFollower.h include/Music.h include/CreditState.h \
- include/PVPState.h include/Collision.h include/MainMenu.h \
+ include/CameraFollower.h include/Music.h include/Collision.h \
+ include/MainMenu.h include/CreditState.h include/PVPState.h \
  include/Player1.h include/Platform.h include/Column.h include/Terrain.h \
- include/Player2.h include/Stage1.h include/GroundEnemy.h \
- include/FlyingEnemy.h include/BossStage1.h include/Frog.h \
- include/LoseState.h include/Cutscenes.h include/Options.h \
- include/PVPState.h
+ include/Player2.h
 
-include/MainMenu.h:
+include/PVPState.h:
 
 include/State.h:
 
@@ -72,13 +69,13 @@ include/CameraFollower.h:
 
 include/Music.h:
 
-include/CreditState.h:
-
-include/PVPState.h:
-
 include/Collision.h:
 
 include/MainMenu.h:
+
+include/CreditState.h:
+
+include/PVPState.h:
 
 include/Player1.h:
 
@@ -89,21 +86,3 @@ include/Column.h:
 include/Terrain.h:
 
 include/Player2.h:
-
-include/Stage1.h:
-
-include/GroundEnemy.h:
-
-include/FlyingEnemy.h:
-
-include/BossStage1.h:
-
-include/Frog.h:
-
-include/LoseState.h:
-
-include/Cutscenes.h:
-
-include/Options.h:
-
-include/PVPState.h:

@@ -74,10 +74,17 @@ void Stage1::LoadAssets(){
 	ObjectArray.emplace_back(auxTest);
 	*/
 
+	GameObject* aux3 = new GameObject();
+	aux3->Box.x = 0;
+	aux3->Box.y = 505+64;
+	Terreno* terreno = new Terreno(aux3, STAGE1_TILESET, TERRAIN_CHAO);
+	aux3->AddComponent(terreno);
+	ObjectArray.emplace_back(aux3);
+
 	GameObject* aux4 = new GameObject();
 	aux4->Box.x = 400;
 	aux4->Box.y = 505;
-	Terreno* terreno = new Terreno(aux4, STAGE1_TILESET, COLUMN_TYPE1);
+	terreno = new Terreno(aux4, STAGE1_TILESET, COLUMN_TYPE1);
 	aux4->AddComponent(terreno);
 	ObjectArray.emplace_back(aux4);
 

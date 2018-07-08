@@ -141,6 +141,10 @@ void MainMenu::Update(float dt)
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 0)
 	{
+		Sound* noise = new Sound(cursor, MAINMENU_CURSOR_SOUND);
+		noise->Play(1);
+		cursor->AddComponent(noise);
+
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_PLAY_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
@@ -156,6 +160,10 @@ void MainMenu::Update(float dt)
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 1)
 	{
+		Sound* noise = new Sound(cursor, MAINMENU_CURSOR_SOUND);
+		noise->Play(1);
+		cursor->AddComponent(noise);
+
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_VERSUS_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
@@ -173,6 +181,10 @@ void MainMenu::Update(float dt)
 	{
 		//SDL_Log("Options");
 
+		Sound* noise = new Sound(cursor, MAINMENU_CURSOR_SOUND);
+		noise->Play(1);
+		cursor->AddComponent(noise);
+
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_OPTIONS_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
@@ -189,6 +201,10 @@ void MainMenu::Update(float dt)
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 3)
 	{
+		Sound* noise = new Sound(cursor, MAINMENU_CURSOR_SOUND);
+		noise->Play(1);
+		cursor->AddComponent(noise);
+
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_EXIT_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);

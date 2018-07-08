@@ -20,6 +20,7 @@
 #define MAINMENU_VERSUS_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"
 #define MAINMENU_VERSUS_BUTTON_PRESSED "assets/img/Menu/back_button_pressed.png"
 #define MAINMENU_CURSOR "assets/img/Menu/mouse2.png"
+#define MAINMENU_CURSOR_SOUND "assets/audio/Sounds/5. Outros/Click.wav"
 
 #define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaMenuIntro.ogg"
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"
@@ -50,6 +51,8 @@
 #define TERRAIN_TYPE1 "assets/map/terreno_terrain1.txt"
 #define TERRAIN_TYPE2 "assets/map/terreno_terrain2.txt"
 #define TERRAIN_TYPE3 "assets/map/terreno_terrain3.txt"
+#define TERRAIN_CHAO "assets/map/terreno_chao_fase.txt"
+#define TERRAIN_BOSS "assets/map/terreno_chao_boss.txt"
 
 #define HUD_ACID_ICON "assets/img/FristPlane/Acid.png"
 #define HUD_ACID_COOLDOWN_ICON "assets/img/FristPlane/Acid_cooldown.png"
@@ -96,7 +99,7 @@
 #define PLAYER2_GETHURT_ANIMATION "assets/img/Beetle2/Dano.png"
 
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
-#define STAGE1_TILESET "assets/img/Tileset/Tileset3.png"
+#define STAGE1_TILESET "assets/img/Tileset/Tileset1_small.png"
 #define STAGE1_TILESET_WIDTH 32
 #define STAGE1_TILESET_HEIGHT 32
 #define STAGE1_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"

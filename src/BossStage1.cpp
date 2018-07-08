@@ -4,8 +4,8 @@ BossStage1::BossStage1(float x, float y){
 	quitRequested = false;
 	popRequested = false;
 
-	backgroundIntro.Open(STAGE1_BOSS_BACKGROUNDMUSIC_INTRO);	
-	backgroundLoop.Open(STAGE1_BOSS_BACKGROUNDMUSIC_LOOP);	
+	backgroundIntro.Open(STAGE1_BOSS_BACKGROUNDMUSIC_INTRO);
+	backgroundLoop.Open(STAGE1_BOSS_BACKGROUNDMUSIC_LOOP);
 	backgroundIntro.Play(1);
 
 	PlayerPos.x = x;
@@ -23,7 +23,7 @@ void BossStage1::LoadAssets(){
 
 	aux->Box.x = 0;
 	aux->Box.y = 0;
-	
+
 	Sprite* bg = new Sprite(aux, STAGE1_BOSS_BACKGROUND);
 
 	aux->AddComponent(bg);
@@ -36,7 +36,7 @@ void BossStage1::LoadAssets(){
 
 	aux2->Box.x = PlayerPos.x;
 	aux2->Box.y = PlayerPos.y;
-	
+
 	Protagonist* ranger = new Protagonist(aux2);
 	//aux2->AddComponent(ranger);
 	GameData::Player = ranger;
@@ -47,10 +47,17 @@ void BossStage1::LoadAssets(){
 
 	aux4->Box.x = 50;
 	aux4->Box.y = -2000;
-	
+
 	Frog* enemy = new Frog(aux4, 50);
 
 	ObjectArray.emplace_back(aux4);
+
+	GameObject* aux5 = new GameObject();
+	aux5->Box.x = 0;
+	aux5->Box.y = 505+64;
+	Terreno* terreno = new Terreno(aux5, STAGE1_TILESET, TERRAIN_CHAO);
+	aux5->AddComponent(terreno);
+	ObjectArray.emplace_back(aux5);
 }
 void BossStage1::Update(float dt){
 
@@ -60,7 +67,7 @@ void BossStage1::Update(float dt){
 	}
 
 	InputManager& input = InputManager::GetInstance();
-	
+
 	if(input.QuitRequested()){
 		backgroundLoop.Stop(0);
 		quitRequested = true;
