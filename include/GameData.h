@@ -17,11 +17,14 @@
 #define MAINMENU_EXIT_BUTTON_PRESSED "assets/img/Menu/exit_button_pressed.png"
 #define MAINMENU_OPTIONS_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
 #define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
+#define MAINMENU_VERSUS_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"
+#define MAINMENU_VERSUS_BUTTON_PRESSED "assets/img/Menu/back_button_pressed.png"
 #define MAINMENU_CURSOR "assets/img/Menu/mouse2.png"
 
 #define MAINMENU_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemaMenuIntro.ogg"
 #define MAINMENU_BACKGROUNDMUSIC_LOOP "assets/audio/Musics/TemaMenuLoop.ogg"
 
+#define CUTSCENES_PANEL "assets/img/TextBox/Textbox2.png"
 #define CUTSCENES_1 "assets/img/Cutscenes/scene1.png"
 #define CUTSCENES_2 "assets/img/Cutscenes/scene2.png"
 #define CUTSCENES_3 "assets/img/Cutscenes/scene3.png"
@@ -65,7 +68,7 @@
 #define PROTAGONIST_ACID_ANIMATION "assets/img/Beetle/Acid.png"
 #define PROTAGONIST_PUNCH_ANIMATION "assets/img/Beetle/Punch_spritesheet.png"
 #define PROTAGONIST_DEATH_ANIMATION "assets/img/Beetle/Death.png"
-#define PROTAGONIST_DASH_ANIMATION "assets/img/Beetle/Dash.png" 
+#define PROTAGONIST_DASH_ANIMATION "assets/img/Beetle/Dash.png"
 #define PROTAGONIST_FLY_ANIMATION "assets/img/Beetle/BeetleFly.png"
 #define PROTAGONIST_GETHURT_ANIMATION "assets/img/Beetle/Dano.png"
 #define PROTAGONIST_DEATH_SOUND "assets/audio/Sounds/1. Besouro/Morrendo1.wav"
@@ -85,7 +88,7 @@
 #define PLAYER2_ACID_ANIMATION "assets/img/Beetle2/Acid.png"
 #define PLAYER2_PUNCH_ANIMATION "assets/img/Beetle2/Punch_spritesheet.png"
 #define PLAYER2_DEATH_ANIMATION "assets/img/Beetle2/Death.png"
-#define PLAYER2_DASH_ANIMATION "assets/img/Beetle2/Dash.png" 
+#define PLAYER2_DASH_ANIMATION "assets/img/Beetle2/Dash.png"
 #define PLAYER2_FLY_ANIMATION "assets/img/Beetle2/BeetleFly.png"
 #define PLAYER2_GETHURT_ANIMATION "assets/img/Beetle2/Dano.png"
 

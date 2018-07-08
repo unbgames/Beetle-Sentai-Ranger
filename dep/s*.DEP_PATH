@@ -1,17 +1,22 @@
-bin/Player2.o: src/Player2.cpp include/Player2.h include/Component.h \
+bin/MainMenu.o: src/MainMenu.cpp include/MainMenu.h include/State.h \
  include/SDL_include.h include/GameObject.h include/Rect.h include/Vec2.h \
- include/Sprite.h include/Sound.h include/Resources.h include/Game.h \
- include/State.h include/GameData.h include/Timer.h \
- include/InputManager.h include/Camera.h include/ShitBall.h \
- include/Collider.h include/Enemy.h include/Protagonist.h \
- include/Terreno.h include/TileMap.h include/TileSet.h \
- include/HealthBar.h include/Punch.h include/AcidSplash.h include/Skill.h \
- include/Text.h include/CameraFollower.h include/Platform.h \
- include/Column.h include/Terrain.h
+ include/Component.h include/GameData.h include/Game.h \
+ include/InputManager.h include/Resources.h include/Timer.h \
+ include/Sprite.h include/Sound.h include/Camera.h include/Protagonist.h \
+ include/ShitBall.h include/Collider.h include/Enemy.h include/Terreno.h \
+ include/TileMap.h include/TileSet.h include/HealthBar.h include/Punch.h \
+ include/AcidSplash.h include/Skill.h include/Text.h \
+ include/CameraFollower.h include/Music.h include/CreditState.h \
+ include/PVPState.h include/Collision.h include/MainMenu.h \
+ include/Player1.h include/Platform.h include/Column.h include/Terrain.h \
+ include/Player2.h include/Stage1.h include/GroundEnemy.h \
+ include/FlyingEnemy.h include/BossStage1.h include/Frog.h \
+ include/LoseState.h include/Cutscenes.h include/Options.h \
+ include/PVPState.h
 
-include/Player2.h:
+include/MainMenu.h:
 
-include/Component.h:
+include/State.h:
 
 include/SDL_include.h:
 
@@ -21,31 +26,31 @@ include/Rect.h:
 
 include/Vec2.h:
 
+include/Component.h:
+
+include/GameData.h:
+
+include/Game.h:
+
+include/InputManager.h:
+
+include/Resources.h:
+
+include/Timer.h:
+
 include/Sprite.h:
 
 include/Sound.h:
 
-include/Resources.h:
-
-include/Game.h:
-
-include/State.h:
-
-include/GameData.h:
-
-include/Timer.h:
-
-include/InputManager.h:
-
 include/Camera.h:
+
+include/Protagonist.h:
 
 include/ShitBall.h:
 
 include/Collider.h:
 
 include/Enemy.h:
-
-include/Protagonist.h:
 
 include/Terreno.h:
 
@@ -65,8 +70,40 @@ include/Text.h:
 
 include/CameraFollower.h:
 
+include/Music.h:
+
+include/CreditState.h:
+
+include/PVPState.h:
+
+include/Collision.h:
+
+include/MainMenu.h:
+
+include/Player1.h:
+
 include/Platform.h:
 
 include/Column.h:
 
 include/Terrain.h:
+
+include/Player2.h:
+
+include/Stage1.h:
+
+include/GroundEnemy.h:
+
+include/FlyingEnemy.h:
+
+include/BossStage1.h:
+
+include/Frog.h:
+
+include/LoseState.h:
+
+include/Cutscenes.h:
+
+include/Options.h:
+
+include/PVPState.h:

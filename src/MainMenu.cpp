@@ -2,6 +2,7 @@
 #include "Stage1.h"
 #include "Cutscenes.h"
 #include "Options.h"
+#include "PVPState.h"
 
 MainMenu::MainMenu()
 {
@@ -15,7 +16,7 @@ MainMenu::MainMenu()
 
 MainMenu::~MainMenu()
 {
-	backgroundLoop.Stop();
+	//backgroundLoop.Stop();
 	ObjectArray.clear();
 }
 
@@ -43,17 +44,24 @@ void MainMenu::LoadAssets()
 	buttonPlay->AddComponent(spriteButton);
 	ObjectArray.emplace_back(buttonPlay);
 
+	GameObject* buttonVersus = new GameObject();
+	spriteButton = new Sprite(buttonVersus, MAINMENU_VERSUS_BUTTON_NOTPRESSED);
+	buttonVersus->Box.x = 512 - (spriteButton->GetWidth()/2.0);
+	buttonVersus->Box.y = 380 - (spriteButton->GetHeight()/2.0);
+	buttonVersus->AddComponent(spriteButton);
+	ObjectArray.emplace_back(buttonVersus);
+
 	GameObject* buttonOptions = new GameObject();
 	spriteButton = new Sprite(buttonOptions, MAINMENU_OPTIONS_BUTTON_NOTPRESSED);
 	buttonOptions->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-	buttonOptions->Box.y = 400 - (spriteButton->GetHeight()/2.0);
+	buttonOptions->Box.y = 460 - (spriteButton->GetHeight()/2.0);
 	buttonOptions->AddComponent(spriteButton);
 	ObjectArray.emplace_back(buttonOptions);
 
 	GameObject* buttonExit = new GameObject();
 	spriteButton = new Sprite(buttonExit, MAINMENU_EXIT_BUTTON_NOTPRESSED);
 	buttonExit->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-	buttonExit->Box.y = 500 - (spriteButton->GetHeight()/2.0);
+	buttonExit->Box.y = 540 - (spriteButton->GetHeight()/2.0);
 	buttonExit->AddComponent(spriteButton);
 	ObjectArray.emplace_back(buttonExit);
 
@@ -108,17 +116,22 @@ void MainMenu::Update(float dt)
 	{
 		case 0:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 275;
+			cursor->Box.y = 300-25;
 			break;
 
 		case 1:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 375;
+			cursor->Box.y = 380-25;
 			break;
 
 		case 2:
 			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
-			cursor->Box.y = 475;
+			cursor->Box.y = 460-25;
+			break;
+
+		case 3:
+			cursor->Box.x = 512 + (spriteCursor->GetWidth()*1.8);
+			cursor->Box.y = 540-25;
 			break;
 
 		default:
@@ -143,12 +156,27 @@ void MainMenu::Update(float dt)
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 1)
 	{
+		buttonPressed = new GameObject();
+		spriteButton = new Sprite(buttonPressed, MAINMENU_VERSUS_BUTTON_PRESSED);
+		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
+		buttonPressed->Box.y = 380 - (spriteButton->GetHeight()/2.0);
+		buttonPressed->AddComponent(spriteButton);
+		ObjectArray.emplace_back(buttonPressed);
+
+		Game* game = Game::GetInstance();
+		backgroundLoop.Stop();
+		game->Push(new PVPState());
+		popRequested = true;
+	}
+
+	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 2)
+	{
 		//SDL_Log("Options");
 
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_OPTIONS_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-		buttonPressed->Box.y = 400 - (spriteButton->GetHeight()/2.0);
+		buttonPressed->Box.y = 460 - (spriteButton->GetHeight()/2.0);
 		buttonPressed->AddComponent(spriteButton);
 		ObjectArray.emplace_back(buttonPressed);
 		//ObjectArray.swap(ObjectArray[ObjectArray.size()-1], ObjectArray[ObjectArray.size()-2]);
@@ -159,12 +187,12 @@ void MainMenu::Update(float dt)
 		//popRequested = true;
 	}
 
-	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 2)
+	if (input.KeyPress(SDLK_RETURN) && cursorIndex == 3)
 	{
 		buttonPressed = new GameObject();
 		spriteButton = new Sprite(buttonPressed, MAINMENU_EXIT_BUTTON_PRESSED);
 		buttonPressed->Box.x = 512 - (spriteButton->GetWidth()/2.0);
-		buttonPressed->Box.y = 500 - (spriteButton->GetHeight()/2.0);
+		buttonPressed->Box.y = 540 - (spriteButton->GetHeight()/2.0);
 		buttonPressed->AddComponent(spriteButton);
 		ObjectArray.emplace_back(buttonPressed);
 
