@@ -17,8 +17,8 @@
 #define MAINMENU_EXIT_BUTTON_PRESSED "assets/img/Menu/exit_button_pressed.png"
 #define MAINMENU_OPTIONS_BUTTON_NOTPRESSED "assets/img/Menu/options_button_notpressed.png"
 #define MAINMENU_OPTIONS_BUTTON_PRESSED "assets/img/Menu/options_button_pressed.png"
-#define MAINMENU_VERSUS_BUTTON_NOTPRESSED "assets/img/Menu/back_button_notpressed.png"
-#define MAINMENU_VERSUS_BUTTON_PRESSED "assets/img/Menu/back_button_pressed.png"
+#define MAINMENU_VERSUS_BUTTON_NOTPRESSED "assets/img/Menu/pvp_button_notpressed.png"
+#define MAINMENU_VERSUS_BUTTON_PRESSED "assets/img/Menu/pvp_button_pressed.png"
 #define MAINMENU_CURSOR "assets/img/Menu/mouse2.png"
 #define MAINMENU_CURSOR_SOUND "assets/audio/Sounds/5. Outros/Click.wav"
 
@@ -27,6 +27,10 @@
 
 #define CUTSCENES_PANEL "assets/img/TextBox/Textbox2.png"
 #define CUTSCENES_MUSIC "assets/audio/Musics/TemaCutscene.ogg"
+#define CUTSCENES_MUSIC_1 "assets/audio/Musics/TemaCutscene1.ogg"
+#define CUTSCENES_MUSIC_2 "assets/audio/Musics/TemaCutscene2.ogg"
+#define CUTSCENES_MUSIC_3 "assets/audio/Musics/TemaCutscene3.ogg"
+#define CUTSCENES_MUSIC_4 "assets/audio/Musics/TemaCutscene4.ogg"
 #define CUTSCENES_1 "assets/img/Cutscenes/scene1.png"
 #define CUTSCENES_2 "assets/img/Cutscenes/scene2.png"
 #define CUTSCENES_3 "assets/img/Cutscenes/scene3.png"
