@@ -39,9 +39,13 @@
 #define OPTIONS_RIGHT_ICON "assets/img/FristPlane/Right.png"
 #define OPTIONS_PUNCH_ICON "assets/img/FristPlane/Punch.png"
 
-#define PLATFORM_TYPE1 "assets/map/Platform.txt"
-#define COLUMN_TYPE1 "assets/map/Column.txt"
-#define COLUMN_TYPE2 "assets/map/Column2.txt"
+#define PLATFORM_TYPE1 "assets/map/terreno_platform.txt"
+#define COLUMN_TYPE1 "assets/map/terreno_column1.txt"
+#define COLUMN_TYPE2 "assets/map/terreno_column2.txt"
+#define COLUMN_TYPE3 "assets/map/terreno_column3.txt"
+#define TERRAIN_TYPE1 "assets/map/terreno_terrain1.txt"
+#define TERRAIN_TYPE2 "assets/map/terreno_terrain2.txt"
+#define TERRAIN_TYPE3 "assets/map/terreno_terrain3.txt"
 
 #define HUD_ACID_ICON "assets/img/FristPlane/Acid.png"
 #define HUD_ACID_COOLDOWN_ICON "assets/img/FristPlane/Acid_cooldown.png"
@@ -86,7 +90,7 @@
 #define PLAYER2_GETHURT_ANIMATION "assets/img/Beetle2/Dano.png"
 
 #define STAGE1_BACKGROUND "assets/img/Background/BG1.png"
-#define STAGE1_TILESET "assets/img/Background/TitleSet1.png"
+#define STAGE1_TILESET "assets/img/Tileset/Tileset3.png"
 #define STAGE1_TILESET_WIDTH 32
 #define STAGE1_TILESET_HEIGHT 32
 #define STAGE1_BACKGROUNDMUSIC_INTRO "assets/audio/Musics/TemadaFlorestaIntro.ogg"
