@@ -6,7 +6,7 @@ CreditState::CreditState(string File) : State(){
 		SDL_Log("falha ao abrir o arquivo de texto");
 	}
 	wait.Restart();
-	wait.Update(2.5);
+	wait.Update(2.0);
 
 	GameObject* go = new GameObject();
 
@@ -52,7 +52,7 @@ void CreditState::Update(float dt){
 	string linha = " ";
 	wait.Update(dt);
 
-	if (wait.Get() >= 2.5){
+	if (wait.Get() >= 2.0){
 		if(getline(file,linha)){/*Problema com linhas vazias*/
 			wait.Restart();
 

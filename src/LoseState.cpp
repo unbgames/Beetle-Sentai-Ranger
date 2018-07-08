@@ -17,7 +17,7 @@ LoseState::LoseState() : State(){
 	GameObject* aux2 = new GameObject();
 
 	SDL_Color color = {255,255,255,0};
-	Text* inst = new Text(aux2, FONT, 36, Text::TextStyle::SOLID,"Aperte SPACE ou ESC para voltar ao menu", color);
+	Text* inst = new Text(aux2, FONT, 36, Text::TextStyle::SOLID,"Press SPACE or ESC to return to Main Menu", color);
 
 	aux2->Box.Centralize(512,300);
 	aux2->Box.y = 500;

@@ -144,7 +144,7 @@ void Stage1::LoadAssets(){
 	GameObject* aux14 = new GameObject();
 	aux14->Box.x = 2400;
 	aux14->Box.y = 505-96-96;
-	terreno = new Terreno(aux14, STAGE1_TILESET, TERRAIN_TYPE3);
+	terreno = new Terreno(aux14, STAGE1_TILESET, TERRAIN_TYPE4);
 	aux14->AddComponent(terreno);
 	ObjectArray.emplace_back(aux14);
 
@@ -153,7 +153,7 @@ void Stage1::LoadAssets(){
 	GameObject* aux17 = new GameObject();
 	aux17->Box.x = 2880;
 	aux17->Box.y = 505-96;
-	terreno = new Terreno(aux17, STAGE1_TILESET, TERRAIN_TYPE2);
+	terreno = new Terreno(aux17, STAGE1_TILESET, TERRAIN_TYPE6);
 	aux17->AddComponent(terreno);
 	ObjectArray.emplace_back(aux17);
 
@@ -163,7 +163,7 @@ void Stage1::LoadAssets(){
 	GameObject* aux19 = new GameObject();
 	aux19->Box.x = 3360;
 	aux19->Box.y = 505;
-	terreno = new Terreno(aux19, STAGE1_TILESET, TERRAIN_TYPE1);
+	terreno = new Terreno(aux19, STAGE1_TILESET, TERRAIN_TYPE7);
 	aux19->AddComponent(terreno);
 	ObjectArray.emplace_back(aux19);
 
@@ -212,14 +212,14 @@ void Stage1::LoadAssets(){
 	GameObject* aux25 = new GameObject();
 	aux25->Box.x = 5000;
 	aux25->Box.y = 505-96-96;
-	terreno = new Terreno(aux25, STAGE1_TILESET, TERRAIN_TYPE3);
+	terreno = new Terreno(aux25, STAGE1_TILESET, TERRAIN_TYPE4);
 	aux25->AddComponent(terreno);
 	ObjectArray.emplace_back(aux25);
 
 	GameObject* aux28 = new GameObject();
 	aux28->Box.x = 5480;
 	aux28->Box.y = 505-96;
-	terreno = new Terreno(aux28, STAGE1_TILESET, TERRAIN_TYPE2);
+	terreno = new Terreno(aux28, STAGE1_TILESET, TERRAIN_TYPE5);
 	aux28->AddComponent(terreno);
 	ObjectArray.emplace_back(aux28);
 

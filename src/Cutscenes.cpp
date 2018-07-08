@@ -23,6 +23,11 @@ void Cutscenes::PrintScene()
 
 		case 1:
 			SDL_Log("cutsceneIndex = 1");
+
+			cutsceneMusic.Stop(0);
+			cutsceneMusic.Open(CUTSCENES_MUSIC_2);
+			cutsceneMusic.Play(1);
+
 			cutscene = new GameObject();
 			cutscene->Box.x = 0;
 			cutscene->Box.y = 0;
@@ -59,6 +64,11 @@ void Cutscenes::PrintScene()
 
 		case 2:
 			SDL_Log("cutsceneIndex = 2");
+
+			cutsceneMusic.Stop(0);
+			cutsceneMusic.Open(CUTSCENES_MUSIC_3);
+			cutsceneMusic.Play(1);
+
 			cutscene = new GameObject();
 			cutscene->Box.x = 0;
 			cutscene->Box.y = 0;
@@ -96,6 +106,10 @@ void Cutscenes::PrintScene()
 
 		case 3:
 			SDL_Log("cutsceneIndex = 3");
+
+			cutsceneMusic.Stop(0);
+			cutsceneMusic.Open(CUTSCENES_MUSIC_4);
+			cutsceneMusic.Play(1);
 
 			cutscene = new GameObject();
 			cutscene->Box.x = 0;
@@ -144,7 +158,7 @@ void Cutscenes::PrintScene()
 
 void Cutscenes::LoadAssets()
 {
-	cutsceneMusic.Open(CUTSCENES_MUSIC);
+	cutsceneMusic.Open(CUTSCENES_MUSIC_1);
 	cutsceneMusic.Play(1);
 
 	cutscene = new GameObject();
@@ -197,7 +211,7 @@ void Cutscenes::Update(float dt)
 		popRequested = true;
 	}
 
-	if (input.KeyPress(SDLK_RETURN))
+	if (input.KeyPress(SDLK_RETURN) || !cutsceneMusic.IsPlaying())
 	{
 		cutsceneIndex++;
 		PrintScene();

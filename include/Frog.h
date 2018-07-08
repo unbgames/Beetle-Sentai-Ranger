@@ -28,8 +28,6 @@ class Frog : public Enemy{
 		Timer SearchTimer;
 		Vec2 distance;
 		bool repetition = false;
-		Sound* landBoom = nullptr;
-		bool landSound = false;
 };
 
 #endif

@@ -39,7 +39,6 @@ void GroundEnemy::Update(float dt){
 
 		}
 		else{
-			AttackTimer.Restart();
 			state = EnemyState::SEARCHING;
 		}
 	}
@@ -211,7 +210,6 @@ void GroundEnemy::NotifyCollision(GameObject* other){
         py += offy;
         
         if(px < py){
-        	PathBlocked = true;
         	speed.x = 0;
             //project in x
             if(dx < 0){
