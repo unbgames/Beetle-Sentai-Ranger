@@ -26,13 +26,16 @@ class Cutscenes : public State{
     private:
         Music cutsceneMusic;
 
-				GameObject* cutscene;
-				Sprite* spriteCutscene;
+				GameObject* cutscene = nullptr;
+				Sprite* spriteCutscene = nullptr;
 
-				GameObject* cutsceneDialog;
-				Text* textCutsceneDialog;
+				GameObject* cutscenePanel = nullptr;
+				Sprite* spriteCutscenePanel = nullptr;
 
-				SDL_Color color = {255,255,255,0};
+				GameObject* cutsceneDialog = nullptr;
+				Text* textCutsceneDialog = nullptr;
+
+				SDL_Color color = {0,0,0,0};
 
 				int cutsceneIndex = 0;
 

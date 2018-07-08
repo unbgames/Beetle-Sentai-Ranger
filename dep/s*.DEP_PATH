@@ -1,16 +1,21 @@
-bin/CameraFollower.o: src/CameraFollower.cpp include/CameraFollower.h \
- include/Component.h include/SDL_include.h include/Camera.h \
- include/GameObject.h include/Rect.h include/Vec2.h \
- include/InputManager.h include/State.h include/GameData.h include/Game.h \
- include/Resources.h include/Timer.h
+bin/GroundEnemy.o: src/GroundEnemy.cpp include/GroundEnemy.h \
+ include/Enemy.h include/Component.h include/SDL_include.h \
+ include/GameObject.h include/Rect.h include/Vec2.h include/Sprite.h \
+ include/Sound.h include/Resources.h include/Game.h include/State.h \
+ include/GameData.h include/Timer.h include/InputManager.h \
+ include/Camera.h include/ShitBall.h include/Collider.h \
+ include/Protagonist.h include/Terreno.h include/TileMap.h \
+ include/TileSet.h include/HealthBar.h include/Punch.h \
+ include/AcidSplash.h include/Skill.h include/Text.h \
+ include/CameraFollower.h
 
-include/CameraFollower.h:
+include/GroundEnemy.h:
+
+include/Enemy.h:
 
 include/Component.h:
 
 include/SDL_include.h:
-
-include/Camera.h:
 
 include/GameObject.h:
 
@@ -18,14 +23,44 @@ include/Rect.h:
 
 include/Vec2.h:
 
-include/InputManager.h:
+include/Sprite.h:
+
+include/Sound.h:
+
+include/Resources.h:
+
+include/Game.h:
 
 include/State.h:
 
 include/GameData.h:
 
-include/Game.h:
-
-include/Resources.h:
-
 include/Timer.h:
+
+include/InputManager.h:
+
+include/Camera.h:
+
+include/ShitBall.h:
+
+include/Collider.h:
+
+include/Protagonist.h:
+
+include/Terreno.h:
+
+include/TileMap.h:
+
+include/TileSet.h:
+
+include/HealthBar.h:
+
+include/Punch.h:
+
+include/AcidSplash.h:
+
+include/Skill.h:
+
+include/Text.h:
+
+include/CameraFollower.h:

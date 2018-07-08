@@ -9,7 +9,7 @@ Cutscenes::Cutscenes()
 
 Cutscenes::~Cutscenes()
 {
-	cutsceneMusic.Stop();
+	//cutsceneMusic.Stop();
 	ObjectArray.clear();
 }
 
@@ -29,6 +29,13 @@ void Cutscenes::PrintScene()
 			spriteCutscene = new Sprite(cutscene, CUTSCENES_2);
 			cutscene->AddComponent(spriteCutscene);
 			ObjectArray.emplace_back(cutscene);
+
+			cutscenePanel = new GameObject();
+			cutscenePanel->Box.x = 12;
+			cutscenePanel->Box.y = 5;
+			spriteCutscenePanel = new Sprite(cutscenePanel, CUTSCENES_PANEL);
+			cutscenePanel->AddComponent(spriteCutscenePanel);
+			ObjectArray.emplace_back(cutscenePanel);
 
 			cutsceneDialog = new GameObject();
 			textCutsceneDialog = new Text(cutsceneDialog, FONT, 36, Text::TextStyle::SOLID,"However, during the mating season, the village was attacked by the Great Frog!", color);
@@ -59,17 +66,24 @@ void Cutscenes::PrintScene()
 			cutscene->AddComponent(spriteCutscene);
 			ObjectArray.emplace_back(cutscene);
 
+			cutscenePanel = new GameObject();
+			cutscenePanel->Box.x = 12;
+			cutscenePanel->Box.y = 451;
+			spriteCutscenePanel = new Sprite(cutscenePanel, CUTSCENES_PANEL);
+			cutscenePanel->AddComponent(spriteCutscenePanel);
+			ObjectArray.emplace_back(cutscenePanel);
+
 			cutsceneDialog = new GameObject();
 			textCutsceneDialog = new Text(cutsceneDialog, FONT, 36, Text::TextStyle::SOLID,"This is what you deserve, you little insects! Your eggs are mine now!", color);
 			cutsceneDialog->Box.x = 50;
-			cutsceneDialog->Box.y = 30 + 460;
+			cutsceneDialog->Box.y = 30 + 450;
 			cutsceneDialog->AddComponent(textCutsceneDialog);
 			ObjectArray.emplace_back(cutsceneDialog);
 
 			cutsceneDialog = new GameObject();
 			textCutsceneDialog = new Text(cutsceneDialog, FONT, 36, Text::TextStyle::SOLID,"I am gonna eat them all! Mwahahahahahahahahahahahaha!", color);
 			cutsceneDialog->Box.x = 50;
-			cutsceneDialog->Box.y = 60 + 460;
+			cutsceneDialog->Box.y = 60 + 450;
 			cutsceneDialog->AddComponent(textCutsceneDialog);
 			ObjectArray.emplace_back(cutsceneDialog);
 
@@ -90,17 +104,24 @@ void Cutscenes::PrintScene()
 			cutscene->AddComponent(spriteCutscene);
 			ObjectArray.emplace_back(cutscene);
 
+			cutscenePanel = new GameObject();
+			cutscenePanel->Box.x = 12;
+			cutscenePanel->Box.y = 451;
+			spriteCutscenePanel = new Sprite(cutscenePanel, CUTSCENES_PANEL);
+			cutscenePanel->AddComponent(spriteCutscenePanel);
+			ObjectArray.emplace_back(cutscenePanel);
+
 			cutsceneDialog = new GameObject();
 			textCutsceneDialog = new Text(cutsceneDialog, FONT, 36, Text::TextStyle::SOLID,"I will not let you get away with this!", color);
 			cutsceneDialog->Box.x = 50;
-			cutsceneDialog->Box.y = 30 + 460;
+			cutsceneDialog->Box.y = 30 + 450;
 			cutsceneDialog->AddComponent(textCutsceneDialog);
 			ObjectArray.emplace_back(cutsceneDialog);
 
 			cutsceneDialog = new GameObject();
 			textCutsceneDialog = new Text(cutsceneDialog, FONT, 36, Text::TextStyle::SOLID,"You are going to pay, you monster! Time to make use of my powers!", color);
 			cutsceneDialog->Box.x = 50;
-			cutsceneDialog->Box.y = 60 + 460;
+			cutsceneDialog->Box.y = 60 + 450;
 			cutsceneDialog->AddComponent(textCutsceneDialog);
 			ObjectArray.emplace_back(cutsceneDialog);
 
@@ -132,6 +153,13 @@ void Cutscenes::LoadAssets()
 	spriteCutscene = new Sprite(cutscene, CUTSCENES_1);
 	cutscene->AddComponent(spriteCutscene);
 	ObjectArray.emplace_back(cutscene);
+
+	cutscenePanel = new GameObject();
+	cutscenePanel->Box.x = 12;
+	cutscenePanel->Box.y = 5;
+	spriteCutscenePanel = new Sprite(cutscenePanel, CUTSCENES_PANEL);
+	cutscenePanel->AddComponent(spriteCutscenePanel);
+	ObjectArray.emplace_back(cutscenePanel);
 
 	cutsceneDialog = new GameObject();
 	textCutsceneDialog = new Text(cutsceneDialog, FONT, 36, Text::TextStyle::SOLID,"Once upon a time, there was a small village, full of beetles. They lived peacefully,", color);

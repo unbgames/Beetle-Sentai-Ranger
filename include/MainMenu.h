@@ -1,7 +1,7 @@
 #ifndef MAINMENU
 #define MAINMENU
 
-#define CURSOR_INDEX_MAX 2 // Começa com o zero, que é Play
+#define CURSOR_INDEX_MAX 3 // Começa com o zero, que é Play
 
 #include "State.h"
 #include "Sprite.h"
