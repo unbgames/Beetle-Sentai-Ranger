@@ -17,6 +17,7 @@
 #include "BossStage1.h"
 #include "LoseState.h"
 #include "MainMenu.h"
+#include "Terreno.h"
 
 class Stage1 : public State{
 	public:

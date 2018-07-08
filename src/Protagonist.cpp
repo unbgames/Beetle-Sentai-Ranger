@@ -346,7 +346,7 @@ void Protagonist::Start(){
 
 }
 void Protagonist::NotifyCollision(GameObject* other){
-	Platform* base = (Platform*) other->GetComponent("Platform");
+	Terreno* base = (Terreno*) other->GetComponent("Terreno");
 	if (base != nullptr){
 
 		Rect box1 = colisor->Box;
@@ -361,176 +361,53 @@ void Protagonist::NotifyCollision(GameObject* other){
 	    float dy = box1.y - box2.y;
 	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
 
-	            // Collision detected
+        // Collision detected
 
-	            if(px < py){
-	            	speed.x = 0;
-	                //project in x
-	                if(dx < 0){
-	                    //project to the left
-	                    px *= -1;
-	                    py *= 0;
-	                    offx = box2.w;
-	                }
-	                else{
-	                    //proj to right
-	                    py = 0;
-	                    offx = -box1.w;
-	                }
-	            }
-	            else{
-	            	speed.y = 0;
-	                //project in y
-	                if(dy < 0){
-	                    //project up
-	                    px = 0;
-	                    py *= -1;
-	                    offy = box2.h;
-	                    Land();
-	                }
-	                else{
-	                    //project down
-	                    px = 0;
-	                    offy = -box1.h;
+        if(px < py){
+        	speed.x = 0;
+            //project in x
+            if(dx < 0){
+                //project to the left
+                px *= -1;
+                py *= 0;
+                offx = box2.w;
+            }
+            else{
+                //proj to right
+                py = 0;
+                offx = -box1.w;
+            }
+        }
+        else{
+        	speed.y = 0;
+            //project in y
+            if(dy < 0){
+                //project up
+                px = 0;
+                py *= -1;
+                offy = box2.h;
+                Land();
+            }
+            else{
+                //project down
+                px = 0;
+                offy = -box1.h;
 
-	                }
-	            }
-	            // we get px and py , penetration vector
-	            box1.x += px + offx;
-	            box1.y += py + offy;
+            }
+        }
+        // we get px and py , penetration vector
+        box1.x += px + offx;
+        box1.y += py + offy;
 
-	            associated->Box.x += px + offx;
-	            associated->Box.y += py + offy;
+        associated->Box.x += px + offx;
+        associated->Box.y += py + offy;
 
-	            colisor->Box = box1;
-				base->GetAssociated()->Box = box2;
-
-				//associated->Box.Centralize(colisor->Box.GetCenter());
-	}
-
-	Column* coluna = (Column*) other->GetComponent("Column");
-	if(coluna != nullptr)
-	{
-		Rect box1 = colisor->Box;
-		Rect box2 = coluna->GetAssociated()->Box;
-
-		float dx = box1.x - box2.x;
-	  float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
-
-	  float offx = 0;
-	  float offy = 0;
-
-	  float dy = box1.y - box2.y;
-	  float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
-
-	  // Collision detected
-
-	  if(px < py){
-	  	speed.x = 0;
-	    //project in x
-	    if(dx < 0){
-	    	//project to the left
-	      px *= -1;
-	    	py *= 0;
-	      offx = box2.w;
-	    }
-	    else
-			{
-	    	//proj to right
-	      py = 0;
-	      offx = -box1.w;
-	    }
-	  }
-	  else{
-	  	speed.y = 0;
-	    //project in y
-	    if(dy < 0){
-	    	//project up
-	      px = 0;
-	      py *= -1;
-	      offy = box2.h;
-	      Land();
-		}
-	  else{
-	  	//project down
-	    px = 0;
-	    offy = -box1.h;
-    }
-  }
-		// we get px and py , penetration vector
-		box1.x += px + offx;
-		box1.y += py + offy;
-
-		associated->Box.x += px + offx;
-		associated->Box.y += py + offy;
-
-		colisor->Box = box1;
-		coluna->GetAssociated()->Box = box2;
+        colisor->Box = box1;
+		base->GetAssociated()->Box = box2;
 
 		//associated->Box.Centralize(colisor->Box.GetCenter());
 	}
 
-	Terrain* terrain = (Terrain*) other->GetComponent("Terrain");
-	if(terrain != nullptr)
-	{
-		Rect box1 = colisor->Box;
-		Rect box2 = terrain->GetAssociated()->Box;
-
-		float dx = box1.x - box2.x;
-	  float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
-
-	  float offx = 0;
-	  float offy = 0;
-
-	  float dy = box1.y - box2.y;
-	  float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
-
-	  // Collision detected
-
-	  if(px < py){
-	  	speed.x = 0;
-	    //project in x
-	    if(dx < 0){
-	    	//project to the left
-	      px *= -1;
-	    	py *= 0;
-	      offx = box2.w;
-	    }
-	    else
-			{
-	    	//proj to right
-	      py = 0;
-	      offx = -box1.w;
-	    }
-	  }
-	  else{
-	  	speed.y = 0;
-	    //project in y
-	    if(dy < 0){
-	    	//project up
-	      px = 0;
-	      py *= -1;
-	      offy = box2.h;
-	      Land();
-		}
-	  else{
-	  	//project down
-	    px = 0;
-	    offy = -box1.h;
-    }
-  }
-		// we get px and py , penetration vector
-		box1.x += px + offx;
-		box1.y += py + offy;
-
-		associated->Box.x += px + offx;
-		associated->Box.y += py + offy;
-
-		colisor->Box = box1;
-		terrain->GetAssociated()->Box = box2;
-
-		//associated->Box.Centralize(colisor->Box.GetCenter());
-	}
 }
 
 //espera angulo em radianos
