@@ -5,6 +5,16 @@ Frog::Frog(GameObject* associated, int HP) : Enemy(associated, HP){
 
 	colisor->SetScale(Vec2(0.2,0.65));
 	colisor->SetOffset(Vec2(120,55));
+
+	Game* game = Game::GetInstance();
+	State* state = game->GetCurrentState();
+
+	GameObject* go = new GameObject();
+
+	landBoom = new Sound(go, STAGE1_BOSS_LAND_SOUND);
+	go->AddComponent(landBoom);
+
+	state->AddObject(go);
 }
 Frog::~Frog(){}
 
@@ -172,6 +182,89 @@ void Frog::NotifyCollision(GameObject* other){
 	if (base2 != nullptr && type == AttackType::SMASH){
 		base2->TakeDamage(1);
 	}*/
+	Terreno* base = (Terreno*) other->GetComponent("Terreno");
+	if (base != nullptr){
+
+		Rect box1 = colisor->Box;
+		Rect box2 = base->GetAssociated()->Box;
+
+		float dx = box1.x - box2.x;
+	    float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
+
+	    float offx = 0;
+	    float offy = 0;
+
+	    float dy = box1.y - box2.y;
+	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
+
+	    if(dx < 0){
+            offx = -box2.w;
+        }
+        else{
+            offx = -box1.w;
+        }
+        px += offx;
+
+        if(dy < 0){
+            offy = -box2.h;
+        }
+        else{
+			offy = -box1.h;
+        }
+        py += offy;
+        
+        if(px < py){
+        	speed.x = 0;
+            //project in x
+            if(dx < 0){
+            	//SDL_Log("esquerda");
+                //project to the left
+                px *= -1;
+                py *= 0;
+                //offx = box2.w;
+            }
+            else{
+            	//SDL_Log("direita");
+                //proj to right
+                py = 0;
+                //offx = -box1.w;
+            }
+        }
+        else{
+        	//SDL_Log("acima");
+        	speed.y = 0;
+            //project in y
+            if(dy < 0){
+                //project up
+                px = 0;
+                py *= -1;
+                //offy = box2.h;
+                Land();
+            }
+            else{
+            	//SDL_Log("abaixo");
+                //project down
+                px = 0;
+                //offy = -box1.h;
+
+            }
+        }
+        // we get px and py , penetration vector
+        //box1.x += px + offx;
+        //box1.y += py + offy;
+        box1.x += px;
+        box1.y += py;
+
+        //associated->Box.x += px + offx;
+        //associated->Box.y += py + offy;
+
+        associated->Box.x += px;
+        associated->Box.y += py;
+
+        colisor->Box = box1;
+
+		//associated->Box.Centralize(colisor->Box.GetCenter());
+	}
 }
 void Frog::Attack(){
 
@@ -299,6 +392,11 @@ void Frog::TakeDamage(int dmg){
 void Frog::Land(){
 	speed.y = 0;
 	jumpCount = 0;
+	if (landBoom != nullptr && !landSound){
+		landBoom->KillOnFinish();
+		landBoom->Play(1);
+		landSound = true;
+	}
 }
 void Frog::Kill(){
 	GameData::playerVictory = true;
@@ -312,7 +410,8 @@ void Frog::Kill(){
 	go->Box.y = associated->Box.y;
 	state->AddObject(go);
 
-	Sprite* death = new Sprite(go, STAGE1_BOSS_DEATH_ANIMATION, 9, 0.1, 0.8);
+	Sprite* death = new Sprite(go, STAGE1_BOSS_DEATH_ANIMATION, 9, 0.2, 1.9);
+	death->StopOnFrame(8);
 	death->SetFlip(flip);
 	go->AddComponent(death);
 
