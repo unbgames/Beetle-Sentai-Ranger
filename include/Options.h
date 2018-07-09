@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "CameraFollower.h"
 #include "Music.h"
+#include "Sound.h"
 #include "Text.h"
 #include <iostream>
 #include <fstream>

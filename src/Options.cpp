@@ -239,6 +239,11 @@ void Options::Update(float dt)
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndexOptions == 0 && !configStart)
 	{
+
+		Sound* noise = new Sound(cursorOptions, MAINMENU_CURSOR_SOUND);
+		noise->Play(1);
+		cursorOptions->AddComponent(noise);
+
 		buttonPressedOptions = new GameObject();
 		spriteButtonOptions = new Sprite(buttonPressedOptions, OPTIONS_BACK_BUTTON_PRESSED);
 		buttonPressedOptions->Box.x = 700 - (spriteButtonOptions->GetWidth()/2.0);
@@ -459,6 +464,10 @@ void Options::Update(float dt)
 
 	if (input.KeyPress(SDLK_RETURN) && cursorIndexOptions == 1 && !configStart)
 	{
+		Sound* noise = new Sound(cursorOptions, MAINMENU_CURSOR_SOUND);
+		noise->Play(1);
+		cursorOptions->AddComponent(noise);
+
 		buttonPressedOptions = new GameObject();
 		spriteButtonOptions = new Sprite(buttonPressedOptions, OPTIONS_CHANGE_BUTTON_PRESSED);
 		buttonPressedOptions->Box.x = 350 - (spriteButtonOptions->GetWidth()/2.0);

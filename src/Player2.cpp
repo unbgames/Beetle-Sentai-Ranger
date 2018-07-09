@@ -43,7 +43,7 @@ void Player2::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(SDLK_KP_4) && dash->IsActive()){
+	if((input.KeyPress(SDLK_KP_4) || input.KeyPress(SDLK_0)) && dash->IsActive()){
 		dash->Use();
 		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagDash"));
@@ -97,7 +97,7 @@ void Player2::Update(float dt){
 		//SDL_Log("NORMAL");
 		speed.x = 0;
 
-		if(input.KeyPress(SDLK_KP_3)){
+		if(input.KeyPress(SDLK_KP_3) || input.KeyPress(SDLK_9)){
 			if (flip){
 				ShootAcid((8*PI)/6);
 			}
@@ -105,7 +105,7 @@ void Player2::Update(float dt){
 				ShootAcid((10*PI)/6);
 			}
 		}
-		if(input.KeyPress(SDLK_KP_2)){
+		if(input.KeyPress(SDLK_KP_2) || input.KeyPress(SDLK_8)){
 			if (flip){
 				ShootShit(PI);
 			}
@@ -142,7 +142,7 @@ void Player2::Update(float dt){
 				sprite->SetFlip(flip);
 		}
 
-		if(input.KeyPress(SDLK_KP_1)){
+		if(input.KeyPress(SDLK_KP_1) || input.KeyPress(SDLK_7)){
 			Attack();
 		}
 		speed.y += 20*dt;
@@ -182,7 +182,7 @@ void Player2::Update(float dt){
 			ChangeState(PlayerState::NORMAL);
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 		}
-		if(input.KeyPress(SDLK_KP_3)){
+		if(input.KeyPress(SDLK_KP_3) || input.KeyPress(SDLK_9)){
 			if (flip){
 				ShootAcid((8*PI)/6);
 			}
@@ -190,7 +190,7 @@ void Player2::Update(float dt){
 				ShootAcid((10*PI)/6);
 			}
 		}
-		if(input.KeyPress(SDLK_KP_2)){
+		if(input.KeyPress(SDLK_KP_2) || input.KeyPress(SDLK_8)){
 			if (flip){
 				ShootShit(PI);
 			}
@@ -216,7 +216,7 @@ void Player2::Update(float dt){
 			sprite->SetFlip(flip);
 		}
 	}
-	else if(input.KeyPress(SDLK_KP_5) && fly->IsActive()){
+	else if((input.KeyPress(SDLK_KP_5) || input.KeyPress(SDLK_MINUS)) && fly->IsActive()){
 		ChangeState(PlayerState::FLYING);
 		fly->Use();
 	}
@@ -367,7 +367,7 @@ void Player2::NotifyCollision(GameObject* other){
 			offy = -box1.h;
         }
         py += offy;
-        
+
         if(px < py){
         	speed.x = 0;
             //project in x
