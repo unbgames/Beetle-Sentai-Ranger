@@ -1,8 +1,24 @@
-PROGRAMACAO
-Rafael Cascardo Campos
-Iago Lobo Ribeiro de Moraes
-ARTE
-Andre Luiz Coutinho Silva
-Carlos Adir Ely Murussi Leite
-MUSICA
-Victor Hugo Sanches Moreira
+PROGRAMACAO:
+Rafael Cascardo Campos:
+Iago Lobo Ribeiro de Moraes:
+ARTE:
+Andre Luiz Coutinho Silva:
+Carlos Adir Ely Murussi Leite:
+MUSICA:
+Victor Hugo Sanches Moreira:
+Agradecimento Especial aos Professores:
+Carla Denise Castanho:
+Matheus de Souza Faria:
+Tiago Barros Pontes e Silva:
+Mario Lima Brasil:
+Renan Ventura Pereira:
+Agradecimento Especial aos Monitores:
+Arthus Okada:
+Thiago Andre Araujo dos Santos:
+Eduardo de Azevedo dos Santos:
+Gabriel Filipe Botelho Barbosa:
+Aurora Li Min de Freitas Wang:
+Francisco Anderson Bezerra Rodrigues:
+Renne Ruan Alves Oliveira:
+Ingrid Santana Lopes:
+assets/img/Creditos/UnB.png#

@@ -1,7 +1,7 @@
 #ifndef MAINMENU
 #define MAINMENU
 
-#define CURSOR_INDEX_MAX 2 // Começa com o zero, que é Play
+#define CURSOR_INDEX_MAX 3 // Começa com o zero, que é Play
 
 #include "State.h"
 #include "Sprite.h"
@@ -9,7 +9,9 @@
 #include "Camera.h"
 #include "CameraFollower.h"
 #include "Music.h"
+#include "Sound.h"
 #include "CreditState.h"
+#include "PVPState.h"
 
 class MainMenu : public State{
 	public:
