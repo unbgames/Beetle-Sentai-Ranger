@@ -33,10 +33,10 @@ void Frog::SetSprite(Sprite* newSprite){
 }
 
 void Frog::Update(float dt){
-	
+
 	float hipo = dt*700;
 	Rect limit = Game::GetInstance()->GetCurrentState()->GetLimit();
-	sprite->SetColorMod(255,255,255);	
+	sprite->SetColorMod(255,255,255);
 
 	if (hp <= 0){
 		Kill();
@@ -54,7 +54,7 @@ void Frog::Update(float dt){
 		else{
 			SearchTimer.Restart();
 			state = EnemyState::SEARCHING;
-		}	
+		}
 	}
 
 	if(state == EnemyState::SEARCHING){
@@ -65,7 +65,7 @@ void Frog::Update(float dt){
 			SearchTimer.Update(dt);
 		}
 		else{
-			
+
 			Vec2 playerCenter = GameData::Player->GetAssociated()->Box.GetCenter();
 
 			distance = playerCenter - associated->Box.GetCenter();
@@ -212,7 +212,7 @@ void Frog::NotifyCollision(GameObject* other){
 			offy = -box1.h;
         }
         py += offy;
-        
+
         if(px < py){
         	speed.x = 0;
             //project in x
@@ -318,7 +318,7 @@ void Frog::TongueAttack(bool updown){
 		else{
 			go->Box.y += 140;
 		}
-		
+
 		Punch* punch = new Punch(go,2, true, 0.1);
 
 		go->AddComponent(punch);
@@ -331,7 +331,7 @@ void Frog::TongueAttack(bool updown){
 
 	}
 
-	
+
 }
 
 void Frog::Smash(){
@@ -346,7 +346,7 @@ void Frog::Smash(){
 		State* state = game->GetCurrentState();
 
 		GameObject* go = new GameObject();
-		go->Box.w = 90;
+		go->Box.w = 150;
 		go->Box.h = 15;
 		if (flip){
 			go->Box.Centralize(associated->Box.GetCenter().x + 130, colisor->Box.y+colisor->Box.h);
@@ -356,7 +356,7 @@ void Frog::Smash(){
 			go->Box.Centralize(associated->Box.GetCenter().x - 130, colisor->Box.y+colisor->Box.h);
 
 		}
-		
+
 		Punch* punch = new Punch(go,2, true, 0.1);
 
 		go->AddComponent(punch);
@@ -368,7 +368,7 @@ void Frog::Smash(){
 		state->AddObject(go);
 
 	}
-	
+
 	if (sprite->IsAnimationOver()){
 		sprite->SetFrame(0);
 		SetSprite((Sprite*) associated->GetComponentByTag("EnemyIdle"));
