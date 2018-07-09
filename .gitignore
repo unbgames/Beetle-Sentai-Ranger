@@ -1,4 +1,4 @@
 *.xcf
-bin/ 
-dep/ 
+bin/
+dep/
 JOGO
