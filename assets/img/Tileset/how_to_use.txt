@@ -1,0 +1,81 @@
+O Tileset é divido em diversos quadrados. A lógica de utilização dos quadrados é explicada abaixo.
+
+Colisoes:
+	No tileset existem blocos colisores, e blocos não colisores que auxiliam na imagem dos blocos colisores e deixar o jogo mais fluido. Os blocos colisores são descritos pelo arquivo Tileset1_colisao.png
+	Até o presente momento, os blocos colisores são os de número:
+		17~20, 22~24, 43, 46~47, 59, 62~63, 66~67, 70, 75, 78~79, 81~87, 90~96
+
+Do mapa:
+	O mapa é composto por retas horizontais, subidas e descidas de diferentes alturas, além de blocos flutuantes e preenchimentos.
+	* Retas horizontais:
+		São dadas pelos números
+			1, 	2,	3,	4
+			17,	18,	19,	20
+		Os numeros de 1 a 4 não são colisores, mas devem sempre serem colocados quando colocado algum dos de baixo.
+		Por exemplo, se colocar 17, 18, 19 ou 20, é necessário que tenha em cima, 1, 2, 3 ou 4.
+		Não existe restrição entre as combinações, desse modo, dá pra fazer no total 16 combinações. Por exemplo:
+		(1, 17), (2, 17), (3, 17), (4, 17), (1, 18), ..., (4, 19), (1, 20), (2, 20), (3, 20) e (4, 20)
+	* Subida de 1 de altura e logo uma descida.
+		Caso queira colocar uma subida de 1 de altura e uma descida, deve-se colocar no total 9 blocos:
+			53, 54, 55
+			69, 70, 71
+			85, 86, 87
+		Sempre nessa ordem. Vale ressaltar que existem blocos iguais:
+			49 = 53
+			52 = 55
+			65 = 69
+			63 = 71
+			81 = 85
+			84 = 87
+	* Subida de 1 de altura
+		Caso queiramos colocar uma subida de 1 bloco, basta colocarmos o bloco 66.
+		Contudo, para deixar o cenário mais suave, deve-se colocar os blocos ao redor na ordem:
+			49, 50
+			65, 66
+			81, 82
+	* Descida de 1 de altura
+		Caso queiramos colocar uma descida de 1 bloco, devemos colocar o bloco 67
+		Mas por consequência, devemos colocar os blocos na sequência:
+			51, 52
+			67, 68,
+			83, 84
+	* Subida de mais de 1 e logo descida
+		Para colocar subida de 2 de altura, utilizamos os blocos:
+			26, 27, 28
+			42, 43, 44
+			74, 75, 76
+			90, 91, 92
+		Para colocar mais de 2 de altura:
+			26, 27, 28
+			42, 43, 44
+			(58, 59, 60)...
+			74, 75, 76
+			90, 91, 92
+	* Subida de mais de 1
+		Utilizamos os blocos na ordem para subida de 2:
+			29, 30
+			45, 46
+			77, 78
+			93, 94
+		Para mais de 2:
+			29, 30
+			45, 46
+			(61, 62)...
+			77, 78
+			93, 94
+	* Descida de mais de 1
+		Utilizamos os blocos na ordem para descida de 2:
+			31, 32
+			47, 48
+			79, 80
+			95, 96
+		Para mais de 2:
+			31, 32
+			47, 48
+			(63, 64)...
+			79, 80
+			95, 96
+	* 
+
+	Vale ressaltar que entre uma subida e uma descida normal, pode-se colocar retas e/ou outros elementos.
+
