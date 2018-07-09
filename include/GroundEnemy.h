@@ -7,6 +7,7 @@
 #include "ShitBall.h"
 #include "Collider.h"
 #include "GameData.h"
+#include "Punch.h"
 
 class GroundEnemy : public Enemy{
 	public:
@@ -18,6 +19,13 @@ class GroundEnemy : public Enemy{
 		void Attack();
 		void Land();
 		void Kill();
+		void TakeDamage(int dmg);
+		static int nEnemy;
+
+	private:
+		Timer AttackTimer;
+		bool PathBlocked = false;
+		weak_ptr<GameObject> Soco;
 };
 
 #endif

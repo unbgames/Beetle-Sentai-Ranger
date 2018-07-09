@@ -3,6 +3,8 @@
 Game* Game::instance = nullptr;
 
 Protagonist* GameData::Player = nullptr;
+bool GameData::playerVictory = false;
+
 
 Game* Game::GetInstance(){
 	if (instance == nullptr){
@@ -40,7 +42,7 @@ void Game::Run(){
 	
 	while(!(state->QuitRequested() || stateStack.empty())){
 		CalculateDeltaTime();
-		SDL_Log("%d", stateStack.size());
+		//SDL_Log("%d", stateStack.size());
 
 		state = stateStack.top().get();
 		

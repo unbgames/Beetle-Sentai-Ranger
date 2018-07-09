@@ -24,10 +24,12 @@ public:
 	void Update(float dt);
 	void Render();
 	bool Is(string type);
+	void KillOnFinish();
 
 private:
 	Mix_Chunk* chunk;
 	int channel;
+	int DieOnFinish = false;
 };
 
 #endif

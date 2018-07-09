@@ -6,6 +6,7 @@ void InputManager::Update(){
 	SDL_GetMouseState(&mouseX, &mouseY);
 	quitRequested = false;
 	updateCounter++;
+	keyPressed = -1;
 
 	while (SDL_PollEvent(&event)){
 
@@ -22,11 +23,13 @@ void InputManager::Update(){
 		}
 		if(event.type == SDL_KEYDOWN && event.key.repeat == 0){
 				keyState[event.key.keysym.sym] = true;
-				keyUpdate[event.key.keysym.sym] = updateCounter;	
+				keyUpdate[event.key.keysym.sym] = updateCounter;
+				keyPressed = SDL_GetKeyFromScancode(event.key.keysym.scancode);
 		}
 		if(event.type == SDL_KEYUP){
 			keyState[event.key.keysym.sym] = false;
 			keyUpdate[event.key.keysym.sym] = updateCounter;
+			keyPressed = -1;
 		}
 	}
 }
@@ -38,6 +41,11 @@ bool InputManager::KeyRelease(int key){
 }
 bool InputManager::IsKeyDown(int key){
 	return(keyState[key]);
+}
+
+int InputManager::GetKeyPressed()
+{
+	return(keyPressed);
 }
 
 bool InputManager::MousePress(int button){

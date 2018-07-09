@@ -7,6 +7,8 @@ Text::Text(GameObject* associated, string fontFile, int fontSize, TextStyle styl
 	this->text = text;
 	this->color = color;
 	texture = nullptr;
+	offset.x = 0;
+	offset.y = 0;
 
 	RemakeTexture();
 }
@@ -25,8 +27,8 @@ void Text::Render(){
 	ClipRect.w = associated->Box.w;
 	ClipRect.h = associated->Box.h;
 
-	dstrect.x = associated->Box.x + Camera::pos.x;
-	dstrect.y = associated->Box.y + Camera::pos.y;
+	dstrect.x = associated->Box.x - Camera::pos.x + offset.x;
+	dstrect.y = associated->Box.y - Camera::pos.y + offset.y;
 	dstrect.w = ClipRect.w;
 	dstrect.h = ClipRect.h;
 	double angle = associated->angleDeg;
@@ -87,4 +89,8 @@ void Text::RemakeTexture(){
 	associated->Box.h = surface->h;
 
 	SDL_FreeSurface(surface);
+}
+
+void Text::SetOffset(Vec2 newOffset){
+	offset = newOffset;
 }

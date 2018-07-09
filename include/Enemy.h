@@ -8,29 +8,33 @@
 #include "ShitBall.h"
 #include "Collider.h"
 #include "GameData.h"
+#include "Timer.h"
 
 class Enemy : public Component{
 	public:
 		Enemy(GameObject* associated, int HP);
 		~Enemy();
-		void Update(float dt);
-		void Render();
+		virtual void Update(float dt);
+		virtual void Render();
 		bool Is(string type);
-		void Start();
-		void NotifyCollision(GameObject* other);
-		void SetSprite(Sprite* newSprite);
-		void Attack();
-		void Land();
-		void Kill();
+		virtual void Start();
+		virtual void NotifyCollision(GameObject* other);
+		virtual void SetSprite(Sprite* newSprite);
+		virtual void Attack();
+		virtual void Land();
+		virtual void Kill();
+		virtual void TakeDamage(int dmg);
 
 	protected:
-		typedef enum EnemyState {SEARCHING, ATTACKING};
+		typedef enum EnemyState {SEARCHING, ATTACKING, HURTING, IDLE};
 		EnemyState state;
 		int hp;
 		Vec2 speed;
 		Sprite* sprite = nullptr;
 		int jumpCount = 0;
 		bool flip;
+		Collider* colisor = nullptr;
+		Vec2 scaleAnimations;
 };
 
 #endif

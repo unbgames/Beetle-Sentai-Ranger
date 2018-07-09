@@ -31,8 +31,16 @@ bool Sound::IsOpen(){
     else
         return(true);
 }
-void Sound::Update(float dt){}
+void Sound::Update(float dt){
+	if (DieOnFinish && !Mix_Playing(channel)){
+		associated->RequestDelete();
+	}
+}
 void Sound::Render(){}
 bool Sound::Is(string type){
 	return(type == "sound");
+}
+
+void Sound::KillOnFinish(){
+	DieOnFinish = true;
 }

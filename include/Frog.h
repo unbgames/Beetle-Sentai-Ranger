@@ -2,6 +2,9 @@
 #define FROG
 
 #include "Enemy.h"
+#include "Timer.h"
+#include "Protagonist.h"
+#include "BossStage1.h"
 
 class Frog : public Enemy{
 	
@@ -14,6 +17,19 @@ class Frog : public Enemy{
 		void Attack();
 		void Land();
 		void Kill();
+		void SetSprite(Sprite* newSprite);
+		void TongueAttack(bool updown);
+		void Smash();
+		void TakeDamage(int dmg);
+
+	private:
+		typedef enum AttackType {SMASH, TONGUEUP, TONGUEDOWN, TONGUE};
+		AttackType type;
+		Timer SearchTimer;
+		Vec2 distance;
+		bool repetition = false;
+		Sound* landBoom = nullptr;
+		bool landSound = false;
 };
 
 #endif

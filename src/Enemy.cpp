@@ -1,13 +1,16 @@
 #include "Enemy.h"
 
 Enemy::Enemy(GameObject* associated, int HP) : Component(associated){
+	associated->AddComponent(this);
 	speed.x = 0;
 	speed.y = 0;
 	hp = HP;
 	flip = false;
-	state = EnemyState::SEARCHING;
+	state = EnemyState::IDLE;
+	scaleAnimations.x = 1;
+	scaleAnimations.y = 1;
 
-	Collider* colisor = new Collider(associated);
+	colisor = new Collider(associated);
 	associated->AddComponent(colisor);
 }
 Enemy::~Enemy(){}
@@ -30,4 +33,12 @@ void Enemy::SetSprite(Sprite* newSprite){
 }
 void Enemy::Attack(){}
 void Enemy::Land(){}
-void Enemy::Kill(){}
+void Enemy::Kill(){
+	associated->RequestDelete();
+}
+void Enemy::TakeDamage(int dmg){
+	hp-=dmg;
+	if(hp <= 0){
+		Kill();
+	}
+}

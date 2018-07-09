@@ -5,7 +5,7 @@ Vec2::Vec2(){
 
 }
 
-Vec2::Vec2(int X, int Y){
+Vec2::Vec2(float X, float Y){
 	x = X;
 	y = Y;
 }

@@ -4,11 +4,17 @@ BossStage1::BossStage1(float x, float y){
 	quitRequested = false;
 	popRequested = false;
 
+	backgroundIntro.Open(STAGE1_BOSS_BACKGROUNDMUSIC_INTRO);
+	backgroundLoop.Open(STAGE1_BOSS_BACKGROUNDMUSIC_LOOP);
+	backgroundIntro.Play(1);
+
 	PlayerPos.x = x;
 	PlayerPos.y = y;
 }
 BossStage1::~BossStage1(){
-	backgroundMusic.Stop();
+	/*if (!GameData::playerVictory){
+		backgroundLoop.Stop(0);
+	}*/
 	ObjectArray.clear();
 }
 
@@ -17,7 +23,7 @@ void BossStage1::LoadAssets(){
 
 	aux->Box.x = 0;
 	aux->Box.y = 0;
-	
+
 	Sprite* bg = new Sprite(aux, STAGE1_BOSS_BACKGROUND);
 
 	aux->AddComponent(bg);
@@ -30,9 +36,10 @@ void BossStage1::LoadAssets(){
 
 	aux2->Box.x = PlayerPos.x;
 	aux2->Box.y = PlayerPos.y;
-	
+
 	Protagonist* ranger = new Protagonist(aux2);
-	aux2->AddComponent(ranger);
+	//aux2->AddComponent(ranger);
+	GameData::Player = ranger;
 
 	ObjectArray.emplace_back(aux2);
 
@@ -40,22 +47,36 @@ void BossStage1::LoadAssets(){
 
 	aux4->Box.x = 50;
 	aux4->Box.y = -2000;
-	
+
 	Frog* enemy = new Frog(aux4, 50);
 
-	aux4->AddComponent(enemy);
-
 	ObjectArray.emplace_back(aux4);
+
+	GameObject* aux5 = new GameObject();
+	aux5->Box.x = 0;
+	aux5->Box.y = 505+64;
+	Terreno* terreno = new Terreno(aux5, STAGE1_TILESET, TERRAIN_CHAO);
+	aux5->AddComponent(terreno);
+	ObjectArray.emplace_back(aux5);
 }
 void BossStage1::Update(float dt){
 
-	InputManager& input = InputManager::GetInstance();
-	
-	if(input.QuitRequested())
-		quitRequested = true;
+	if (!backgroundIntro.IsPlaying()){
+		backgroundIntro.Stop(0);
+		backgroundLoop.Play(-1);
+	}
 
-	if (input.KeyPress(SDLK_ESCAPE))
+	InputManager& input = InputManager::GetInstance();
+
+	if(input.QuitRequested()){
+		backgroundLoop.Stop(0);
+		quitRequested = true;
+	}
+
+	if (input.KeyPress(SDLK_ESCAPE)){
+		backgroundLoop.Stop(0);
 		popRequested = true;
+	}
 
 	Camera::Update(dt);
 
@@ -68,7 +89,7 @@ void BossStage1::Update(float dt){
 			Collider* colisorJ = (Collider*) ObjectArray[j]->GetComponent("Collider");
 
 			if ((i != j) && (colisorI != nullptr) && (colisorJ != nullptr)){
-				if(Collision::IsColliding(colisorI->box, colisorJ->box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
+				if(Collision::IsColliding(colisorI->Box, colisorJ->Box , ObjectArray[i]->angleDeg*(PI/180.0), ObjectArray[j]->angleDeg*(PI/180.0))){
 
 
 					ObjectArray[i]->NotifyCollision(ObjectArray[j].get());
@@ -76,6 +97,30 @@ void BossStage1::Update(float dt){
 				}
 			}
 		}
+	}
+
+	if (GameData::Player == nullptr){
+		backgroundLoop.Stop(0);
+		counter.Update(dt);
+		if (counter.Get() >= 1.4){
+			Game* game = Game::GetInstance();
+			game->Push(new LoseState());
+			popRequested = true;
+		}
+		else
+			return;
+	}
+	//SDL_Log("chegou aqui");
+	if (GameData::playerVictory){
+		backgroundLoop.Stop(0);
+		counter.Update(dt);
+		if (counter.Get() >= 8.0){
+			Game* game = Game::GetInstance();
+			game->Push(new CreditState(CREDIT_TEXT));
+			popRequested = true;
+		}
+		else
+			return;
 	}
 
 	//SDL_Log("%d", ObjectArray.size());

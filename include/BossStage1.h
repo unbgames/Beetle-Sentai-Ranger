@@ -12,6 +12,8 @@
 #include "GroundEnemy.h"
 #include "Collision.h"
 #include "Frog.h"
+#include "LoseState.h"
+#include "CreditState.h"
 
 class BossStage1 : public State{
 	public:
@@ -27,7 +29,8 @@ class BossStage1 : public State{
         void Resume();
 
     private:
-        Music backgroundMusic;
+        Music backgroundIntro;
+        Music backgroundLoop;
         Vec2 PlayerPos;
 };
 
