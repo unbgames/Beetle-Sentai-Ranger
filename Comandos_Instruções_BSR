@@ -1,0 +1,62 @@
+--- BEETLE SENTAI RANGER ---
+
+-- INSTRUÇÕES PT-BR --
+
+_ MAIN MENU _
+
+Movimente o cursor com as setas do teclado.
+Aperte Enter para escolher o botão.
+Aperte Esc para sair do jogo.
+Aperte W para ir direto ao modo PvP.
+
+_ OPTIONS _
+
+Movimente o cursor com as setas do teclado.
+Aperte Enter para escolher o botão.
+Ao escolher "Change", o jogador deverá, em seguida, pressionar o botão que deseja configurar para os ícones que
+aparecem ao lado de uma grande frase. Os ícones se alteram conforme o pressionar das teclas. Ao configurar todos
+os 9 botões, a configuração é salva e retorna ao Main Menu.
+
+_ PVP (Player Versus Player) _
+
+Player 1:
+- A,S,W,D para movimentos
+- 1: Soco
+- 2: Ácido
+- 3: Fezes
+- 4: Dash
+- 5: Voar
+
+Player 2:
+- Up,Down,Left,Right para movimentos
+- 7 ou numpad1: Soco
+- 8 ou numpad2: Ácido
+- 9 ou numpad3: Fezes
+- 0 ou numpad4: Dash
+- - (Menos) ou numpad5: Voar
+
+_ STAGE1 _
+
+Configurações conforme definido no Options.
+Segure E para desabilitar a hitbox do protagonista e não tomar dano.
+Aperte P para ir direto para o encontro com o chefão.
+Aperte O para tomar dano.
+Aperte Esc para voltar ao Main Menu.
+
+_ BOSS STAGE1 _
+
+Configurações conforme definido no Options.
+Segure E para desabilitar a hitbox do protagonista e não tomar dano.
+Aperte O para tomar dano.
+Aperte Esc para sair do jogo.
+
+_ CREDITS _
+
+Aperte Esc ou Space para sair do jogo.
+
+_ CUTSCENES _
+
+Aperte Space para ir direto para Stage1.
+Aperte Enter para passar para a próxima cutscene.
+Se não apertar nada, a cutscene passa conforme a música.
+
