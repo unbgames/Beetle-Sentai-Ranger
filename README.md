@@ -111,7 +111,7 @@ Abra o terminal na pasta do jogo. Escreva "make clean" e, após o processo final
 
 A versão final apresentada se encontra na branch Iago-Lobo.
 
-https://github.com/0ZeroZeus/Beetle-Sentai-Ranger/tree/Iago-Lobo
+https://github.com/0ZeroZeus/Beetle-Sentai-Ranger/tree/master
 
 
 
