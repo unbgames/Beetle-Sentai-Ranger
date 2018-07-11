@@ -1,20 +1,19 @@
-PROGRAMACAO:
+PROGRAMMING:
 Rafael Cascardo Campos:
 Iago Lobo Ribeiro de Moraes:
-ARTE:
+ART:
 Andre Luiz Coutinho Silva:
 Carlos Adir Ely Murussi Leite:
-MUSICA:
+MUSIC AND SOUND EFFECTS:
 Victor Hugo Sanches Moreira:
-Agradecimento Especial aos Professores:
+SPECIAL THANKS - PROFESSORS:
 Carla Denise Castanho:
 Matheus de Souza Faria:
 Tiago Barros Pontes e Silva:
 Mario Lima Brasil:
 Renan Ventura Pereira:
-Agradecimento Especial aos Monitores:
+SPECIAL THANKS - PUPIL PEERS:
 Arthus Okada:
-Francisco Sales de Melo Matias:
 Thiago Andre Araujo dos Santos:
 Eduardo de Azevedo dos Santos:
 Gabriel Filipe Botelho Barbosa:
@@ -22,4 +21,5 @@ Aurora Li Min de Freitas Wang:
 Francisco Anderson Bezerra Rodrigues:
 Renne Ruan Alves Oliveira:
 Ingrid Santana Lopes:
+Francisco Sales de Melo Matias:
 assets/img/Creditos/UnB.png#

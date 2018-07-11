@@ -2,7 +2,7 @@
 #define GAMEDATA
 
 #define FONT "assets/font/orange kid.ttf"
-#define LOSE_BACKGROUND "assets/img/End/GameOver_05.png"
+#define LOSE_BACKGROUND "assets/img/End/GameOver_00.png"
 #define LOSE_MUSIC "assets/audio/Musics/TemaGameOver.ogg"
 #define WIN_MUSIC "assets/audio/Musics/TemaVitoria.ogg"
 #define CREDIT_TEXT "assets/map/Credits.txt"
