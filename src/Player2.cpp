@@ -43,7 +43,7 @@ void Player2::Update(float dt){
 
 	InputManager& input = InputManager::GetInstance();
 
-	if(input.KeyPress(SDLK_KP_4) && dash->IsActive()){
+	if((input.KeyPress(SDLK_KP_4) || input.KeyPress(SDLK_0)) && dash->IsActive()){
 		dash->Use();
 		ChangeState(PlayerState::DASHING);
 		SetSprite((Sprite*) associated->GetComponentByTag("ProtagDash"));
@@ -97,7 +97,7 @@ void Player2::Update(float dt){
 		//SDL_Log("NORMAL");
 		speed.x = 0;
 
-		if(input.KeyPress(SDLK_KP_3)){
+		if(input.KeyPress(SDLK_KP_3) || input.KeyPress(SDLK_9)){
 			if (flip){
 				ShootAcid((8*PI)/6);
 			}
@@ -105,7 +105,7 @@ void Player2::Update(float dt){
 				ShootAcid((10*PI)/6);
 			}
 		}
-		if(input.KeyPress(SDLK_KP_2)){
+		if(input.KeyPress(SDLK_KP_2) || input.KeyPress(SDLK_8)){
 			if (flip){
 				ShootShit(PI);
 			}
@@ -142,7 +142,7 @@ void Player2::Update(float dt){
 				sprite->SetFlip(flip);
 		}
 
-		if(input.KeyPress(SDLK_KP_1)){
+		if(input.KeyPress(SDLK_KP_1) || input.KeyPress(SDLK_7)){
 			Attack();
 		}
 		speed.y += 20*dt;
@@ -182,7 +182,7 @@ void Player2::Update(float dt){
 			ChangeState(PlayerState::NORMAL);
 			SetSprite((Sprite*) associated->GetComponentByTag("ProtagJump"));
 		}
-		if(input.KeyPress(SDLK_KP_3)){
+		if(input.KeyPress(SDLK_KP_3) || input.KeyPress(SDLK_9)){
 			if (flip){
 				ShootAcid((8*PI)/6);
 			}
@@ -190,7 +190,7 @@ void Player2::Update(float dt){
 				ShootAcid((10*PI)/6);
 			}
 		}
-		if(input.KeyPress(SDLK_KP_2)){
+		if(input.KeyPress(SDLK_KP_2) || input.KeyPress(SDLK_8)){
 			if (flip){
 				ShootShit(PI);
 			}
@@ -216,7 +216,7 @@ void Player2::Update(float dt){
 			sprite->SetFlip(flip);
 		}
 	}
-	else if(input.KeyPress(SDLK_KP_5) && fly->IsActive()){
+	else if((input.KeyPress(SDLK_KP_5) || input.KeyPress(SDLK_MINUS)) && fly->IsActive()){
 		ChangeState(PlayerState::FLYING);
 		fly->Use();
 	}
@@ -269,6 +269,7 @@ void Player2::Start(){
 	Sprite* punch = new Sprite(associated, PLAYER2_PUNCH_ANIMATION, 6, 0.03, 0);
 	punch->SetTag("ProtagPunch");
 	punch->SetEnabled(false);
+	punch->StopOnFrame(5);
 	punch->SetColorMod(254,0,167);
 	associated->AddComponent(punch);
 
@@ -307,7 +308,7 @@ void Player2::Start(){
 	go2->Box.x = 790;
 	go2->Box.y = 70;
 
-	acid = new Skill(go2, 2.0, HUD_ACID_ICON, HUD_ACID_COOLDOWN_ICON);
+	acid = new Skill(go2, 1.0, HUD_ACID_ICON, HUD_ACID_COOLDOWN_ICON);
 	state->AddObject(go2);
 	go2->AddComponent(acid);
 
@@ -316,7 +317,7 @@ void Player2::Start(){
 	go3->Box.x = 855;
 	go3->Box.y = 70;
 
-	dash = new Skill(go3, 2.0, HUD_DASH_ICON, HUD_DASH_COOLDOWN_ICON);
+	dash = new Skill(go3, 4.0, HUD_DASH_ICON, HUD_DASH_COOLDOWN_ICON);
 	state->AddObject(go3);
 	go3->AddComponent(dash);
 
@@ -335,7 +336,91 @@ void Player2::Start(){
 	associated->AddComponent(flySound);
 
 }
-void Player2::NotifyCollision(GameObject* other){}
+void Player2::NotifyCollision(GameObject* other){
+	Terreno* base = (Terreno*) other->GetComponent("Terreno");
+	if (base != nullptr){
+
+		Rect box1 = colisor->Box;
+		Rect box2 = base->GetAssociated()->Box;
+
+		float dx = box1.x - box2.x;
+	    float px = (box2.w + box1.w) - abs(dx);//penetration depth in x
+
+	    float offx = 0;
+	    float offy = 0;
+
+	    float dy = box1.y - box2.y;
+	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
+
+	    if(dx < 0){
+            offx = -box2.w;
+        }
+        else{
+            offx = -box1.w;
+        }
+        px += offx;
+
+        if(dy < 0){
+            offy = -box2.h;
+        }
+        else{
+			offy = -box1.h;
+        }
+        py += offy;
+
+        if(px < py){
+        	speed.x = 0;
+            //project in x
+            if(dx < 0){
+            	//SDL_Log("esquerda");
+                //project to the left
+                px *= -1;
+                py *= 0;
+                //offx = box2.w;
+            }
+            else{
+            	//SDL_Log("direita");
+                //proj to right
+                py = 0;
+                //offx = -box1.w;
+            }
+        }
+        else{
+        	//SDL_Log("acima");
+        	speed.y = 0;
+            //project in y
+            if(dy < 0){
+                //project up
+                px = 0;
+                py *= -1;
+                //offy = box2.h;
+                Land();
+            }
+            else{
+            	//SDL_Log("abaixo");
+                //project down
+                px = 0;
+                //offy = -box1.h;
+
+            }
+        }
+        // we get px and py , penetration vector
+        //box1.x += px + offx;
+        //box1.y += py + offy;
+        box1.x += px;
+        box1.y += py;
+
+        //associated->Box.x += px + offx;
+        //associated->Box.y += py + offy;
+
+        associated->Box.x += px;
+        associated->Box.y += py;
+
+        colisor->Box = box1;
+
+		//associated->Box.Centralize(colisor->Box.GetCenter());
+	}
+}
 
 //espera angulo em radianos
 void Player2::ShootShit(float angle){

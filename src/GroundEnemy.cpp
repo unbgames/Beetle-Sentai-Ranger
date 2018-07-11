@@ -39,6 +39,7 @@ void GroundEnemy::Update(float dt){
 
 		}
 		else{
+			AttackTimer.Restart();
 			state = EnemyState::SEARCHING;
 		}
 	}
@@ -193,49 +194,72 @@ void GroundEnemy::NotifyCollision(GameObject* other){
 	    float dy = box1.y - box2.y;
 	    float py = (box2.h + box1.h) - abs(dy);//penetration depth in y
 
-        // Collision detected
+	    if(dx < 0){
+            offx = -box2.w;
+        }
+        else{
+            offx = -box1.w;
+        }
+        px += offx;
 
+        if(dy < 0){
+            offy = -box2.h;
+        }
+        else{
+			offy = -box1.h;
+        }
+        py += offy;
+        
         if(px < py){
+        	PathBlocked = true;
         	speed.x = 0;
             //project in x
             if(dx < 0){
+            	//SDL_Log("esquerda");
                 //project to the left
                 px *= -1;
                 py *= 0;
-                offx = box2.w;
+                //offx = box2.w;
             }
             else{
+            	//SDL_Log("direita");
                 //proj to right
                 py = 0;
-                offx = -box1.w;
+                //offx = -box1.w;
             }
         }
         else{
+        	//SDL_Log("acima");
         	speed.y = 0;
             //project in y
             if(dy < 0){
                 //project up
                 px = 0;
                 py *= -1;
-                offy = box2.h;
+                //offy = box2.h;
                 Land();
             }
             else{
+            	//SDL_Log("abaixo");
                 //project down
                 px = 0;
-                offy = -box1.h;
+                //offy = -box1.h;
 
             }
         }
         // we get px and py , penetration vector
-        box1.x += px + offx;
-        box1.y += py + offy;
+        //box1.x += px + offx;
+        //box1.y += py + offy;
+        box1.x += px;
+        box1.y += py;
 
-        associated->Box.x += px + offx;
-        associated->Box.y += py + offy;
+        //associated->Box.x += px + offx;
+        //associated->Box.y += py + offy;
+
+        associated->Box.x += px;
+        associated->Box.y += py;
 
         colisor->Box = box1;
-		base->GetAssociated()->Box = box2;
 
 		//associated->Box.Centralize(colisor->Box.GetCenter());
 	}

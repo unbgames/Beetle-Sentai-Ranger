@@ -4,8 +4,8 @@ PVPState::PVPState(){
     quitRequested = false;
     popRequested = false;
 
-    backgroundIntro.Open(STAGE1_BACKGROUNDMUSIC_INTRO);
-    backgroundLoop.Open(STAGE1_BACKGROUNDMUSIC_LOOP);
+    backgroundIntro.Open(PVPSTATE_BACKGROUNDMUSIC_INTRO);
+    backgroundLoop.Open(PVPSTATE_BACKGROUNDMUSIC_LOOP);
     backgroundIntro.Play(1);
 }
 PVPState::~PVPState(){
@@ -41,6 +41,13 @@ void PVPState::LoadAssets(){
     Player2* jogador2 = new Player2(aux3);
     //aux2->AddComponent(ranger);
     ObjectArray.emplace_back(aux3);
+
+    GameObject* aux5 = new GameObject();
+  	aux5->Box.x = 0;
+  	aux5->Box.y = 505+64;
+  	Terreno* terreno = new Terreno(aux5, STAGE1_TILESET, TERRAIN_CHAO);
+  	aux5->AddComponent(terreno);
+  	ObjectArray.emplace_back(aux5);
 }
 void PVPState::Update(float dt){
 
