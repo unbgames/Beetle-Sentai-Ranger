@@ -52,6 +52,7 @@ _ MAIN MENU _
 
 Aperte Esc para sair do jogo.
 Aperte W para ir direto ao modo PvP.
+Aperte Q para ir direto aos créditos do jogo.
 
 _ PVP (Player Versus Player) _
 
