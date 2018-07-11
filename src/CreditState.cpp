@@ -6,7 +6,7 @@ CreditState::CreditState(string File) : State(){
 		SDL_Log("falha ao abrir o arquivo de texto");
 	}
 	wait.Restart();
-	wait.Update(2.5);
+	wait.Update(3.0);
 
 	GameObject* go = new GameObject();
 
@@ -44,7 +44,7 @@ void CreditState::Update(float dt){
 		popRequested = true;
 	}
 
-	if (SceneTimer.Get() < 4){
+	if (SceneTimer.Get() < 5){
 		SceneTimer.Update(dt);
 		return;
 	}
@@ -52,7 +52,7 @@ void CreditState::Update(float dt){
 	string linha = " ";
 	wait.Update(dt);
 
-	if (wait.Get() >= 2.5){
+	if (wait.Get() >= 3.0){
 		if(getline(file,linha)){/*Problema com linhas vazias*/
 			wait.Restart();
 
@@ -111,7 +111,7 @@ void CreditState::AddText(string text){
 	go->Box.y = 800;
 
 	ObjectArray.emplace_back(go);
-	
+
 }
 void CreditState::AddImage(string file){
 	GameObject* go = new GameObject();
