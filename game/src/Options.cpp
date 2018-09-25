@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "Options.h"
+#include "config.h"
 
 Options::Options()
 {
@@ -20,7 +21,7 @@ Options::~Options()
 void Options::LoadAssets()
 {
 	fstream myReadFile;
-	myReadFile.open ("controlsCustom.txt", std::ios::in);
+	myReadFile.open ( ASSETS_PATH("/controlsCustom.txt"), std::ios::in);
 
 	if(myReadFile.is_open())
 	{
@@ -445,7 +446,7 @@ void Options::Update(float dt)
 		if(indexConfig >= 9)
 		{
 			ofstream myfile;
-			myfile.open ("controlsCustom.txt", std::ios::trunc);
+			myfile.open ( ASSETS_PATH("/controlsCustom.txt"), std::ios::trunc);
 
 			for(int i=0;i<9;++i)
 			{
