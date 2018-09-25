@@ -1,4 +1,5 @@
 #include "Protagonist.h"
+#include "config.h"
 
 Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	associated->AddComponent(this);
@@ -25,7 +26,7 @@ Protagonist::Protagonist(GameObject* associated) : Component(associated){
 	associated->AddComponent(colisor);
 
 	fstream myReadFile;
-	myReadFile.open ("controlsCustom.txt", std::ios::in);
+	myReadFile.open ( ASSETS_PATH("/controlsCustom.txt"), std::ios::in);
 
 	if(myReadFile.is_open())
 	{
